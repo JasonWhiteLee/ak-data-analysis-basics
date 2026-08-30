@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>2교시 · 데이터 조회와 전처리 — 데이터분석 기초</title>
+<style>
+:root{
+  --blue:#1d63ed; --ink:#0d1220; --ink-2:#39415a; --ink-3:#767f95;
+  --bg:#ffffff; --panel:#f6f8fc; --panel-2:#ecf2fe; --line:#dde3ee; --line-2:#c3d1ea;
+  --red:#c4381f;   --red-bg:#fdf1ed;
+  --green:#0b7355; --green-bg:#eaf6f1;
+  --amber:#8f5c00; --amber-bg:#fdf6e6;
+  --shadow:0 2px 3px rgba(13,18,32,.04), 0 9px 33px rgba(13,18,32,.055);
+  --chapter-bg:#1d63ed;
+}
+html[data-theme="dark"]{
+  --blue:#5b93ff; --ink:#eef2fb; --ink-2:#b7c0d3; --ink-3:#828ca4;
+  --bg:#0b0f1a; --panel:#141a28; --panel-2:#182337; --line:#28324c; --line-2:#3a4763;
+  --red:#ff9d85;   --red-bg:#2b1a16;
+  --green:#5ed6ac; --green-bg:#0f2620;
+  --amber:#f0c26a; --amber-bg:#2b2216;
+  --shadow:0 2px 3px rgba(0,0,0,.3), 0 12px 39px rgba(0,0,0,.35);
+  --chapter-bg:#15326f;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;overflow:hidden}
+body{
+  background:var(--bg); color:var(--ink);
+  font-family:"Pretendard","Malgun Gothic","맑은 고딕","Apple SD Gothic Neo","Noto Sans KR",sans-serif;
+  -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
+  word-break:keep-all; overflow-wrap:break-word;
+  transition:background .3s ease, color .3s ease;
+}
+.stage{position:absolute;left:50%;top:50%;width:1920px;height:1080px;transform-origin:50% 50%;overflow:hidden}
+.slide{position:absolute;inset:0;display:none;flex-direction:column;justify-content:center;padding:84px 120px 104px}
+.slide.on{display:flex}
+.slide.on > *{animation:rise .4s cubic-bezier(.22,.9,.28,1) both}
+.slide.on > *:nth-child(2){animation-delay:.05s}
+.slide.on > *:nth-child(3){animation-delay:.1s}
+.slide.on > *:nth-child(4){animation-delay:.15s}
+@keyframes rise{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.slide.on > *{animation:none}}
+
+h1{font-size:118px;line-height:1.16;letter-spacing:-.018em;font-weight:800}
+h2{font-size:78px;line-height:1.26;letter-spacing:-.014em;font-weight:800;margin-bottom:48px}
+h2.tight{margin-bottom:20px}
+h2.sm{font-size:66px}
+h3{font-size:30px;font-weight:700;color:var(--ink-3);margin-bottom:16px}
+p{font-size:36px;line-height:1.66;color:var(--ink-2)}
+p strong,li strong,td strong{color:var(--ink);font-weight:700}
+.lead{font-size:46px;line-height:1.55;color:var(--ink-2)}
+.small{font-size:29px;line-height:1.64}
+.dim{color:var(--ink-3)}
+.gap-sm{margin-bottom:34px}
+.eyebrow{display:flex;align-items:center;gap:18px;font-size:21px;font-weight:800;
+  letter-spacing:.17em;color:var(--blue);text-transform:uppercase;margin-bottom:34px}
+.eyebrow::before{content:"";width:50px;height:3px;background:var(--blue);border-radius:3px;flex:0 0 auto}
+mark{color:inherit;font-weight:700;
+  background:color-mix(in srgb,var(--blue) 13%,transparent);
+  box-shadow:inset 0 -.13em 0 color-mix(in srgb,var(--blue) 42%,transparent);
+  padding:.08em .22em;border-radius:7px;
+  -webkit-box-decoration-break:clone;box-decoration-break:clone}
+.hl{color:var(--blue);font-weight:800}
+ul{list-style:none}
+ul li{font-size:36px;line-height:1.58;color:var(--ink-2);padding-left:46px;position:relative;margin-top:24px}
+ul li::before{content:"";position:absolute;left:11px;top:.62em;width:13px;height:13px;border-radius:50%;background:var(--blue)}
+ol.num{list-style:none;counter-reset:n}
+ol.num li{counter-increment:n;font-size:36px;line-height:1.55;color:var(--ink-2);
+  padding-left:74px;position:relative;margin-top:26px}
+ol.num li::before{content:counter(n);position:absolute;left:0;top:-2px;
+  width:50px;height:50px;border-radius:50%;background:var(--panel-2);color:var(--blue);
+  font-size:27px;font-weight:800;display:flex;align-items:center;justify-content:center}
+
+.card{border:1px solid var(--line);border-radius:20px;padding:40px 44px;background:var(--panel);box-shadow:var(--shadow)}
+.card.pad-sm{padding:30px 36px}
+.card.blue{border-color:var(--line-2);background:var(--panel-2)}
+.card.bad{border-color:color-mix(in srgb,var(--red) 32%,transparent);background:var(--red-bg)}
+.card.good{border-color:color-mix(in srgb,var(--green) 32%,transparent);background:var(--green-bg)}
+.card.warn{border-color:color-mix(in srgb,var(--amber) 34%,transparent);background:var(--amber-bg)}
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:42px;align-items:start}
+.cols.eq{align-items:stretch}
+.cols.eq>.card{display:flex;flex-direction:column}
+.cols3{display:grid;grid-template-columns:repeat(3,1fr);gap:32px;align-items:stretch}
+.cols3 .card{display:flex;flex-direction:column}
+.stat{font-size:72px;font-weight:800;letter-spacing:-.03em;line-height:1.12;margin-top:4px}
+.stat.bad{color:var(--red)} .stat.good{color:var(--green)}
+code{font-family:"Cascadia Mono",Consolas,"D2Coding",ui-monospace,monospace;
+  background:var(--panel-2);border:1px solid var(--line);padding:.1em .38em;border-radius:8px;
+  font-size:.88em;color:var(--ink);word-break:normal}
+
+/* 오늘 어디쯤인가 — 진행 표시 */
+.steps{display:flex;gap:12px;align-items:stretch;margin-top:14px}
+.step{flex:1 1 0;border:2px solid var(--line);border-radius:14px;padding:20px 10px;text-align:center;
+  background:var(--panel);color:var(--ink-3);font-size:24px;font-weight:700;line-height:1.35}
+.step.now{background:var(--blue);border-color:var(--blue);color:#fff;font-weight:800}
+.step.done{background:var(--panel-2);border-color:var(--line-2);color:var(--blue)}
+
+table{width:100%;border-collapse:collapse;font-size:34px}
+th,td{text-align:left;padding:22px 28px;border-bottom:1px solid var(--line);line-height:1.45}
+th{font-size:26px;color:var(--ink-3);font-weight:800;letter-spacing:.04em}
+td{color:var(--ink-2)}
+td:first-child{font-weight:700;color:var(--ink);white-space:nowrap}
+tr:last-child td{border-bottom:0}
+table.compact{font-size:30px}
+table.compact th,table.compact td{padding:15px 24px}
+
+.titlerow{display:flex;align-items:center;gap:30px;margin-bottom:20px}
+.titlerow h2{margin-bottom:0}
+.logo{height:92px;width:auto;flex:0 0 auto;display:block}
+.logo.sq{height:84px}
+.logo.wide{height:62px}
+/* 어두운 배경에서 짙은 로고가 묻히므로 흰 배지를 깔아 준다 */
+html[data-theme="dark"] .logo.onlight{background:#fff;border-radius:12px;padding:10px 16px;box-sizing:content-box}
+.logochip{display:inline-flex;align-items:center;gap:16px;
+  border:1px solid var(--line);border-radius:16px;padding:14px 22px;background:var(--bg)}
+.logochip .logo{height:52px}
+.logochip .nm{font-size:28px;font-weight:800;color:var(--ink)}
+
+.cover{justify-content:center}
+.rule{height:5px;width:170px;background:var(--blue);border-radius:5px;margin:48px 0}
+.chapter{justify-content:center;background:var(--chapter-bg)}
+.chapter .num{font-size:178px;font-weight:800;line-height:1;letter-spacing:-.05em;color:#fff;opacity:.34;margin-bottom:22px}
+.chapter h2{margin:0 0 28px;font-size:92px;color:#fff}
+.chapter .lead{color:rgba(255,255,255,.78)}
+body.chapter-on .bar{background:#fff}
+body.chapter-on .chip,body.chapter-on .pager{color:rgba(255,255,255,.78)}
+body.chapter-on .pager b{color:#fff}
+body.chapter-on .keys{color:rgba(255,255,255,.6)}
+body.chapter-on .kbd{border-color:rgba(255,255,255,.45);color:rgba(255,255,255,.75)}
+.thesis{align-items:center;justify-content:center;text-align:center}
+.thesis .t{font-size:80px;line-height:1.42;font-weight:800;letter-spacing:-.018em;color:var(--ink);max-width:1520px}
+.thesis .t.sm{font-size:64px}
+.thesis .t mark{background:color-mix(in srgb,var(--blue) 15%,transparent)}
+
+.bar{position:absolute;left:0;bottom:0;height:5px;background:var(--blue);
+  transition:width .32s cubic-bezier(.22,.9,.28,1);z-index:9;border-radius:0 5px 5px 0}
+.chip{position:absolute;left:124px;bottom:40px;z-index:9;font-size:22px;font-weight:800;letter-spacing:.11em;color:var(--ink-3)}
+.pager{position:absolute;right:124px;bottom:40px;z-index:9;font-size:22px;color:var(--ink-3);
+  font-variant-numeric:tabular-nums;letter-spacing:.09em}
+.pager b{color:var(--ink);font-weight:800}
+.keys{position:absolute;right:124px;top:40px;z-index:9;display:flex;gap:9px;font-size:19px;color:var(--ink-3);opacity:.42}
+.kbd{border:1px solid var(--line-2);border-bottom-width:3px;border-radius:7px;padding:4px 10px;
+  font-family:ui-monospace,monospace;color:var(--ink-2)}
+@media print{
+  @page{size:1920px 1080px;margin:0}
+  html,body{overflow:visible;height:auto;background:#fff}
+  .stage{position:static;transform:none !important;width:1920px;height:auto;overflow:visible}
+  .slide{display:flex !important;position:relative;inset:auto;width:1920px;height:1080px;page-break-after:always;break-after:page}
+  .slide>*{animation:none !important}
+  .bar,.chip,.pager,.keys{display:none}
+}
+</style>
+</head>
+<body>
+<div class="stage" id="stage">
+
+<!-- 1 표지 -->
+<section class="slide cover" data-ch="">
+  <div class="eyebrow">2교시</div>
+  <h1>필요한 것만<br><span class="hl">남기기</span></h1>
+  <div class="rule"></div>
+  <p class="lead">데이터 조회와 전처리 — 무엇을 버릴지 내가 정합니다</p>
+</section>
+
+<!-- 2 지금 어디 -->
+<section class="slide" data-ch="2교시">
+  <h2 class="tight">오늘 여덟 단계 중 지금 여기입니다</h2>
+  <p class="small dim gap-sm">1교시에 데이터를 열었고, 빈칸이 있다는 것을 발견했습니다</p>
+  <div class="steps">
+    <div class="step done">질문</div>
+    <div class="step done">데이터<br>확인</div>
+    <div class="step now">다듬기</div>
+    <div class="step">견주기</div>
+    <div class="step">모양<br>보기</div>
+    <div class="step">보여<br>주기</div>
+    <div class="step">재기</div>
+    <div class="step">결론과<br>한계</div>
+  </div>
+  <div class="card blue" style="margin-top:46px">
+    <p>이 단계에서 던지는 질문 —
+       <span class="hl" style="font-size:44px">&ldquo;이 빈칸은 왜 비었는가&rdquo;</span></p>
+  </div>
+</section>
+
+<!-- 3 끝나면 -->
+<section class="slide" data-ch="2교시">
+  <h2 class="tight">이 시간이 끝나면</h2>
+  <p class="small dim gap-sm">전처리는 데이터를 &ldquo;깨끗하게 만드는&rdquo; 작업이 아닙니다</p>
+  <ol class="num">
+    <li>원하는 행과 열만 골라낼 수 있다</li>
+    <li>조건에 맞는 데이터만 걸러낼 수 있다</li>
+    <li>빈칸·중복·형식 오류를 처리할 수 있다</li>
+    <li><strong>처리 방법을 바꾸면 결론이 달라진다는 것을 안다</strong></li>
+  </ol>
+  <div class="card blue" style="margin-top:38px">
+    <p>전처리는 <mark>무엇을 버릴지 정하는 작업</mark>입니다.
+       무엇을 버렸느냐에 따라 나중에 나오는 숫자가 달라집니다.</p>
+  </div>
+</section>
+
+<!-- 4 조회 도구 -->
+<section class="slide" data-ch="2교시">
+  <div class="titlerow"><svg class="logo wide onlight" viewBox="0 0 818.63 331.21" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs><style>.cls-1{fill:#130754;}.cls-2{fill:#ffca00;}.cls-3{fill:#e70488;}</style></defs><title>Artboard 63</title><path class="cls-1" d="M290.85,199.21c-10.27,0-20.73-4.25-27.28-12.58v45H243l0-111.09h18.6l.71,12.22c6.38-9.39,17.71-14.35,28.52-14.35,20.73,0,36,17.37,36,40.4S311.58,199.22,290.85,199.21Zm-6.37-65.55c-12.05,0-21.79,9.39-21.79,25.16S272.43,184,284.48,184s21.79-9.39,21.79-25.16S296.53,133.66,284.48,133.66Z"/><path class="cls-1" d="M404.36,197.1l-.71-12.22c-6.38,9.39-17.72,14.35-28.53,14.34-20.73,0-36-17.36-36-40.39s15.24-40.4,36-40.39c10.81,0,22.15,5,28.53,14.35l.71-12.22H423V197.1Zm-22.85-63.43c-12.05,0-21.79,9.39-21.8,25.16S369.45,184,381.5,184s21.8-9.39,21.8-25.16S393.56,133.67,381.51,133.67Z"/><path class="cls-1" d="M494.87,197.11V154.77c0-14.88-5.13-19.84-14.52-19.84-9.75,0-20.38,8.85-20.38,19.48v42.7H439.41V120.57H458.2l.89,14.18c5.14-9.75,16.65-16.3,28.35-16.3,20.37,0,28,14.18,28,33.13v45.54Z"/><path class="cls-1" d="M590.77,197.13l-.71-12.23c-6.38,9.39-17.72,14.35-28.52,14.35-20.73,0-36-17.37-36-40.4s15.24-40.39,36-40.39c10.27,0,20.72,4.26,27.28,12.58V90.83h20.56l0,106.3ZM567.92,133.7c-12,0-21.79,9.39-21.79,25.15S555.87,184,567.92,184s21.79-9.38,21.79-25.15S580,133.7,567.92,133.7Z"/><path class="cls-1" d="M686.6,197.14l-.71-12.22c-6.38,9.39-17.72,14.34-28.53,14.34-20.73,0-36-17.36-36-40.4s15.24-40.39,36-40.39c10.81,0,22.15,5,28.53,14.36l.71-12.23h18.6v76.53Zm-22.85-63.43c-12,0-21.79,9.39-21.8,25.16S651.7,184,663.74,184s21.8-9.39,21.8-25.16S675.8,133.71,663.75,133.71Z"/><path class="cls-1" d="M750.73,199.63a60.16,60.16,0,0,1-30.65-8.69l3.37-14.17c6.2,3.72,15.59,8.51,26.93,8.51,8.15,0,13.82-2.48,13.82-8.86,0-5.49-5.85-7.44-16.3-9.92-18.78-4.08-25.51-14-25.51-24.81,0-12.05,9.39-23.38,30.12-23.38,12.58,0,23.57,5.49,26,6.91l-3.37,13.47A44.59,44.59,0,0,0,753,132.31c-8.32,0-12.4,2.83-12.4,7.44,0,5.13,5.32,7.44,13.46,9.39,20.2,4.25,28.35,13.64,28.35,23.92C782.45,189.53,770.4,199.63,750.73,199.63Z"/><rect class="cls-1" x="74.88" y="68.42" width="24.09" height="50.02"/><rect class="cls-1" x="74.88" y="171.17" width="24.09" height="50.02"/><rect class="cls-2" x="74.88" y="133.04" width="24.09" height="23.6"/><rect class="cls-1" x="36.19" y="109.55" width="24.09" height="166.27"/><rect class="cls-1" x="112.78" y="212.44" width="24.09" height="50.02"/><rect class="cls-1" x="112.78" y="109.61" width="24.09" height="50.02"/><rect class="cls-3" x="112.78" y="174.23" width="24.09" height="23.6"/><rect class="cls-1" x="150.67" y="55.39" width="24.09" height="166.27"/></svg><h2 class="tight sm">골라내고 걸러내는 도구</h2></div>
+  <p class="small dim gap-sm">엑셀의 필터·정렬과 하는 일이 같습니다</p>
+  <table class="compact">
+    <tr><th style="width:38%">하고 싶은 것</th><th>쓰는 것</th></tr>
+    <tr><td>열 몇 개만 보기</td><td><code>df[['열1','열2']]</code></td></tr>
+    <tr><td>필요 없는 열 버리기</td><td><code>.drop(['열'], axis=1)</code></td></tr>
+    <tr><td>조건에 맞는 행만</td><td><code>df[df['Sales'] &gt; 1000]</code></td></tr>
+    <tr><td><strong>조건 두 개 이상</strong></td><td><code>&amp;</code> 그리고 · <code>|</code> 또는 — <strong>각 조건을 괄호로 감쌉니다</strong></td></tr>
+    <tr><td>여러 값 / 범위 / 글자</td><td><code>.isin()</code> · <code>.between()</code> · <code>.str.contains()</code></td></tr>
+    <tr><td>정렬</td><td><code>.sort_values('열', ascending=False)</code></td></tr>
+    <tr><td>이름으로 한 칸</td><td><code>.loc[0, 'Sales']</code> — 끝을 <strong>포함합니다</strong></td></tr>
+    <tr><td>번호로 한 칸</td><td><code>.iloc[0, 17]</code> — 끝을 <strong>포함하지 않습니다</strong></td></tr>
+  </table>
+  <p class="small dim" style="margin-top:16px">
+    <code>iloc</code> 의 <code>i</code> 는 index(번호)의 i 입니다. 헷갈리면 결과 행 수를 세어 보면 됩니다</p>
+</section>
+
+<!-- 6 빈칸은 랜덤인가 -->
+<section class="slide" data-ch="2교시">
+  <h2 class="tight sm">1교시에 본 그 빈칸 — 왜 비었을까요</h2>
+  <p class="small dim gap-sm">배송일이 빈 행이 어디에 몰려 있는지 세어 봤습니다</p>
+  <div class="cols eq" style="margin-bottom:34px">
+    <div class="card bad">
+      <h3 style="color:var(--red)">반품된 주문 중 배송일이 빈 비율</h3>
+      <p class="stat bad">35.1%</p>
+    </div>
+    <div class="card good">
+      <h3 style="color:var(--green)">반품이 아닌 주문 중</h3>
+      <p class="stat good">0.4%</p>
+    </div>
+  </div>
+  <div class="card blue">
+    <p>빈칸이 아무데나 흩어져 있지 않습니다. <strong>반품된 주문에 몰려 있습니다.</strong>
+       반품되면 배송 기록이 제대로 남지 않는 겁니다.
+       <mark>값이 없다는 사실 자체가 정보입니다.</mark></p>
+  </div>
+</section>
+
+<!-- 7 dropna 결과 -->
+<section class="slide" data-ch="2교시">
+  <h2 class="tight sm">빈 줄을 지웠더니 반품률이 내려갔습니다</h2>
+  <p class="small dim gap-sm"><code>dropna(subset=['Ship Date'])</code> 한 줄을 실행했을 뿐입니다</p>
+  <div class="cols eq" style="margin-bottom:34px">
+    <div class="card"><h3>원본</h3><p class="stat">5.79%</p>
+      <p class="small dim" style="margin-top:10px">주문 5,111건</p></div>
+    <div class="card bad"><h3 style="color:var(--red)">dropna 후</h3><p class="stat bad">5.19%</p>
+      <p class="small dim" style="margin-top:10px">주문 5,070건</p></div>
+  </div>
+  <div class="card warn">
+    <p><strong>아무도 거짓말하지 않았습니다.</strong> 그런데 반품률이
+       <span style="color:var(--amber);font-weight:800">10% 축소되어</span> 보고됩니다.
+       지울지 말지는 <mark>판단입니다</mark>. 코드를 대신 써 주는 도구는 많지만,
+       이 판단은 대신 해 주지 않습니다.</p>
+  </div>
+</section>
+
+<!-- 8 처리 세 가지 -->
+<section class="slide" data-ch="2교시">
+  <h2 class="tight sm">빈칸을 만나면 셋 중 하나를 고릅니다</h2>
+  <table class="compact">
+    <tr><th style="width:18%">방법</th><th style="width:34%">쓰는 것</th><th>언제</th></tr>
+    <tr><td>버린다</td><td><code>.dropna(subset=['열'])</code></td><td>빈칸이 랜덤이고, 양이 적을 때</td></tr>
+    <tr><td>채운다</td><td><code>.fillna(값)</code></td><td>빈칸의 의미를 알고, 대체값이 타당할 때</td></tr>
+    <tr><td><strong>표시한다</strong></td><td><code>.isna()</code> 로 새 열</td><td><strong>빈칸 자체가 정보일 때</strong></td></tr>
+  </table>
+  <div class="card bad" style="margin-top:36px">
+    <p><code>fillna(0)</code> 을 습관적으로 쓰는 것이 가장 위험합니다.
+       <strong>비어 있는 것과 0은 다릅니다.</strong>
+       매출이 &ldquo;없는 것&rdquo;과 &ldquo;0원인 것&rdquo;은 완전히 다른 이야기입니다.</p>
+  </div>
+  <p class="small dim" style="margin-top:24px">오늘 주문 데이터에서는 세 번째가 맞습니다 — 빈칸이 반품을 알려 주고 있으니까요</p>
+</section>
+
+<!-- 9 중복과 형식 -->
+<section class="slide" data-ch="2교시">
+  <h2 class="tight sm">중복은 세어 보고, 형식은 바꿉니다</h2>
+  <div class="cols eq">
+    <div class="card">
+      <h3>완전히 똑같은 행만 지웁니다</h3>
+      <p><code>.duplicated().sum()</code> 으로 세고
+         <code>.drop_duplicates()</code> 로 지웁니다.</p>
+      <p class="small" style="margin-top:20px">한 주문에 품목이 여럿이면 <code>Order ID</code> 가 반복됩니다.
+         <strong>이건 중복이 아니라 정상입니다.</strong>
+         <code>subset=['Order ID']</code> 로 지우면 품목 정보가 통째로 날아갑니다.</p>
+    </div>
+    <div class="card">
+      <h3>글자로 읽힌 숫자를 되돌립니다</h3>
+      <p><code>.astype(int)</code><br><code>pd.to_numeric(..., errors='coerce')</code></p>
+      <p class="small" style="margin-top:20px">1교시의 <code>'1500' + '900'</code> 이 실무에서 나타나는 모습입니다.
+         날짜는 <code>.dt.year</code> · <code>.dt.month</code> 로 조각을 꺼내 월별 집계에 씁니다.</p>
+    </div>
+  </div>
+  <p style="margin-top:36px">두 날짜를 빼서 <strong>배송일수</strong>를 만들면 <code>count</code> 가 전체 행보다 적습니다.
+     <mark>빈칸은 이렇게 조용히 아래로 퍼집니다.</mark></p>
+</section>
+
+<!-- 10 지저분한 데이터 -->
+<section class="slide" data-ch="2교시">
+  <h2 class="tight sm">실무에서 받는 데이터는 이렇습니다</h2>
+  <p class="small dim gap-sm">영국의 어느 온라인 소매점 1년치 거래 기록 54만 건</p>
+  <table class="compact">
+    <tr><th style="width:42%">무엇이 있나</th><th>얼마나</th></tr>
+    <tr><td>고객 번호가 없는 행</td><td><strong>24.9%</strong> (135,080건) — 비회원 주문</td></tr>
+    <tr><td>취소 주문</td><td><strong>9,288건</strong> — 수량이 음수로 기록</td></tr>
+    <tr><td>단가가 0 이하</td><td><strong>2,517건</strong> — 사은품·재고조정·파손</td></tr>
+    <tr><td>완전히 똑같은 행</td><td><strong>5,268건</strong></td></tr>
+    <tr><td>나라</td><td>38개국인데 <strong>영국이 91%</strong></td></tr>
+  </table>
+  <p class="small dim" style="margin-top:28px">
+    &ldquo;글로벌 온라인 소매 데이터&rdquo;라고 부르면 틀린 말이 됩니다 — 1교시의 질문이 여기서 다시 나옵니다</p>
+</section>
+
+<!-- 11 매출 두 숫자 -->
+<section class="slide" data-ch="2교시">
+  <h2 class="tight sm">같은 데이터에서 매출이 두 개 나옵니다</h2>
+  <p class="small dim gap-sm">취소 건을 어떻게 하느냐에 따라 90만 가까이 차이납니다</p>
+  <div class="cols eq" style="margin-bottom:34px">
+    <div class="card"><h3>그대로 합계</h3><p class="stat">9,747,748</p>
+      <p class="small dim" style="margin-top:10px">실제로 들어온 돈 — 순매출</p></div>
+    <div class="card blue"><h3 style="color:var(--blue)">취소 제외 합계</h3><p class="stat hl">10,644,560</p>
+      <p class="small dim" style="margin-top:10px">얼마나 팔렸는지 — 총매출</p></div>
+  </div>
+  <div class="card good">
+    <p><strong>어느 쪽도 틀리지 않았습니다.</strong>
+       숫자를 내기 전에 무엇을 알고 싶은지 먼저 정해야 합니다.
+       <mark>순서가 반대가 되면</mark> 이미 나온 숫자에 맞춰 질문을 끼워 맞추게 됩니다.</p>
+  </div>
+</section>
+
+<!-- 12 실습 판단 -->
+<section class="slide" data-ch="2교시">
+  <h2 class="tight">실습에서 할 판단</h2>
+  <p class="small dim gap-sm">중복 제거 → 취소 제외 → 단가 0 제외 → 비회원 제외</p>
+  <div class="card blue" style="margin-bottom:30px">
+    <p style="font-size:44px;color:var(--ink);font-weight:800">
+      네 단계를 거치며 <span class="hl">단계마다 몇 %를 버렸는지</span> 적습니다<br>
+      마지막에 전체의 <span class="hl">27.5%</span> 가 사라집니다</p>
+  </div>
+  <div class="card warn">
+    <p><strong>그다음이 진짜 문제입니다.</strong>
+       이렇게 정리한 데이터로 <mark>답할 수 없게 된 질문을</mark> 하나 적으세요.
+       비회원을 빼지 않았다면 어떤 결론이 달라졌을까요?</p>
+  </div>
+</section>
+
+<!-- 13 노트북 -->
+<section class="slide thesis" data-ch="">
+  <div class="eyebrow" style="justify-content:center">이제 손으로 합니다</div>
+  <div class="t sm">노트북 <mark>2교시를</mark> 엽니다</div>
+  <p class="lead dim" style="margin-top:46px">
+    골라내기 → 걸러내기 → 빈칸은 왜 비었는가 → 내가 버린 것을 밝히기</p>
+</section>
+
+  <div class="bar" id="bar"></div>
+  <div class="chip" id="chip"></div>
+  <div class="pager" id="pager"></div>
+  <div class="keys">
+    <span class="kbd">&#8592;</span><span class="kbd">&#8594;</span>
+    <span class="kbd">F</span><span class="kbd">D</span>
+  </div>
+</div>
+<script>
+(function(){
+  const stage=document.getElementById('stage');
+  const slides=Array.from(document.querySelectorAll('.slide'));
+  const bar=document.getElementById('bar'), pager=document.getElementById('pager'), chip=document.getElementById('chip');
+  let i=0;
+  function fit(){const s=Math.min(innerWidth/1920,innerHeight/1080);stage.style.transform='translate(-50%, -50%) scale('+s+')';}
+  addEventListener('resize',fit);
+  function show(n){
+    i=Math.max(0,Math.min(slides.length-1,n));
+    slides.forEach((s,k)=>s.classList.toggle('on',k===i));
+    bar.style.width=((i+1)/slides.length*100)+'%';
+    pager.innerHTML='<b>'+(i+1)+'</b> / '+slides.length;
+    chip.textContent=slides[i].dataset.ch||'';
+    document.body.classList.toggle('chapter-on',slides[i].classList.contains('chapter'));
+    history.replaceState(null,'','#'+(i+1));
+  }
+  function theme(next){document.documentElement.setAttribute('data-theme',next);
+    try{localStorage.setItem('ak-da-deck-theme',next);}catch(e){}}
+  addEventListener('keydown',e=>{
+    if(['ArrowRight','PageDown',' ','Enter'].includes(e.key)){e.preventDefault();show(i+1);}
+    else if(['ArrowLeft','PageUp','Backspace'].includes(e.key)){e.preventDefault();show(i-1);}
+    else if(e.key==='Home')show(0);
+    else if(e.key==='End')show(slides.length-1);
+    else if(e.key==='f'||e.key==='F'){if(document.fullscreenElement)document.exitFullscreen();else document.documentElement.requestFullscreen();}
+    else if(e.key==='d'||e.key==='D'){theme(document.documentElement.getAttribute('data-theme')==='dark'?'light':'dark');}
+  });
+  addEventListener('click',e=>{show(e.clientX<innerWidth*0.25?i-1:i+1);});
+  let x0=null;
+  addEventListener('touchstart',e=>{x0=e.changedTouches[0].clientX;},{passive:true});
+  addEventListener('touchend',e=>{if(x0===null)return;const dx=e.changedTouches[0].clientX-x0;
+    if(Math.abs(dx)>45)show(dx<0?i+1:i-1);x0=null;},{passive:true});
+  try{const saved=localStorage.getItem('ak-da-deck-theme');if(saved)document.documentElement.setAttribute('data-theme',saved);}catch(e){}
+  fit();
+  const start=parseInt(location.hash.replace('#',''),10);
+  show(Number.isFinite(start)&&start>0?start-1:0);
+})();
+</script>
+</body>
+</html>
