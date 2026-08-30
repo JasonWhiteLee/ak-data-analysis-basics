@@ -270,11 +270,11 @@ body.chapter-on .kbd{border-color:rgba(255,255,255,.45);color:rgba(255,255,255,.
     <tr><th style="width:52%">하는 일</th><th style="width:20%">시간 비중</th><th>오늘</th></tr>
     <tr><td>무엇을 물어볼지 정하기</td><td class="dim">—</td><td>0교시 · 7교시</td></tr>
     <tr><td>데이터가 뭔지 파악하기</td><td>큼</td><td>1교시</td></tr>
-    <tr><td>지저분한 데이터 다듬기</td><td><strong>가장 큼</strong></td><td>2교시</td></tr>
+    <tr><td>데이터 전처리 (정제)</td><td><strong>가장 큼</strong></td><td>2교시</td></tr>
     <tr><td>묶고 비교하기</td><td>큼</td><td>3교시</td></tr>
     <tr><td>숫자가 말이 되는지 확인하기</td><td>큼</td><td>4교시</td></tr>
     <tr><td>남에게 설명하기</td><td>큼</td><td>5교시</td></tr>
-    <tr><td>우연인지 아닌지 재기</td><td class="dim">작음</td><td>6교시</td></tr>
+    <tr><td>통계 검정</td><td class="dim">작음</td><td>6교시</td></tr>
   </table>
 </section>
 
@@ -363,7 +363,7 @@ body.chapter-on .kbd{border-color:rgba(255,255,255,.45);color:rgba(255,255,255,.
     <tr><th style="width:28%">도구</th><th>무엇을 재는가</th></tr>
     <tr><td>평균</td><td>대체로 어디쯤인가</td></tr>
     <tr><td>중앙값</td><td>한가운데는 어디인가</td></tr>
-    <tr><td>분산 · 표준편차</td><td>얼마나 흩어져 있는가</td></tr>
+    <tr><td>분산 · 표준편차</td><td>산포 — 값들이 얼마나 퍼져 있는가</td></tr>
     <tr><td>분포</td><td>어떤 모양으로 퍼져 있는가</td></tr>
     <tr><td>상관</td><td>두 값이 같이 움직이는가</td></tr>
     <tr><td>검정</td><td>이 차이가 우연일 수 있는가</td></tr>
@@ -391,17 +391,17 @@ body.chapter-on .kbd{border-color:rgba(255,255,255,.45);color:rgba(255,255,255,.
   <p class="gap-sm"><mark>평균을 얼마나 믿어도 되는지</mark> 알려 주기 때문입니다.</p>
   <div class="cols eq">
     <div class="card good">
-      <h3 style="color:var(--green)">흩어짐이 작다</h3>
+      <h3 style="color:var(--green)">표준편차가 작다</h3>
       <p>배송 일수 — 평균 <strong>4일</strong></p>
       <p style="margin-top:14px">“보통 4일 걸립니다”<br>라고 말해도 됩니다</p>
     </div>
     <div class="card bad">
-      <h3 style="color:var(--red)">흩어짐이 크다</h3>
+      <h3 style="color:var(--red)">표준편차가 크다</h3>
       <p>주문 금액 — 평균 <strong>239</strong></p>
       <p style="margin-top:14px">“보통 239 정도입니다”<br>라고 말할 수 없습니다</p>
     </div>
   </div>
-  <p style="margin-top:38px">그래서 평균을 보고할 때는 <strong>흩어짐을 함께 보는 것</strong>이 기본입니다.</p>
+  <p style="margin-top:38px">그래서 평균을 보고할 때는 <strong>표준편차를 함께 보는 것</strong>이 기본입니다.</p>
 </section>
 
 <!-- 16 ═══ 분포 · EDA · 상관 ═══ -->
@@ -487,7 +487,7 @@ body.chapter-on .kbd{border-color:rgba(255,255,255,.45);color:rgba(255,255,255,.
 <section class="slide" data-ch="4. 결론을 낼 때">
   <h2 class="tight">① 요약하면 반드시 무언가가 버려집니다</h2>
   <ul style="margin-bottom:32px">
-    <li><strong>평균</strong>은 흩어짐을 버립니다</li>
+    <li><strong>평균</strong>은 분포의 산포(퍼진 정도)를 버립니다</li>
     <li><strong>합계</strong>는 몇 건인지, 건당 얼마인지를 함께 버립니다</li>
     <li><strong>전체 수치</strong>는 지역별·품목별 차이를 버립니다</li>
   </ul>
@@ -537,23 +537,23 @@ body.chapter-on .kbd{border-color:rgba(255,255,255,.45);color:rgba(255,255,255,.
   <h2 class="tight">그래서 어떤 순서로 하는가</h2>
   <p class="small dim gap-sm">오늘 하루가 이 순서를 그대로 따라갑니다</p>
   <div class="pipe" style="margin-bottom:26px">
-    <div class="pnode fill"><div class="pt">질문</div><div class="pd">무엇을 결정하나</div></div>
+    <div class="pnode fill"><div class="pt">문제 정의</div><div class="pd">무엇을 결정하나</div></div>
     <div class="arrow">→</div>
-    <div class="pnode"><div class="pt">데이터 확인</div><div class="pd">누구에 대한 것인가</div></div>
+    <div class="pnode"><div class="pt">데이터 이해</div><div class="pd">누구에 대한 것인가</div></div>
     <div class="arrow">→</div>
-    <div class="pnode"><div class="pt">다듬기</div><div class="pd">무엇을 버리나</div></div>
+    <div class="pnode"><div class="pt">전처리</div><div class="pd">무엇을 버리나</div></div>
     <div class="arrow">→</div>
-    <div class="pnode"><div class="pt">견주기</div><div class="pd">무엇과 비교하나</div></div>
+    <div class="pnode"><div class="pt">집계·비교</div><div class="pd">무엇과 비교하나</div></div>
   </div>
   <div style="text-align:right;color:var(--blue);font-size:32px;font-weight:800;margin:8px 42px 8px 0">↓</div>
   <div class="pipe">
-    <div class="pnode fill"><div class="pt">결론과 한계</div><div class="pd">뭘 다르게 하나</div></div>
+    <div class="pnode fill"><div class="pt">결론·보고</div><div class="pd">뭘 다르게 하나</div></div>
     <div class="arrow">←</div>
-    <div class="pnode"><div class="pt">재기</div><div class="pd">우연일 수 있나</div></div>
+    <div class="pnode"><div class="pt">통계 검정</div><div class="pd">우연일 수 있나</div></div>
     <div class="arrow">←</div>
-    <div class="pnode"><div class="pt">보여주기</div><div class="pd">맞는 그림인가</div></div>
+    <div class="pnode"><div class="pt">시각화</div><div class="pd">맞는 그림인가</div></div>
     <div class="arrow">←</div>
-    <div class="pnode"><div class="pt">모양 보기</div><div class="pd">숫자 뒤에 뭐가 있나</div></div>
+    <div class="pnode"><div class="pt">탐색 (EDA)</div><div class="pd">숫자 뒤에 뭐가 있나</div></div>
   </div>
 </section>
 
@@ -562,13 +562,13 @@ body.chapter-on .kbd{border-color:rgba(255,255,255,.45);color:rgba(255,255,255,.
   <h2 class="tight sm">각 단계에서 던지는 질문</h2>
   <table class="compact" style="margin-top:20px">
     <tr><th style="width:16%">교시</th><th style="width:32%">하는 일</th><th>던지는 질문</th></tr>
-    <tr><td>1교시</td><td>데이터 열기</td><td>이 데이터는 누구를 대표하는가</td></tr>
-    <tr><td>2교시</td><td>다듬기</td><td>이 빈칸은 왜 비었는가</td></tr>
-    <tr><td>3교시</td><td>묶고 견주기</td><td>무엇과 비교할 것인가</td></tr>
-    <tr><td>4교시</td><td>모양 보기</td><td>이 평균을 믿어도 되는가</td></tr>
-    <tr><td>5교시</td><td>보여주기</td><td>이 그림이 오해를 부르지 않는가</td></tr>
-    <tr><td>6교시</td><td>재기</td><td>이 차이가 우연일 수 있는가</td></tr>
-    <tr><td>7교시</td><td>결론</td><td>그래서 무엇을 다르게 할 것인가</td></tr>
+    <tr><td>1교시</td><td>데이터 이해</td><td>이 데이터는 누구를 대표하는가</td></tr>
+    <tr><td>2교시</td><td>전처리</td><td>이 결측치는 왜 생겼는가</td></tr>
+    <tr><td>3교시</td><td>집계·비교</td><td>무엇과 비교할 것인가</td></tr>
+    <tr><td>4교시</td><td>탐색 (EDA)</td><td>이 평균을 믿어도 되는가</td></tr>
+    <tr><td>5교시</td><td>시각화</td><td>이 그림이 오해를 부르지 않는가</td></tr>
+    <tr><td>6교시</td><td>통계 검정</td><td>이 차이가 우연일 수 있는가</td></tr>
+    <tr><td>7교시</td><td>결론·보고</td><td>그래서 무엇을 다르게 할 것인가</td></tr>
   </table>
 </section>
 

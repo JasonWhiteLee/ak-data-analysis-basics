@@ -166,20 +166,20 @@ body.chapter-on .kbd{border-color:rgba(255,255,255,.45);color:rgba(255,255,255,.
 <!-- 2 지금 어디 -->
 <section class="slide" data-ch="2교시">
   <h2 class="tight">오늘 여덟 단계 중 지금 여기입니다</h2>
-  <p class="small dim gap-sm">1교시에 데이터를 열었고, 빈칸이 있다는 것을 발견했습니다</p>
+  <p class="small dim gap-sm">1교시에 데이터를 열었고, <strong>결측치(비어 있는 값)</strong>가 있다는 것을 발견했습니다</p>
   <div class="steps">
-    <div class="step done">질문</div>
-    <div class="step done">데이터<br>확인</div>
-    <div class="step now">다듬기</div>
-    <div class="step">견주기</div>
-    <div class="step">모양<br>보기</div>
-    <div class="step">보여<br>주기</div>
-    <div class="step">재기</div>
-    <div class="step">결론과<br>한계</div>
+    <div class="step done">문제<br>정의</div>
+    <div class="step done">데이터<br>이해</div>
+    <div class="step now">전처리</div>
+    <div class="step">집계·비교</div>
+    <div class="step">탐색<br>(EDA)</div>
+    <div class="step">시각화</div>
+    <div class="step">통계<br>검정</div>
+    <div class="step">결론·보고</div>
   </div>
   <div class="card blue" style="margin-top:46px">
     <p>이 단계에서 던지는 질문 —
-       <span class="hl" style="font-size:44px">&ldquo;이 빈칸은 왜 비었는가&rdquo;</span></p>
+       <span class="hl" style="font-size:44px">&ldquo;이 결측치는 왜 생겼는가&rdquo;</span></p>
   </div>
 </section>
 
@@ -190,7 +190,7 @@ body.chapter-on .kbd{border-color:rgba(255,255,255,.45);color:rgba(255,255,255,.
   <ol class="num">
     <li>원하는 행과 열만 골라낼 수 있다</li>
     <li>조건에 맞는 데이터만 걸러낼 수 있다</li>
-    <li>빈칸·중복·형식 오류를 처리할 수 있다</li>
+    <li><strong>결측치·중복값·형식 오류</strong>를 처리할 수 있다</li>
     <li><strong>처리 방법을 바꾸면 결론이 달라진다는 것을 안다</strong></li>
   </ol>
   <div class="card blue" style="margin-top:38px">
@@ -220,11 +220,11 @@ body.chapter-on .kbd{border-color:rgba(255,255,255,.45);color:rgba(255,255,255,.
 
 <!-- 6 빈칸은 랜덤인가 -->
 <section class="slide" data-ch="2교시">
-  <h2 class="tight sm">1교시에 본 그 빈칸 — 왜 비었을까요</h2>
-  <p class="small dim gap-sm">배송일이 빈 행이 어디에 몰려 있는지 세어 봤습니다</p>
+  <h2 class="tight sm">1교시에 본 그 결측치 — 왜 생겼을까요</h2>
+  <p class="small dim gap-sm">배송일 결측치가 어디에 몰려 있는지 세어 봤습니다</p>
   <div class="cols eq" style="margin-bottom:34px">
     <div class="card bad">
-      <h3 style="color:var(--red)">반품된 주문 중 배송일이 빈 비율</h3>
+      <h3 style="color:var(--red)">반품 주문의 배송일 결측치 비율</h3>
       <p class="stat bad">35.1%</p>
     </div>
     <div class="card good">
@@ -233,7 +233,7 @@ body.chapter-on .kbd{border-color:rgba(255,255,255,.45);color:rgba(255,255,255,.
     </div>
   </div>
   <div class="card blue">
-    <p>빈칸이 아무데나 흩어져 있지 않습니다. <strong>반품된 주문에 몰려 있습니다.</strong>
+    <p>결측치가 아무데나 흩어져 있지 않습니다. <strong>반품된 주문에 몰려 있습니다.</strong>
        반품되면 배송 기록이 제대로 남지 않는 겁니다.
        <mark>값이 없다는 사실 자체가 정보입니다.</mark></p>
   </div>
@@ -241,7 +241,7 @@ body.chapter-on .kbd{border-color:rgba(255,255,255,.45);color:rgba(255,255,255,.
 
 <!-- 7 dropna 결과 -->
 <section class="slide" data-ch="2교시">
-  <h2 class="tight sm">빈 줄을 지웠더니 반품률이 내려갔습니다</h2>
+  <h2 class="tight sm">결측치 행을 지웠더니 반품률이 내려갔습니다</h2>
   <p class="small dim gap-sm"><code>dropna(subset=['Ship Date'])</code> 한 줄을 실행했을 뿐입니다</p>
   <div class="cols eq" style="margin-bottom:34px">
     <div class="card"><h3>원본</h3><p class="stat">5.79%</p>
@@ -259,19 +259,19 @@ body.chapter-on .kbd{border-color:rgba(255,255,255,.45);color:rgba(255,255,255,.
 
 <!-- 8 처리 세 가지 -->
 <section class="slide" data-ch="2교시">
-  <h2 class="tight sm">빈칸을 만나면 셋 중 하나를 고릅니다</h2>
+  <h2 class="tight sm">결측치를 만나면 셋 중 하나를 고릅니다</h2>
   <table class="compact">
     <tr><th style="width:18%">방법</th><th style="width:34%">쓰는 것</th><th>언제</th></tr>
-    <tr><td>버린다</td><td><code>.dropna(subset=['열'])</code></td><td>빈칸이 랜덤이고, 양이 적을 때</td></tr>
-    <tr><td>채운다</td><td><code>.fillna(값)</code></td><td>빈칸의 의미를 알고, 대체값이 타당할 때</td></tr>
-    <tr><td><strong>표시한다</strong></td><td><code>.isna()</code> 로 새 열</td><td><strong>빈칸 자체가 정보일 때</strong></td></tr>
+    <tr><td>버린다</td><td><code>.dropna(subset=['열'])</code></td><td>결측치가 무작위로 흩어져 있고, 양이 적을 때</td></tr>
+    <tr><td>채운다</td><td><code>.fillna(값)</code></td><td>결측치의 의미를 알고, 대체값이 타당할 때</td></tr>
+    <tr><td><strong>표시한다</strong></td><td><code>.isna()</code> 로 새 열</td><td><strong>결측치 자체가 정보일 때</strong></td></tr>
   </table>
   <div class="card bad" style="margin-top:36px">
     <p><code>fillna(0)</code> 을 습관적으로 쓰는 것이 가장 위험합니다.
        <strong>비어 있는 것과 0은 다릅니다.</strong>
        매출이 &ldquo;없는 것&rdquo;과 &ldquo;0원인 것&rdquo;은 완전히 다른 이야기입니다.</p>
   </div>
-  <p class="small dim" style="margin-top:24px">오늘 주문 데이터에서는 세 번째가 맞습니다 — 빈칸이 반품을 알려 주고 있으니까요</p>
+  <p class="small dim" style="margin-top:24px">오늘 주문 데이터에서는 세 번째가 맞습니다 — 결측치가 반품을 알려 주고 있으니까요</p>
 </section>
 
 <!-- 9 중복과 형식 -->
@@ -279,7 +279,7 @@ body.chapter-on .kbd{border-color:rgba(255,255,255,.45);color:rgba(255,255,255,.
   <h2 class="tight sm">중복은 세어 보고, 형식은 바꿉니다</h2>
   <div class="cols eq">
     <div class="card">
-      <h3>완전히 똑같은 행만 지웁니다</h3>
+      <h3>중복값 — 모든 열이 똑같은 행만 지웁니다</h3>
       <p><code>.duplicated().sum()</code> 으로 세고
          <code>.drop_duplicates()</code> 로 지웁니다.</p>
       <p class="small" style="margin-top:20px">한 주문에 품목이 여럿이면 <code>Order ID</code> 가 반복됩니다.
@@ -294,7 +294,7 @@ body.chapter-on .kbd{border-color:rgba(255,255,255,.45);color:rgba(255,255,255,.
     </div>
   </div>
   <p style="margin-top:36px">두 날짜를 빼서 <strong>배송일수</strong>를 만들면 <code>count</code> 가 전체 행보다 적습니다.
-     <mark>빈칸은 이렇게 조용히 아래로 퍼집니다.</mark></p>
+     <mark>결측치는 이렇게 조용히 아래로 퍼집니다.</mark></p>
 </section>
 
 <!-- 10 지저분한 데이터 -->
@@ -303,10 +303,10 @@ body.chapter-on .kbd{border-color:rgba(255,255,255,.45);color:rgba(255,255,255,.
   <p class="small dim gap-sm">영국의 어느 온라인 소매점 1년치 거래 기록 54만 건</p>
   <table class="compact">
     <tr><th style="width:42%">무엇이 있나</th><th>얼마나</th></tr>
-    <tr><td>고객 번호가 없는 행</td><td><strong>24.9%</strong> (135,080건) — 비회원 주문</td></tr>
+    <tr><td>고객 번호 결측치</td><td><strong>24.9%</strong> (135,080건) — 비회원 주문</td></tr>
     <tr><td>취소 주문</td><td><strong>9,288건</strong> — 수량이 음수로 기록</td></tr>
     <tr><td>단가가 0 이하</td><td><strong>2,517건</strong> — 사은품·재고조정·파손</td></tr>
-    <tr><td>완전히 똑같은 행</td><td><strong>5,268건</strong></td></tr>
+    <tr><td>중복값 (모든 열이 동일)</td><td><strong>5,268건</strong></td></tr>
     <tr><td>나라</td><td>38개국인데 <strong>영국이 91%</strong></td></tr>
   </table>
   <p class="small dim" style="margin-top:28px">
@@ -351,7 +351,7 @@ body.chapter-on .kbd{border-color:rgba(255,255,255,.45);color:rgba(255,255,255,.
   <div class="eyebrow" style="justify-content:center">이제 손으로 합니다</div>
   <div class="t sm">노트북 <mark>2교시를</mark> 엽니다</div>
   <p class="lead dim" style="margin-top:46px">
-    골라내기 → 걸러내기 → 빈칸은 왜 비었는가 → 내가 버린 것을 밝히기</p>
+    열 선택 → 조건 필터 → 결측치 원인 파악 → 전처리 기록 남기기</p>
 </section>
 
   <div class="bar" id="bar"></div>
