@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>1교시 · 환경과 기본 문법 — 데이터분석 기초</title>
+<style>
+:root{
+  --blue:#1d63ed; --ink:#0d1220; --ink-2:#39415a; --ink-3:#767f95;
+  --bg:#ffffff; --panel:#f6f8fc; --panel-2:#ecf2fe; --line:#dde3ee; --line-2:#c3d1ea;
+  --red:#c4381f;   --red-bg:#fdf1ed;
+  --green:#0b7355; --green-bg:#eaf6f1;
+  --amber:#8f5c00; --amber-bg:#fdf6e6;
+  --shadow:0 2px 3px rgba(13,18,32,.04), 0 9px 33px rgba(13,18,32,.055);
+  --chapter-bg:#1d63ed;
+}
+html[data-theme="dark"]{
+  --blue:#5b93ff; --ink:#eef2fb; --ink-2:#b7c0d3; --ink-3:#828ca4;
+  --bg:#0b0f1a; --panel:#141a28; --panel-2:#182337; --line:#28324c; --line-2:#3a4763;
+  --red:#ff9d85;   --red-bg:#2b1a16;
+  --green:#5ed6ac; --green-bg:#0f2620;
+  --amber:#f0c26a; --amber-bg:#2b2216;
+  --shadow:0 2px 3px rgba(0,0,0,.3), 0 12px 39px rgba(0,0,0,.35);
+  --chapter-bg:#15326f;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;overflow:hidden}
+body{
+  background:var(--bg); color:var(--ink);
+  font-family:"Pretendard","Malgun Gothic","맑은 고딕","Apple SD Gothic Neo","Noto Sans KR",sans-serif;
+  -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
+  word-break:keep-all; overflow-wrap:break-word;
+  transition:background .3s ease, color .3s ease;
+}
+.stage{position:absolute;left:50%;top:50%;width:1920px;height:1080px;transform-origin:50% 50%;overflow:hidden}
+.slide{position:absolute;inset:0;display:none;flex-direction:column;justify-content:center;padding:84px 120px 104px}
+.slide.on{display:flex}
+.slide.on > *{animation:rise .4s cubic-bezier(.22,.9,.28,1) both}
+.slide.on > *:nth-child(2){animation-delay:.05s}
+.slide.on > *:nth-child(3){animation-delay:.1s}
+.slide.on > *:nth-child(4){animation-delay:.15s}
+@keyframes rise{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.slide.on > *{animation:none}}
+
+h1{font-size:118px;line-height:1.16;letter-spacing:-.018em;font-weight:800}
+h2{font-size:78px;line-height:1.26;letter-spacing:-.014em;font-weight:800;margin-bottom:48px}
+h2.tight{margin-bottom:20px}
+h2.sm{font-size:66px}
+h3{font-size:30px;font-weight:700;color:var(--ink-3);margin-bottom:16px}
+p{font-size:36px;line-height:1.66;color:var(--ink-2)}
+p strong,li strong,td strong{color:var(--ink);font-weight:700}
+.lead{font-size:46px;line-height:1.55;color:var(--ink-2)}
+.small{font-size:29px;line-height:1.64}
+.dim{color:var(--ink-3)}
+.gap-sm{margin-bottom:34px}
+.eyebrow{display:flex;align-items:center;gap:18px;font-size:21px;font-weight:800;
+  letter-spacing:.17em;color:var(--blue);text-transform:uppercase;margin-bottom:34px}
+.eyebrow::before{content:"";width:50px;height:3px;background:var(--blue);border-radius:3px;flex:0 0 auto}
+mark{color:inherit;font-weight:700;
+  background:color-mix(in srgb,var(--blue) 13%,transparent);
+  box-shadow:inset 0 -.13em 0 color-mix(in srgb,var(--blue) 42%,transparent);
+  padding:.08em .22em;border-radius:7px;
+  -webkit-box-decoration-break:clone;box-decoration-break:clone}
+.hl{color:var(--blue);font-weight:800}
+ul{list-style:none}
+ul li{font-size:36px;line-height:1.58;color:var(--ink-2);padding-left:46px;position:relative;margin-top:24px}
+ul li::before{content:"";position:absolute;left:11px;top:.62em;width:13px;height:13px;border-radius:50%;background:var(--blue)}
+ol.num{list-style:none;counter-reset:n}
+ol.num li{counter-increment:n;font-size:36px;line-height:1.55;color:var(--ink-2);
+  padding-left:74px;position:relative;margin-top:26px}
+ol.num li::before{content:counter(n);position:absolute;left:0;top:-2px;
+  width:50px;height:50px;border-radius:50%;background:var(--panel-2);color:var(--blue);
+  font-size:27px;font-weight:800;display:flex;align-items:center;justify-content:center}
+
+.card{border:1px solid var(--line);border-radius:20px;padding:40px 44px;background:var(--panel);box-shadow:var(--shadow)}
+.card.pad-sm{padding:30px 36px}
+.card.blue{border-color:var(--line-2);background:var(--panel-2)}
+.card.bad{border-color:color-mix(in srgb,var(--red) 32%,transparent);background:var(--red-bg)}
+.card.good{border-color:color-mix(in srgb,var(--green) 32%,transparent);background:var(--green-bg)}
+.card.warn{border-color:color-mix(in srgb,var(--amber) 34%,transparent);background:var(--amber-bg)}
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:42px;align-items:start}
+.cols.eq{align-items:stretch}
+.cols.eq>.card{display:flex;flex-direction:column}
+.cols3{display:grid;grid-template-columns:repeat(3,1fr);gap:32px;align-items:stretch}
+.cols3 .card{display:flex;flex-direction:column}
+.stat{font-size:72px;font-weight:800;letter-spacing:-.03em;line-height:1.12;margin-top:4px}
+.stat.bad{color:var(--red)} .stat.good{color:var(--green)}
+code{font-family:"Cascadia Mono",Consolas,"D2Coding",ui-monospace,monospace;
+  background:var(--panel-2);border:1px solid var(--line);padding:.1em .38em;border-radius:8px;
+  font-size:.88em;color:var(--ink);word-break:normal}
+
+/* 오늘 어디쯤인가 — 진행 표시 */
+.steps{display:flex;gap:12px;align-items:stretch;margin-top:14px}
+.step{flex:1 1 0;border:2px solid var(--line);border-radius:14px;padding:20px 10px;text-align:center;
+  background:var(--panel);color:var(--ink-3);font-size:24px;font-weight:700;line-height:1.35}
+.step.now{background:var(--blue);border-color:var(--blue);color:#fff;font-weight:800}
+.step.done{background:var(--panel-2);border-color:var(--line-2);color:var(--blue)}
+
+table{width:100%;border-collapse:collapse;font-size:34px}
+th,td{text-align:left;padding:22px 28px;border-bottom:1px solid var(--line);line-height:1.45}
+th{font-size:26px;color:var(--ink-3);font-weight:800;letter-spacing:.04em}
+td{color:var(--ink-2)}
+td:first-child{font-weight:700;color:var(--ink);white-space:nowrap}
+tr:last-child td{border-bottom:0}
+table.compact{font-size:30px}
+table.compact th,table.compact td{padding:15px 24px}
+
+.cover{justify-content:center}
+.rule{height:5px;width:170px;background:var(--blue);border-radius:5px;margin:48px 0}
+.chapter{justify-content:center;background:var(--chapter-bg)}
+.chapter .num{font-size:178px;font-weight:800;line-height:1;letter-spacing:-.05em;color:#fff;opacity:.34;margin-bottom:22px}
+.chapter h2{margin:0 0 28px;font-size:92px;color:#fff}
+.chapter .lead{color:rgba(255,255,255,.78)}
+body.chapter-on .bar{background:#fff}
+body.chapter-on .chip,body.chapter-on .pager{color:rgba(255,255,255,.78)}
+body.chapter-on .pager b{color:#fff}
+body.chapter-on .keys{color:rgba(255,255,255,.6)}
+body.chapter-on .kbd{border-color:rgba(255,255,255,.45);color:rgba(255,255,255,.75)}
+.thesis{align-items:center;justify-content:center;text-align:center}
+.thesis .t{font-size:80px;line-height:1.42;font-weight:800;letter-spacing:-.018em;color:var(--ink);max-width:1520px}
+.thesis .t.sm{font-size:64px}
+.thesis .t mark{background:color-mix(in srgb,var(--blue) 15%,transparent)}
+
+.bar{position:absolute;left:0;bottom:0;height:5px;background:var(--blue);
+  transition:width .32s cubic-bezier(.22,.9,.28,1);z-index:9;border-radius:0 5px 5px 0}
+.chip{position:absolute;left:124px;bottom:40px;z-index:9;font-size:22px;font-weight:800;letter-spacing:.11em;color:var(--ink-3)}
+.pager{position:absolute;right:124px;bottom:40px;z-index:9;font-size:22px;color:var(--ink-3);
+  font-variant-numeric:tabular-nums;letter-spacing:.09em}
+.pager b{color:var(--ink);font-weight:800}
+.keys{position:absolute;right:124px;top:40px;z-index:9;display:flex;gap:9px;font-size:19px;color:var(--ink-3);opacity:.42}
+.kbd{border:1px solid var(--line-2);border-bottom-width:3px;border-radius:7px;padding:4px 10px;
+  font-family:ui-monospace,monospace;color:var(--ink-2)}
+@media print{
+  @page{size:1920px 1080px;margin:0}
+  html,body{overflow:visible;height:auto;background:#fff}
+  .stage{position:static;transform:none !important;width:1920px;height:auto;overflow:visible}
+  .slide{display:flex !important;position:relative;inset:auto;width:1920px;height:1080px;page-break-after:always;break-after:page}
+  .slide>*{animation:none !important}
+  .bar,.chip,.pager,.keys{display:none}
+}
+</style>
+</head>
+<body>
+<div class="stage" id="stage">
+
+<!-- 1 표지 -->
+<section class="slide cover" data-ch="">
+  <div class="eyebrow">1교시</div>
+  <h1>데이터를<br><span class="hl">파이썬 안으로</span></h1>
+  <div class="rule"></div>
+  <p class="lead">환경과 기본 문법 — 엑셀 파일을 열어 화면에 띄우는 데까지</p>
+</section>
+
+<!-- 2 지금 어디 -->
+<section class="slide" data-ch="1교시">
+  <h2 class="tight">오늘 여덟 단계 중 지금 여기입니다</h2>
+  <p class="small dim gap-sm">0교시에서 세운 순서를 따라갑니다</p>
+  <div class="steps">
+    <div class="step done">질문</div>
+    <div class="step now">데이터<br>확인</div>
+    <div class="step">다듬기</div>
+    <div class="step">견주기</div>
+    <div class="step">모양<br>보기</div>
+    <div class="step">보여<br>주기</div>
+    <div class="step">재기</div>
+    <div class="step">결론과<br>한계</div>
+  </div>
+  <div class="card blue" style="margin-top:46px">
+    <p>이 단계에서 던지는 질문 —
+       <span class="hl" style="font-size:44px">“이 데이터는 누구를 대표하는가”</span></p>
+  </div>
+</section>
+
+<!-- 3 끝나면 할 수 있는 것 -->
+<section class="slide" data-ch="1교시">
+  <h2 class="tight">이 시간이 끝나면</h2>
+  <p class="small dim gap-sm">코드를 외우는 것이 목표가 아닙니다</p>
+  <ol class="num">
+    <li>Colab에서 코드를 실행하고, 꼬였을 때 되돌릴 수 있다</li>
+    <li>엑셀·CSV 파일을 파이썬으로 열 수 있다</li>
+    <li>이 데이터가 몇 행 몇 열이고 어떤 열이 있는지 말할 수 있다</li>
+    <li><strong>이 데이터로 답할 수 있는 질문과 없는 질문을 구분할 수 있다</strong></li>
+  </ol>
+</section>
+
+<!-- 4 Colab -->
+<section class="slide" data-ch="1교시">
+  <h2 class="tight">Colab — 구글이 빌려주는 컴퓨터</h2>
+  <p class="gap-sm">내 노트북에 파이썬을 설치하지 않습니다. <strong>브라우저만 있으면 됩니다.</strong></p>
+  <div class="cols eq">
+    <div class="card">
+      <h3>화면은 칸(셀)으로 나뉩니다</h3>
+      <p><strong>텍스트 셀</strong> — 설명을 적는 곳<br>
+         <strong>코드 셀</strong> — 실행하면 계산해 줍니다</p>
+      <p class="small dim" style="margin-top:18px">실행은 <code>Shift + Enter</code></p>
+    </div>
+    <div class="card warn">
+      <h3 style="color:var(--amber)">오늘 가장 많이 날 사고</h3>
+      <p>셀 왼쪽 <code>[1]</code> <code>[2]</code> 는
+         <strong>실행한 순서</strong>입니다. 위에서 아래 순서가 아닙니다.</p>
+      <p style="margin-top:18px">막히면 <mark>런타임 &gt; 모두 실행</mark></p>
+    </div>
+  </div>
+</section>
+
+<!-- 5 파이썬 최소 -->
+<section class="slide" data-ch="1교시">
+  <h2 class="tight sm">파이썬 문법은 다섯 개만 봅니다</h2>
+  <table class="compact" style="margin-top:20px">
+    <tr><th style="width:26%">무엇</th><th>엑셀로 치면</th></tr>
+    <tr><td>변수</td><td>셀에 이름을 붙이는 것</td></tr>
+    <tr><td><strong>값의 종류</strong></td><td><strong>숫자로 보이는데 글자인 경우 — 오늘 사고의 90%</strong></td></tr>
+    <tr><td>리스트</td><td>여러 개를 한 줄에 담는 것</td></tr>
+    <tr><td>함수</td><td><code>SUM(...)</code> 과 같습니다</td></tr>
+    <tr><td>점 표기</td><td><code>무엇.무엇을해라()</code> — “이 값에게 시켜라”</td></tr>
+  </table>
+</section>
+
+<!-- 6 값의 종류 -->
+<section class="slide" data-ch="1교시">
+  <h2 class="tight">숫자처럼 생겼는데 글자일 때</h2>
+  <div class="cols eq" style="margin-bottom:34px">
+    <div class="card good">
+      <h3 style="color:var(--green)">숫자</h3>
+      <p style="font-size:44px;color:var(--ink);font-weight:800">1500 + 900</p>
+      <p class="stat good" style="font-size:56px">2400</p>
+    </div>
+    <div class="card bad">
+      <h3 style="color:var(--red)">글자 (따옴표가 붙음)</h3>
+      <p style="font-size:44px;color:var(--ink);font-weight:800">'1500' + '900'</p>
+      <p class="stat bad" style="font-size:56px">'1500900'</p>
+    </div>
+  </div>
+  <p>엑셀에서 숫자가 왼쪽 정렬되고 <code>SUM</code> 이 0으로 나오던
+     <mark>그 상황과 같은 문제</mark>입니다.</p>
+  <p class="small dim" style="margin-top:18px">오늘 오후에 날짜가 글자로 읽히는 사고를 실제로 만납니다</p>
+</section>
+
+<!-- 7 DataFrame -->
+<section class="slide" data-ch="1교시">
+  <h2 class="tight">표를 담는 그릇 — DataFrame</h2>
+  <p class="gap-sm"><strong>엑셀 시트 하나</strong>라고 생각하면 정확합니다.</p>
+  <div class="cols eq">
+    <div class="card blue">
+      <h3 style="color:var(--blue)">DataFrame</h3>
+      <p>표 전체<br>= 엑셀 시트</p>
+    </div>
+    <div class="card">
+      <h3>Series</h3>
+      <p>열 하나<br>= 엑셀의 한 세로줄</p>
+    </div>
+  </div>
+  <p class="small dim" style="margin-top:34px">
+    맨 왼쪽 <code>0 1 2</code> 는 인덱스입니다. 엑셀 행 번호와 같되 <strong>0부터</strong> 셉니다.</p>
+</section>
+
+<!-- 8 첫인상 순서 -->
+<section class="slide" data-ch="1교시">
+  <h2 class="tight sm">데이터를 열면 항상 이 순서로 봅니다</h2>
+  <p class="small dim gap-sm">오늘 이후 회사 데이터를 열 때도 그대로 쓰면 됩니다</p>
+  <table class="compact">
+    <tr><th style="width:34%">무엇을 보나</th><th>코드</th></tr>
+    <tr><td>얼마나 큰가</td><td><code>.shape</code></td></tr>
+    <tr><td>어떤 열이 있나</td><td><code>.columns</code></td></tr>
+    <tr><td>각 열이 무슨 종류인가</td><td><code>.dtypes</code></td></tr>
+    <tr><td>위·아래·가운데를 본다</td><td><code>.head()</code> · <code>.tail()</code> · <code>.sample()</code></td></tr>
+    <tr><td>한 번에 요약</td><td><code>.info()</code></td></tr>
+    <tr><td><strong>빠진 값은 없나</strong></td><td><code>.isna().sum()</code></td></tr>
+  </table>
+</section>
+
+<!-- 9 행 수 != 주문 수 -->
+<section class="slide" data-ch="1교시">
+  <h2 class="tight">한 줄이 무엇인지 먼저 확인합니다</h2>
+  <p class="small dim gap-sm">오늘 쓸 주문 데이터에서 직접 세어 봅니다</p>
+  <div class="cols eq" style="margin-bottom:34px">
+    <div class="card"><h3>전체 행 수</h3><p class="stat">10,239</p></div>
+    <div class="card blue"><h3 style="color:var(--blue)">실제 주문 건수</h3><p class="stat hl">5,111</p></div>
+  </div>
+  <div class="card bad">
+    <p>한 주문에 물건을 여러 개 담으면 <strong>물건마다 한 줄</strong>이 생깁니다.<br>
+       모르고 세면 이런 보고가 나갑니다 —
+       <span style="color:var(--red);font-weight:800">“올해 주문이 10,239건 발생했습니다”</span></p>
+  </div>
+</section>
+
+<!-- 10 에러 -->
+<section class="slide" data-ch="1교시">
+  <h2 class="tight">에러는 사고가 아닙니다</h2>
+  <p class="gap-sm">오늘 수십 번 만납니다. <strong>혼내는 말이 아니라 어디가 막혔는지 알려 주는 안내문</strong>입니다.</p>
+  <table class="compact">
+    <tr><th style="width:34%">에러 이름</th><th>뜻</th></tr>
+    <tr><td>KeyError</td><td>그런 <strong>열이 없습니다</strong> — 이름을 다시 확인</td></tr>
+    <tr><td>NameError</td><td>그런 이름을 <strong>만든 적이 없습니다</strong> — 위 셀을 건너뛴 경우</td></tr>
+    <tr><td>AttributeError</td><td>그런 <strong>기능이 없습니다</strong> — 대개 오타</td></tr>
+  </table>
+  <p style="margin-top:34px">빨간 글씨가 길어도 <mark>맨 아랫줄부터</mark> 읽습니다.
+     모르겠으면 그 줄을 그대로 복사해서 검색하거나 AI에게 붙여 넣습니다.</p>
+</section>
+
+<!-- 11 실습 -->
+<section class="slide" data-ch="1교시">
+  <h2 class="tight">실습에서 할 판단</h2>
+  <p class="small dim gap-sm">코드를 돌리는 것으로 끝나지 않습니다</p>
+  <div class="card blue" style="margin-bottom:30px">
+    <p style="font-size:44px;color:var(--ink);font-weight:800">
+      이 데이터로 <span class="hl">답할 수 있는 질문 2개</span>와<br>
+      <span class="hl">답할 수 없는 질문 2개</span>를 적습니다</p>
+  </div>
+  <div class="card warn">
+    <p><strong>힌트 — 없는 것을 찾으세요.</strong>
+       이 표에 온라인 주문은 있습니까? 광고비는요? 경쟁사 가격은요?<br>
+       <mark>주문하지 않고 그냥 나간 고객은 이 표 어디에 있습니까?</mark></p>
+  </div>
+</section>
+
+<!-- 12 노트북으로 -->
+<section class="slide thesis" data-ch="">
+  <div class="eyebrow" style="justify-content:center">이제 손으로 합니다</div>
+  <div class="t sm">노트북 <mark>1교시를</mark> 엽니다</div>
+  <p class="lead dim" style="margin-top:46px">
+    Colab 접속 → 데이터 불러오기 → 첫인상 확인 → 이 데이터는 누구인가</p>
+</section>
+
+  <div class="bar" id="bar"></div>
+  <div class="chip" id="chip"></div>
+  <div class="pager" id="pager"></div>
+  <div class="keys">
+    <span class="kbd">&#8592;</span><span class="kbd">&#8594;</span>
+    <span class="kbd">F</span><span class="kbd">D</span>
+  </div>
+</div>
+<script>
+(function(){
+  const stage=document.getElementById('stage');
+  const slides=Array.from(document.querySelectorAll('.slide'));
+  const bar=document.getElementById('bar'), pager=document.getElementById('pager'), chip=document.getElementById('chip');
+  let i=0;
+  function fit(){const s=Math.min(innerWidth/1920,innerHeight/1080);stage.style.transform='translate(-50%, -50%) scale('+s+')';}
+  addEventListener('resize',fit);
+  function show(n){
+    i=Math.max(0,Math.min(slides.length-1,n));
+    slides.forEach((s,k)=>s.classList.toggle('on',k===i));
+    bar.style.width=((i+1)/slides.length*100)+'%';
+    pager.innerHTML='<b>'+(i+1)+'</b> / '+slides.length;
+    chip.textContent=slides[i].dataset.ch||'';
+    document.body.classList.toggle('chapter-on',slides[i].classList.contains('chapter'));
+    history.replaceState(null,'','#'+(i+1));
+  }
+  function theme(next){document.documentElement.setAttribute('data-theme',next);
+    try{localStorage.setItem('ak-da-deck-theme',next);}catch(e){}}
+  addEventListener('keydown',e=>{
+    if(['ArrowRight','PageDown',' ','Enter'].includes(e.key)){e.preventDefault();show(i+1);}
+    else if(['ArrowLeft','PageUp','Backspace'].includes(e.key)){e.preventDefault();show(i-1);}
+    else if(e.key==='Home')show(0);
+    else if(e.key==='End')show(slides.length-1);
+    else if(e.key==='f'||e.key==='F'){if(document.fullscreenElement)document.exitFullscreen();else document.documentElement.requestFullscreen();}
+    else if(e.key==='d'||e.key==='D'){theme(document.documentElement.getAttribute('data-theme')==='dark'?'light':'dark');}
+  });
+  addEventListener('click',e=>{show(e.clientX<innerWidth*0.25?i-1:i+1);});
+  let x0=null;
+  addEventListener('touchstart',e=>{x0=e.changedTouches[0].clientX;},{passive:true});
+  addEventListener('touchend',e=>{if(x0===null)return;const dx=e.changedTouches[0].clientX-x0;
+    if(Math.abs(dx)>45)show(dx<0?i+1:i-1);x0=null;},{passive:true});
+  try{const saved=localStorage.getItem('ak-da-deck-theme');if(saved)document.documentElement.setAttribute('data-theme',saved);}catch(e){}
+  fit();
+  const start=parseInt(location.hash.replace('#',''),10);
+  show(Number.isFinite(start)&&start>0?start-1:0);
+})();
+</script>
+</body>
+</html>
