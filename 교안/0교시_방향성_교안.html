@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>0교시 · 방향성 — 데이터분석 기초</title>
+<style>
+/* ═══════════════════════ 디자인 토큰 ═══════════════════════ */
+:root{
+  --blue:#1d63ed;
+  --ink:#0d1220;
+  --ink-2:#39415a;
+  --ink-3:#767f95;
+  --bg:#ffffff;
+  --panel:#f6f8fc;
+  --panel-2:#ecf2fe;
+  --line:#dde3ee;
+  --line-2:#c3d1ea;
+  --red:#c4381f;   --red-bg:#fdf1ed;
+  --green:#0b7355; --green-bg:#eaf6f1;
+  --amber:#8f5c00; --amber-bg:#fdf6e6;
+  --shadow:0 2px 3px rgba(13,18,32,.04), 0 9px 33px rgba(13,18,32,.055);
+  --chapter-bg:#1d63ed;
+}
+html[data-theme="dark"]{
+  --blue:#5b93ff;
+  --ink:#eef2fb; --ink-2:#b7c0d3; --ink-3:#828ca4;
+  --bg:#0b0f1a; --panel:#141a28; --panel-2:#182337;
+  --line:#28324c; --line-2:#3a4763;
+  --red:#ff9d85;   --red-bg:#2b1a16;
+  --green:#5ed6ac; --green-bg:#0f2620;
+  --amber:#f0c26a; --amber-bg:#2b2216;
+  --shadow:0 2px 3px rgba(0,0,0,.3), 0 12px 39px rgba(0,0,0,.35);
+  --chapter-bg:#15326f;
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;overflow:hidden}
+body{
+  background:var(--bg); color:var(--ink);
+  font-family:"Pretendard","Malgun Gothic","맑은 고딕","Apple SD Gothic Neo","Noto Sans KR",sans-serif;
+  -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
+  word-break:keep-all; overflow-wrap:break-word;
+  transition:background .3s ease, color .3s ease;
+}
+
+/* ═══════ 고정 캔버스 1920×1080 → 화면에 맞춰 확대/축소 ═══════ */
+.stage{
+  position:absolute; left:50%; top:50%;
+  width:1920px; height:1080px;
+  transform-origin:50% 50%; overflow:hidden;
+}
+.slide{
+  position:absolute; inset:0; display:none;
+  flex-direction:column; justify-content:center;
+  padding:84px 120px 104px;
+}
+.slide.on{display:flex}
+.slide.on > *{animation:rise .4s cubic-bezier(.22,.9,.28,1) both}
+.slide.on > *:nth-child(2){animation-delay:.05s}
+.slide.on > *:nth-child(3){animation-delay:.1s}
+.slide.on > *:nth-child(4){animation-delay:.15s}
+@keyframes rise{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.slide.on > *{animation:none}}
+
+/* ═══════════════════════ 타이포 ═══════════════════════ */
+h1{font-size:118px;line-height:1.16;letter-spacing:-.018em;font-weight:800}
+h2{font-size:78px;line-height:1.26;letter-spacing:-.014em;font-weight:800;margin-bottom:48px}
+h2.tight{margin-bottom:20px}
+h2.sm{font-size:66px}
+h3{font-size:30px;font-weight:700;color:var(--ink-3);margin-bottom:16px}
+p{font-size:36px;line-height:1.66;color:var(--ink-2)}
+p strong,li strong,td strong{color:var(--ink);font-weight:700}
+.lead{font-size:46px;line-height:1.55;color:var(--ink-2)}
+.small{font-size:29px;line-height:1.64}
+.dim{color:var(--ink-3)}
+.stack>*+*{margin-top:34px}
+.gap-sm{margin-bottom:34px}
+
+.eyebrow{
+  display:flex;align-items:center;gap:18px;
+  font-size:21px;font-weight:800;letter-spacing:.17em;
+  color:var(--blue);text-transform:uppercase;margin-bottom:34px;
+}
+.eyebrow::before{content:"";width:50px;height:3px;background:var(--blue);border-radius:3px;flex:0 0 auto}
+
+mark{
+  color:inherit;font-weight:700;
+  background:color-mix(in srgb,var(--blue) 13%,transparent);
+  box-shadow:inset 0 -.13em 0 color-mix(in srgb,var(--blue) 42%,transparent);
+  padding:.08em .22em;border-radius:7px;
+  -webkit-box-decoration-break:clone;box-decoration-break:clone;
+}
+.hl{color:var(--blue);font-weight:800}
+
+ul{list-style:none}
+ul li{font-size:36px;line-height:1.58;color:var(--ink-2);
+      padding-left:46px;position:relative;margin-top:24px}
+ul li.small{font-size:29px;padding-left:39px;margin-top:18px}
+ul li::before{content:"";position:absolute;left:11px;top:.62em;
+      width:13px;height:13px;border-radius:50%;background:var(--blue)}
+ul li.small::before{width:10px;height:10px;left:10px}
+
+/* ═══════════════════════ 카드 · 그리드 ═══════════════════════ */
+.card{border:1px solid var(--line);border-radius:20px;
+      padding:40px 44px;background:var(--panel);box-shadow:var(--shadow)}
+.card.pad-sm{padding:30px 36px}
+.card.blue{border-color:var(--line-2);background:var(--panel-2)}
+.card.bad{border-color:color-mix(in srgb,var(--red) 32%,transparent);background:var(--red-bg)}
+.card.good{border-color:color-mix(in srgb,var(--green) 32%,transparent);background:var(--green-bg)}
+.card.warn{border-color:color-mix(in srgb,var(--amber) 34%,transparent);background:var(--amber-bg)}
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:42px;align-items:start}
+.cols.mid{align-items:center}
+.cols.eq{align-items:stretch}
+.cols.eq>.card{display:flex;flex-direction:column}
+.cols3{display:grid;grid-template-columns:repeat(3,1fr);gap:32px;align-items:stretch}
+.cols3 .card{display:flex;flex-direction:column}
+.stat{font-size:72px;font-weight:800;letter-spacing:-.03em;line-height:1.12;margin-top:4px}
+.stat.bad{color:var(--red)} .stat.good{color:var(--green)}
+.stat.sm{font-size:56px}
+
+code{font-family:"Cascadia Mono",Consolas,"D2Coding",ui-monospace,monospace;
+     background:var(--panel-2);border:1px solid var(--line);
+     padding:.1em .38em;border-radius:8px;font-size:.88em;color:var(--ink);word-break:normal}
+
+/* ═══════ 파이프라인 ═══════ */
+.pipe{display:flex;align-items:stretch;gap:20px}
+.pnode{flex:1 1 0;border:2px solid var(--line-2);border-radius:20px;
+  padding:30px 18px;text-align:center;background:var(--panel);
+  display:flex;flex-direction:column;justify-content:center}
+.pnode.fill{background:var(--blue);border-color:var(--blue)}
+.pnode.fill .pt{color:#fff}
+.pnode.fill .pd{color:#fff;opacity:.85}
+.pt{font-size:34px;font-weight:800;color:var(--ink);letter-spacing:-.012em}
+.pd{font-size:24px;color:var(--ink-3);margin-top:12px;line-height:1.4}
+.arrow{flex:0 0 auto;align-self:center;text-align:center;color:var(--blue);
+       font-weight:800;font-size:32px;line-height:1.25}
+
+/* ═══════════════════════ 표 ═══════════════════════ */
+table{width:100%;border-collapse:collapse;font-size:34px}
+th,td{text-align:left;padding:22px 28px;border-bottom:1px solid var(--line);line-height:1.45}
+th{font-size:26px;color:var(--ink-3);font-weight:800;letter-spacing:.04em}
+td{color:var(--ink-2)}
+td:first-child{font-weight:700;color:var(--ink);white-space:nowrap}
+tr:last-child td{border-bottom:0}
+table.compact{font-size:30px}
+table.compact th,table.compact td{padding:15px 24px}
+
+/* ═══════ 표지 · 챕터 · 명제 ═══════ */
+.cover{justify-content:center}
+.rule{height:5px;width:170px;background:var(--blue);border-radius:5px;margin:48px 0}
+
+.chapter{justify-content:center;background:var(--chapter-bg)}
+.chapter .num{font-size:178px;font-weight:800;line-height:1;
+              letter-spacing:-.05em;color:#fff;opacity:.34;margin-bottom:22px}
+.chapter h2{margin:0 0 28px;font-size:92px;color:#fff}
+.chapter .hl{color:#bcd6ff}
+.chapter .lead{color:rgba(255,255,255,.78)}
+body.chapter-on .bar{background:#fff}
+body.chapter-on .chip,body.chapter-on .pager{color:rgba(255,255,255,.78)}
+body.chapter-on .pager b{color:#fff}
+body.chapter-on .keys{color:rgba(255,255,255,.6)}
+body.chapter-on .kbd{border-color:rgba(255,255,255,.45);color:rgba(255,255,255,.75)}
+
+.thesis{align-items:center;justify-content:center;text-align:center}
+.thesis .t{font-size:80px;line-height:1.42;font-weight:800;
+           letter-spacing:-.018em;color:var(--ink);max-width:1520px}
+.thesis .t.sm{font-size:64px}
+.thesis .t mark{background:color-mix(in srgb,var(--blue) 15%,transparent)}
+
+.quote{font-size:70px;line-height:1.4;font-weight:800;letter-spacing:-.016em;color:var(--ink)}
+
+/* ═══════════════════════ 하단 UI ═══════════════════════ */
+.bar{position:absolute;left:0;bottom:0;height:5px;background:var(--blue);
+     transition:width .32s cubic-bezier(.22,.9,.28,1);z-index:9;border-radius:0 5px 5px 0}
+.chip{position:absolute;left:124px;bottom:40px;z-index:9;
+      font-size:22px;font-weight:800;letter-spacing:.11em;color:var(--ink-3)}
+.pager{position:absolute;right:124px;bottom:40px;z-index:9;
+       font-size:22px;color:var(--ink-3);font-variant-numeric:tabular-nums;letter-spacing:.09em}
+.pager b{color:var(--ink);font-weight:800}
+.keys{position:absolute;right:124px;top:40px;z-index:9;display:flex;gap:9px;
+      font-size:19px;color:var(--ink-3);opacity:.42;transition:opacity .25s}
+.keys:hover{opacity:1}
+.kbd{border:1px solid var(--line-2);border-bottom-width:3px;border-radius:7px;
+     padding:4px 10px;font-family:ui-monospace,monospace;color:var(--ink-2)}
+
+@media print{
+  @page{size:1920px 1080px;margin:0}
+  html,body{overflow:visible;height:auto;background:#fff}
+  .stage{position:static;transform:none !important;width:1920px;height:auto;overflow:visible}
+  .slide{display:flex !important;position:relative;inset:auto;
+         width:1920px;height:1080px;page-break-after:always;break-after:page}
+  .slide>*{animation:none !important}
+  .bar,.chip,.pager,.keys{display:none}
+}
+</style>
+</head>
+<body>
+<div class="stage" id="stage">
+
+<!-- 1 ═══ 표지 ═══ -->
+<section class="slide cover" data-ch="">
+  <div class="eyebrow">데이터분석 기초 · 0교시</div>
+  <h1>무엇을 <span class="hl">물어볼 것인가</span></h1>
+  <div class="rule"></div>
+  <p class="lead">도구를 잡기 전에, 오늘 하루의 방향을 먼저 정합니다</p>
+</section>
+
+<!-- 2 ═══ 척추 ═══ -->
+<section class="slide thesis" data-ch="">
+  <div class="eyebrow" style="justify-content:center">오늘 남길 한 문장</div>
+  <div class="t">분석은<br><mark>결정을 바꾸려고</mark> 합니다</div>
+  <p class="lead dim" style="margin-top:56px">오늘 배우는 나머지는 전부 이 한 줄의 부연입니다</p>
+</section>
+
+<!-- 3 ═══ 여는 장면 ═══ -->
+<section class="slide" data-ch="">
+  <div class="eyebrow">익숙한 장면</div>
+  <p class="lead gap-sm">보고서를 다 썼습니다. 숫자도 맞고 그래프도 깔끔합니다.<br>
+     발표를 마쳤는데 팀장이 이렇게 묻습니다.</p>
+  <div class="quote" style="margin:20px 0 44px">“그래서 <span class="hl">뭘 하자는 거야?</span>”</div>
+  <p>이 질문에 막힌 적이 있다면, 오늘 이야기가 도움이 됩니다.</p>
+</section>
+
+<!-- 4 ═══ 왜 이 시간을 먼저 하는가 ═══ -->
+<section class="slide" data-ch="">
+  <h2 class="tight">이 시간을 왜 먼저 하나</h2>
+  <p class="small dim gap-sm">코드는 오후에 충분히 만집니다</p>
+  <div class="cols eq">
+    <div class="card">
+      <h3>도구가 대신 해 주는 일</h3>
+      <p>문법 외우기 · 코드 쓰기<br>계산하기 · 그래프 그리기</p>
+      <p class="small dim" style="margin-top:18px">검색하면 나오고, 물어보면 써 줍니다</p>
+    </div>
+    <div class="card blue">
+      <h3 style="color:var(--blue)">사람이 해야 하는 일</h3>
+      <p><strong>무엇을 물어볼지</strong> 정하기<br>
+         <strong>나온 숫자를 해석</strong>하기<br>
+         <strong>한계를 밝히기</strong></p>
+    </div>
+  </div>
+  <p style="margin-top:42px">그래서 <mark>먼저 이 이야기를 하고</mark>, 나머지 시간에 도구로 확인합니다.</p>
+</section>
+
+<!-- 5 ═══ 챕터 1 ═══ -->
+<section class="slide chapter" data-ch="1. 분석은 왜 하는가">
+  <div class="num">01</div>
+  <h2>분석은<br>무엇을 하는 일인가</h2>
+  <p class="lead">목적 · 잘한다는 것의 기준</p>
+</section>
+
+<!-- 6 ═══ 목적 ═══ -->
+<section class="slide" data-ch="1. 분석은 왜 하는가">
+  <h2>분석의 목적은 <span class="hl">결정을 바꾸는 것</span></h2>
+  <p class="gap-sm">분석 결과가 나왔는데 <strong>아무 행동도 달라지지 않는다면</strong>,<br>
+     그 분석은 하지 않은 것과 같습니다.</p>
+  <div class="card blue">
+    <p>그래서 시작하기 전에 이걸 먼저 묻습니다.</p>
+    <p style="margin-top:20px;font-size:44px;color:var(--ink);font-weight:800;line-height:1.4">
+      “결과가 A로 나오면 무엇을 하고,<br>B로 나오면 무엇을 합니까?”</p>
+  </div>
+  <p style="margin-top:38px">둘 다 <mark>같은 행동을 할 거라면</mark>, 그 분석은 안 해도 됩니다.</p>
+</section>
+
+<!-- 7 ═══ 분석가가 하는 일 ═══ -->
+<section class="slide" data-ch="1. 분석은 왜 하는가">
+  <h2 class="tight sm">분석가는 실제로 무엇을 하며 시간을 쓰나</h2>
+  <p class="small dim gap-sm">복잡한 모델을 돌리는 시간은 생각보다 짧습니다</p>
+  <table class="compact">
+    <tr><th style="width:52%">하는 일</th><th style="width:20%">시간 비중</th><th>오늘</th></tr>
+    <tr><td>무엇을 물어볼지 정하기</td><td class="dim">—</td><td>0교시 · 7교시</td></tr>
+    <tr><td>데이터가 뭔지 파악하기</td><td>큼</td><td>1교시</td></tr>
+    <tr><td>지저분한 데이터 다듬기</td><td><strong>가장 큼</strong></td><td>2교시</td></tr>
+    <tr><td>묶고 비교하기</td><td>큼</td><td>3교시</td></tr>
+    <tr><td>숫자가 말이 되는지 확인하기</td><td>큼</td><td>4교시</td></tr>
+    <tr><td>남에게 설명하기</td><td>큼</td><td>5교시</td></tr>
+    <tr><td>우연인지 아닌지 재기</td><td class="dim">작음</td><td>6교시</td></tr>
+  </table>
+</section>
+
+<!-- 8 ═══ 잘한다는 것 ═══ -->
+<section class="slide" data-ch="1. 분석은 왜 하는가">
+  <h2 class="tight">분석을 잘한다는 것</h2>
+  <p class="small dim gap-sm">좋은 모델을 쓰는 것과는 관계가 적습니다</p>
+  <div class="cols3">
+    <div class="card">
+      <h3>① 질문을 바꾼다</h3>
+      <p>막연한 질문을<br><strong>답할 수 있는 질문</strong>으로</p>
+    </div>
+    <div class="card">
+      <h3>② 정직하게 읽는다</h3>
+      <p>고른 것과 뺀 것을<br><strong>밝히면서</strong> 해석</p>
+    </div>
+    <div class="card">
+      <h3>③ 한계를 말한다</h3>
+      <p>“여기까지만 말할 수 있습니다”<br>라고 <strong>적을 수 있는가</strong></p>
+    </div>
+  </div>
+</section>
+
+<!-- 9 ═══ 질문 바꾸기 ═══ -->
+<section class="slide" data-ch="1. 분석은 왜 하는가">
+  <h2 class="tight">① 질문을 바꾼다는 것</h2>
+  <p class="small dim gap-sm">업무에서 오는 질문은 대개 이렇게 생겼습니다</p>
+  <div class="cols eq">
+    <div class="card bad">
+      <h3 style="color:var(--red)">받은 질문</h3>
+      <p style="font-size:40px;color:var(--ink);font-weight:700">“요즘 왜 이렇게<br>안 되지?”</p>
+      <p class="small" style="margin-top:20px;color:var(--red)">데이터로 답할 수 없습니다</p>
+    </div>
+    <div class="card good">
+      <h3 style="color:var(--green)">바꾼 질문</h3>
+      <p style="font-size:34px;color:var(--ink);font-weight:700">
+        “최근 3개월 매출이 작년 같은 기간보다 줄었는가?<br>
+         줄었다면 <span style="color:var(--green)">어느 품목</span>에서 줄었는가?”</p>
+    </div>
+  </div>
+  <p style="margin-top:40px">여기서 <mark>실력 차이가 가장 크게</mark> 납니다.</p>
+</section>
+
+<!-- 10 ═══ 챕터 2 ═══ -->
+<section class="slide chapter" data-ch="2. 무엇을 재는가">
+  <div class="num">02</div>
+  <h2>분석의 재료는<br>비교입니다</h2>
+  <p class="lead">기준선 · 그리고 도구들이 존재하는 이유</p>
+</section>
+
+<!-- 11 ═══ 매출 3억 ═══ -->
+<section class="slide" data-ch="2. 무엇을 재는가">
+  <div class="eyebrow">회의에서 들은 말</div>
+  <div class="quote" style="margin-bottom:44px">“이번 분기 매출은 <span class="hl">3억</span>입니다.”</div>
+  <p class="gap-sm">좋은 소식입니까, 나쁜 소식입니까?</p>
+  <div class="cols3">
+    <div class="card"><p>지난 분기가 <strong>2억</strong>이었다면</p><p class="stat sm good">좋음</p></div>
+    <div class="card"><p>지난 분기가 <strong>5억</strong>이었다면</p><p class="stat sm bad">나쁨</p></div>
+    <div class="card"><p>목표가 <strong>4억</strong>이었다면</p><p class="stat sm bad">미달</p></div>
+  </div>
+  <p style="margin-top:40px">숫자 하나로는 판단할 수 없습니다. <mark>무언가와 견주어야</mark> 의미가 생깁니다.</p>
+</section>
+
+<!-- 12 ═══ 기준선 ═══ -->
+<section class="slide" data-ch="2. 무엇을 재는가">
+  <h2 class="tight">그럼 무엇과 견줄 것인가</h2>
+  <p class="small dim gap-sm">견줄 대상을 기준선이라고 부르겠습니다</p>
+  <table class="compact">
+    <tr><th style="width:24%">기준선</th><th>예</th></tr>
+    <tr><td>시간</td><td>전월 대비 · 전년 동월 대비</td></tr>
+    <tr><td>계획</td><td>목표 대비</td></tr>
+    <tr><td>집단</td><td>다른 지역 · 다른 품목 · 다른 고객군</td></tr>
+    <tr><td>전체</td><td>평균 대비</td></tr>
+  </table>
+  <div class="card warn" style="margin-top:38px">
+    <p><strong>오늘 3교시에서 직접 확인합니다.</strong> 같은 달 매출이
+       전월 대비로는 <span style="color:var(--red);font-weight:800">−5.3%</span>,
+       전년 동월 대비로는 <span style="color:var(--green);font-weight:800">+39.3%</span>가 됩니다.</p>
+  </div>
+</section>
+
+<!-- 13 ═══ 도구는 무엇을 재나 ═══ -->
+<section class="slide" data-ch="2. 무엇을 재는가">
+  <h2 class="tight sm">오늘 배우는 것들은 전부 “얼마나 다른가”를 재는 도구입니다</h2>
+  <table class="compact" style="margin-top:24px">
+    <tr><th style="width:28%">도구</th><th>무엇을 재는가</th></tr>
+    <tr><td>평균</td><td>대체로 어디쯤인가</td></tr>
+    <tr><td>중앙값</td><td>한가운데는 어디인가</td></tr>
+    <tr><td>분산 · 표준편차</td><td>얼마나 흩어져 있는가</td></tr>
+    <tr><td>분포</td><td>어떤 모양으로 퍼져 있는가</td></tr>
+    <tr><td>상관</td><td>두 값이 같이 움직이는가</td></tr>
+    <tr><td>검정</td><td>이 차이가 우연일 수 있는가</td></tr>
+  </table>
+</section>
+
+<!-- 14 ═══ 평균은 왜 ═══ -->
+<section class="slide" data-ch="2. 무엇을 재는가">
+  <h2 class="tight">평균은 왜 찍나</h2>
+  <p class="gap-sm">1만 건을 하나하나 볼 수 없으니 <strong>하나로 줄여서</strong> 말하는 것입니다.</p>
+  <div class="card bad">
+    <h3 style="color:var(--red)">그런데 줄이는 과정에서 정보가 사라집니다</h3>
+    <p>값들이 <strong>어떻게 흩어져 있는지</strong>가 평균에는 남지 않습니다.</p>
+  </div>
+  <div class="card blue" style="margin-top:32px">
+    <p><strong>오늘 4교시에서 보게 될 것</strong> — 평균 주문금액이 239인데,
+       실제 주문의 <span class="hl">77%가 그보다 적습니다.</span></p>
+    <p class="small dim" style="margin-top:12px">큰 주문 몇 개가 평균을 끌어올렸기 때문입니다</p>
+  </div>
+</section>
+
+<!-- 15 ═══ 분산은 왜 ═══ -->
+<section class="slide" data-ch="2. 무엇을 재는가">
+  <h2 class="tight">분산·표준편차는 왜 보나</h2>
+  <p class="gap-sm"><mark>평균을 얼마나 믿어도 되는지</mark> 알려 주기 때문입니다.</p>
+  <div class="cols eq">
+    <div class="card good">
+      <h3 style="color:var(--green)">흩어짐이 작다</h3>
+      <p>배송 일수 — 평균 <strong>4일</strong></p>
+      <p style="margin-top:14px">“보통 4일 걸립니다”<br>라고 말해도 됩니다</p>
+    </div>
+    <div class="card bad">
+      <h3 style="color:var(--red)">흩어짐이 크다</h3>
+      <p>주문 금액 — 평균 <strong>239</strong></p>
+      <p style="margin-top:14px">“보통 239 정도입니다”<br>라고 말할 수 없습니다</p>
+    </div>
+  </div>
+  <p style="margin-top:38px">그래서 평균을 보고할 때는 <strong>흩어짐을 함께 보는 것</strong>이 기본입니다.</p>
+</section>
+
+<!-- 16 ═══ 분포 · EDA · 상관 ═══ -->
+<section class="slide" data-ch="2. 무엇을 재는가">
+  <h2 class="tight sm">분포 · EDA · 상관은 왜 보나</h2>
+  <div class="cols3" style="margin-top:20px">
+    <div class="card">
+      <h3>분포는 왜 중요한가</h3>
+      <p>숫자 몇 개로 짐작하는 대신 <strong>모양을 한 번에</strong> 봅니다.</p>
+      <p class="small dim" style="margin-top:16px">매출·소득·방문 횟수는 대부분 한쪽으로 치우쳐 있습니다</p>
+    </div>
+    <div class="card">
+      <h3>EDA는 무엇을 하나</h3>
+      <p>결론을 내기 전에 <strong>둘러보는 단계</strong>입니다.</p>
+      <p class="small dim" style="margin-top:16px">가설을 검증하는 게 아니라, 무엇을 물어야 할지 찾습니다</p>
+    </div>
+    <div class="card">
+      <h3>상관은 왜 보나</h3>
+      <p>두 값이 <strong>같이 움직이는지</strong> 봅니다.</p>
+      <p class="small dim" style="margin-top:16px">여기에 오늘 가장 조심할 함정이 붙어 있습니다</p>
+    </div>
+  </div>
+</section>
+
+<!-- 17 ═══ 챕터 3 ═══ -->
+<section class="slide chapter" data-ch="3. 데이터를 받았을 때">
+  <div class="num">03</div>
+  <h2>파일 하나가<br>덩그러니 왔습니다</h2>
+  <p class="lead">이때 무엇을 하고 있는 것인가</p>
+</section>
+
+<!-- 18 ═══ 이미 정해져 있다 ═══ -->
+<section class="slide" data-ch="3. 데이터를 받았을 때">
+  <h2 class="tight sm">우리가 받는 데이터는 이미 정해져 있습니다</h2>
+  <p class="gap-sm">그 파일이 무엇을 담고 있느냐가,
+     <strong>우리가 물어볼 수 있는 질문</strong>을 정합니다.</p>
+  <div class="card blue">
+    <p>그래서 데이터를 열면 가장 먼저 묻는 것은 “무엇을 분석할까”가 아니라</p>
+    <p style="margin-top:18px;font-size:42px;color:var(--ink);font-weight:800;line-height:1.4">
+      “이 데이터로 <span class="hl">무엇을 답할 수 있고</span><br>무엇을 답할 수 없는가”</p>
+  </div>
+  <p class="small dim" style="margin-top:34px">데이터는 현실이 아니라 <strong>현실의 기록</strong>입니다.
+     주문 테이블은 회계를 위해 만들어졌지, 분석을 위해 만들어지지 않았습니다.</p>
+</section>
+
+<!-- 19 ═══ 없는 데이터 ═══ -->
+<section class="slide" data-ch="3. 데이터를 받았을 때">
+  <h2 class="tight">없는 데이터가 더 중요할 때가 많습니다</h2>
+  <ul style="margin-bottom:34px">
+    <li>이탈한 고객은 만족도 설문에 <strong>응답하지 않습니다</strong></li>
+    <li>실패한 프로젝트는 보고서로 <strong>남지 않습니다</strong></li>
+    <li>주문 데이터에는 <strong>산 사람만</strong> 있습니다</li>
+  </ul>
+  <div class="card bad">
+    <p>그래서 주문 데이터로 <strong>“왜 사는가”</strong>에는 답할 수 있어도,<br>
+       <span style="color:var(--red);font-weight:800">“왜 안 사는가”</span>에는 답할 수 없습니다.
+       그 사람들은 데이터에 없기 때문입니다.</p>
+  </div>
+</section>
+
+<!-- 20 ═══ 모집단 표본 ═══ -->
+<section class="slide" data-ch="3. 데이터를 받았을 때">
+  <h2 class="tight">우리가 가진 것은 전체가 아니라 일부입니다</h2>
+  <div class="cols eq" style="margin-bottom:36px">
+    <div class="card"><h3>모집단</h3><p>알고 싶은 대상 <strong>전체</strong></p>
+      <p class="small dim" style="margin-top:12px">예: 우리 고객 전부</p></div>
+    <div class="card blue"><h3 style="color:var(--blue)">표본</h3><p>실제로 손에 있는 <strong>데이터</strong></p>
+      <p class="small dim" style="margin-top:12px">예: 이번 분기 주문 기록</p></div>
+  </div>
+  <p>표본이 다르면 숫자도 조금씩 달라집니다. 그래서 두 집단을 재서 숫자가 다르게 나왔을 때,<br>
+     <mark>진짜 차이인지 그냥 흔들림인지</mark> 알 수 없습니다.</p>
+  <p class="small dim" style="margin-top:20px">이걸 재기 위해 통계 검정이 있습니다 — 6교시</p>
+</section>
+
+<!-- 21 ═══ 챕터 4 ═══ -->
+<section class="slide chapter" data-ch="4. 결론을 낼 때">
+  <div class="num">04</div>
+  <h2>결론을 낼 때<br>조심할 것 셋</h2>
+  <p class="lead">요약 · 인과 · 그리고 나 자신</p>
+</section>
+
+<!-- 22 ═══ 요약 ═══ -->
+<section class="slide" data-ch="4. 결론을 낼 때">
+  <h2 class="tight">① 요약하면 반드시 무언가가 버려집니다</h2>
+  <ul style="margin-bottom:32px">
+    <li><strong>평균</strong>은 흩어짐을 버립니다</li>
+    <li><strong>합계</strong>는 몇 건인지, 건당 얼마인지를 함께 버립니다</li>
+    <li><strong>전체 수치</strong>는 지역별·품목별 차이를 버립니다</li>
+  </ul>
+  <div class="card blue">
+    <p>버리는 것 자체는 문제가 아닙니다. 요약하지 않으면 아무것도 말할 수 없습니다.<br>
+       문제는 <strong>무엇을 버렸는지 모르는 채로 보고하는 것</strong>입니다.</p>
+  </div>
+  <p class="small dim" style="margin-top:30px">3교시에서 보게 됩니다 — 전체 이익은 잘 나오는데,
+     지역과 품목을 교차하면 팔수록 손해인 조합이 하나 나옵니다</p>
+</section>
+
+<!-- 23 ═══ 인과 ═══ -->
+<section class="slide" data-ch="4. 결론을 낼 때">
+  <h2 class="tight">② 상관은 인과가 아닙니다</h2>
+  <p class="small dim gap-sm">오늘 6교시에서 실제로 보게 될 데이터입니다</p>
+  <div class="cols eq" style="margin-bottom:34px">
+    <div class="card good"><h3 style="color:var(--green)">배송 약속을 지킨 주문</h3><p class="stat good">4.29점</p></div>
+    <div class="card bad"><h3 style="color:var(--red)">약속을 넘긴 주문</h3><p class="stat bad">2.27점</p></div>
+  </div>
+  <p class="gap-sm">그럼 <strong>“배송을 빨리 하면 별점이 오른다”</strong>고 말해도 됩니까?</p>
+  <div class="card warn">
+    <p><strong>아직 모릅니다.</strong> 늦은 주문은 애초에 먼 지역이거나, 무거운 물건이거나,
+       재고가 없던 상품일 수 있습니다.</p>
+    <p style="margin-top:16px">인과를 말하려면 이 질문에 답해야 합니다 —
+       <mark>“그렇게 하지 않았다면 어땠을까?”</mark></p>
+  </div>
+</section>
+
+<!-- 24 ═══ 편향 ═══ -->
+<section class="slide" data-ch="4. 결론을 낼 때">
+  <h2 class="tight">③ 가장 큰 편향은 분석가 자신입니다</h2>
+  <p class="gap-sm">사람은 보고 싶은 것을 봅니다.
+     그리고 결과를 본 다음에 <strong>“그럴 줄 알았다”</strong>고 생각합니다.</p>
+  <div class="card bad">
+    <p>도구는 이걸 막아 주지 않습니다. <strong>오히려 더 위험해졌습니다.</strong><br>
+       원하는 결과가 나올 때까지 조건을 바꿔 돌려 보는 일이 예전보다 훨씬 쉬워졌기 때문입니다.</p>
+  </div>
+  <div class="card good" style="margin-top:30px">
+    <p style="font-size:42px;color:var(--ink);font-weight:800">막는 방법은 사실상 하나입니다.<br>
+       <span style="color:var(--green)">데이터를 열기 전에 예상을 적어 둡니다.</span></p>
+  </div>
+  <p class="small dim" style="margin-top:28px">6교시 맨 앞에서 실제로 적고, 맨 뒤에서 다시 꺼내 맞춰 봅니다</p>
+</section>
+
+<!-- 25 ═══ 절차 ═══ -->
+<section class="slide" data-ch="5. 오늘의 순서">
+  <h2 class="tight">그래서 어떤 순서로 하는가</h2>
+  <p class="small dim gap-sm">오늘 하루가 이 순서를 그대로 따라갑니다</p>
+  <div class="pipe" style="margin-bottom:26px">
+    <div class="pnode fill"><div class="pt">질문</div><div class="pd">무엇을 결정하나</div></div>
+    <div class="arrow">→</div>
+    <div class="pnode"><div class="pt">데이터 확인</div><div class="pd">누구에 대한 것인가</div></div>
+    <div class="arrow">→</div>
+    <div class="pnode"><div class="pt">다듬기</div><div class="pd">무엇을 버리나</div></div>
+    <div class="arrow">→</div>
+    <div class="pnode"><div class="pt">견주기</div><div class="pd">무엇과 비교하나</div></div>
+  </div>
+  <div style="text-align:right;color:var(--blue);font-size:32px;font-weight:800;margin:8px 42px 8px 0">↓</div>
+  <div class="pipe">
+    <div class="pnode fill"><div class="pt">결론과 한계</div><div class="pd">뭘 다르게 하나</div></div>
+    <div class="arrow">←</div>
+    <div class="pnode"><div class="pt">재기</div><div class="pd">우연일 수 있나</div></div>
+    <div class="arrow">←</div>
+    <div class="pnode"><div class="pt">보여주기</div><div class="pd">맞는 그림인가</div></div>
+    <div class="arrow">←</div>
+    <div class="pnode"><div class="pt">모양 보기</div><div class="pd">숫자 뒤에 뭐가 있나</div></div>
+  </div>
+</section>
+
+<!-- 26 ═══ 교시 매핑 ═══ -->
+<section class="slide" data-ch="5. 오늘의 순서">
+  <h2 class="tight sm">각 단계에서 던지는 질문</h2>
+  <table class="compact" style="margin-top:20px">
+    <tr><th style="width:16%">교시</th><th style="width:32%">하는 일</th><th>던지는 질문</th></tr>
+    <tr><td>1교시</td><td>데이터 열기</td><td>이 데이터는 누구를 대표하는가</td></tr>
+    <tr><td>2교시</td><td>다듬기</td><td>이 빈칸은 왜 비었는가</td></tr>
+    <tr><td>3교시</td><td>묶고 견주기</td><td>무엇과 비교할 것인가</td></tr>
+    <tr><td>4교시</td><td>모양 보기</td><td>이 평균을 믿어도 되는가</td></tr>
+    <tr><td>5교시</td><td>보여주기</td><td>이 그림이 오해를 부르지 않는가</td></tr>
+    <tr><td>6교시</td><td>재기</td><td>이 차이가 우연일 수 있는가</td></tr>
+    <tr><td>7교시</td><td>결론</td><td>그래서 무엇을 다르게 할 것인가</td></tr>
+  </table>
+</section>
+
+<!-- 27 ═══ 가져갈 것 ═══ -->
+<section class="slide" data-ch="5. 오늘의 순서">
+  <h2 class="tight">도구가 대신 해 주지 않는 다섯 가지</h2>
+  <table style="margin-top:20px">
+    <tr><td style="width:34%">무엇을 물어볼지</td><td>결과가 어느 쪽이든 같은 행동이면 안 해도 됩니다</td></tr>
+    <tr><td>무엇을 버릴지</td><td>정답이 없고, 결과 숫자를 바꿉니다</td></tr>
+    <tr><td>무엇과 견줄지</td><td>기준선을 고르면 결론의 방향이 정해집니다</td></tr>
+    <tr><td>숫자를 어떻게 읽을지</td><td>상관이 나왔다고 원인을 안 것은 아닙니다</td></tr>
+    <tr><td>한계를 어떻게 밝힐지</td><td>모른다고 적을 수 있어야 합니다</td></tr>
+  </table>
+</section>
+
+<!-- 28 ═══ 마무리 ═══ -->
+<section class="slide thesis" data-ch="">
+  <div class="t sm">이제 도구를 잡고,<br>지금까지의 이야기를<br><mark>하나씩 확인해 보겠습니다</mark></div>
+  <p class="lead dim" style="margin-top:56px">1교시 — 데이터를 파이썬 안으로 가져오는 법</p>
+</section>
+
+  <div class="bar" id="bar"></div>
+  <div class="chip" id="chip"></div>
+  <div class="pager" id="pager"></div>
+  <div class="keys">
+    <span class="kbd">&#8592;</span><span class="kbd">&#8594;</span>
+    <span class="kbd">F</span><span class="kbd">D</span>
+  </div>
+</div>
+
+<script>
+(function(){
+  const stage  = document.getElementById('stage');
+  const slides = Array.from(document.querySelectorAll('.slide'));
+  const bar    = document.getElementById('bar');
+  const pager  = document.getElementById('pager');
+  const chip   = document.getElementById('chip');
+  let i = 0;
+
+  function fit(){
+    const s = Math.min(innerWidth / 1920, innerHeight / 1080);
+    stage.style.transform = 'translate(-50%, -50%) scale(' + s + ')';
+  }
+  addEventListener('resize', fit);
+
+  function show(n){
+    i = Math.max(0, Math.min(slides.length - 1, n));
+    slides.forEach((s, k) => s.classList.toggle('on', k === i));
+    bar.style.width = ((i + 1) / slides.length * 100) + '%';
+    pager.innerHTML = '<b>' + (i + 1) + '</b> / ' + slides.length;
+    chip.textContent = slides[i].dataset.ch || '';
+    document.body.classList.toggle('chapter-on', slides[i].classList.contains('chapter'));
+    history.replaceState(null, '', '#' + (i + 1));
+  }
+
+  function theme(next){
+    document.documentElement.setAttribute('data-theme', next);
+    try { localStorage.setItem('ak-da-deck-theme', next); } catch (e) {}
+  }
+
+  addEventListener('keydown', e => {
+    if (['ArrowRight','PageDown',' ','Enter'].includes(e.key)) { e.preventDefault(); show(i + 1); }
+    else if (['ArrowLeft','PageUp','Backspace'].includes(e.key)) { e.preventDefault(); show(i - 1); }
+    else if (e.key === 'Home') show(0);
+    else if (e.key === 'End') show(slides.length - 1);
+    else if (e.key === 'f' || e.key === 'F') {
+      if (document.fullscreenElement) document.exitFullscreen();
+      else document.documentElement.requestFullscreen();
+    }
+    else if (e.key === 'd' || e.key === 'D') {
+      theme(document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+    }
+  });
+
+  addEventListener('click', e => { show(e.clientX < innerWidth * 0.25 ? i - 1 : i + 1); });
+
+  let x0 = null;
+  addEventListener('touchstart', e => { x0 = e.changedTouches[0].clientX; }, {passive:true});
+  addEventListener('touchend', e => {
+    if (x0 === null) return;
+    const dx = e.changedTouches[0].clientX - x0;
+    if (Math.abs(dx) > 45) show(dx < 0 ? i + 1 : i - 1);
+    x0 = null;
+  }, {passive:true});
+
+  try {
+    const saved = localStorage.getItem('ak-da-deck-theme');
+    if (saved) document.documentElement.setAttribute('data-theme', saved);
+  } catch (e) {}
+
+  fit();
+  const start = parseInt(location.hash.replace('#',''), 10);
+  show(Number.isFinite(start) && start > 0 ? start - 1 : 0);
+})();
+</script>
+</body>
+</html>
