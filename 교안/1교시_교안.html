@@ -105,6 +105,18 @@ tr:last-child td{border-bottom:0}
 table.compact{font-size:30px}
 table.compact th,table.compact td{padding:15px 24px}
 
+.titlerow{display:flex;align-items:center;gap:30px;margin-bottom:20px}
+.titlerow h2{margin-bottom:0}
+.logo{height:92px;width:auto;flex:0 0 auto;display:block}
+.logo.sq{height:84px}
+.logo.wide{height:62px}
+/* 어두운 배경에서 짙은 로고가 묻히므로 흰 배지를 깔아 준다 */
+html[data-theme="dark"] .logo.onlight{background:#fff;border-radius:12px;padding:10px 16px;box-sizing:content-box}
+.logochip{display:inline-flex;align-items:center;gap:16px;
+  border:1px solid var(--line);border-radius:16px;padding:14px 22px;background:var(--bg)}
+.logochip .logo{height:52px}
+.logochip .nm{font-size:28px;font-weight:800;color:var(--ink)}
+
 .cover{justify-content:center}
 .rule{height:5px;width:170px;background:var(--blue);border-radius:5px;margin:48px 0}
 .chapter{justify-content:center;background:var(--chapter-bg)}
@@ -185,7 +197,13 @@ body.chapter-on .kbd{border-color:rgba(255,255,255,.45);color:rgba(255,255,255,.
 
 <!-- 4 Colab -->
 <section class="slide" data-ch="1교시">
-  <h2 class="tight">Colab — 구글이 빌려주는 컴퓨터</h2>
+  <div class="titlerow"><svg class="logo sq" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true"><g>
+      <path d="M4.54,9.46,2.19,7.1a6.93,6.93,0,0,0,0,9.79l2.36-2.36A3.59,3.59,0,0,1,4.54,9.46Z" style="" fill="#E8710A"></path>
+      <path d="M2.19,7.1,4.54,9.46a3.59,3.59,0,0,1,5.08,0l1.71-2.93h0l-.1-.08h0A6.93,6.93,0,0,0,2.19,7.1Z" style="" fill="#F9AB00"></path>
+      <path d="M11.34,17.46h0L9.62,14.54a3.59,3.59,0,0,1-5.08,0L2.19,16.9a6.93,6.93,0,0,0,9,.65l.11-.09" style="" fill="#F9AB00"></path>
+      <path d="M12,7.1a6.93,6.93,0,0,0,0,9.79l2.36-2.36a3.59,3.59,0,1,1,5.08-5.08L21.81,7.1A6.93,6.93,0,0,0,12,7.1Z" style="" fill="#F9AB00"></path>
+      <path d="M21.81,7.1,19.46,9.46a3.59,3.59,0,0,1-5.08,5.08L12,16.9A6.93,6.93,0,0,0,21.81,7.1Z" style="" fill="#E8710A"></path>
+    </g></svg><h2 class="tight">Colab — 구글이 빌려주는 컴퓨터</h2></div>
   <p class="gap-sm">내 노트북에 파이썬을 설치하지 않습니다. <strong>브라우저만 있으면 됩니다.</strong></p>
   <div class="cols eq">
     <div class="card">
@@ -205,7 +223,7 @@ body.chapter-on .kbd{border-color:rgba(255,255,255,.45);color:rgba(255,255,255,.
 
 <!-- 5 파이썬 최소 -->
 <section class="slide" data-ch="1교시">
-  <h2 class="tight sm">파이썬 문법은 다섯 개만 봅니다</h2>
+  <div class="titlerow"><svg class="logo sq" viewBox="0.21 -0.077 110 110" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true"><linearGradient id="python_SVGID_1_" gradientUnits="userSpaceOnUse" x1="63.8159" y1="56.6829" x2="118.4934" y2="1.8225" gradientTransform="matrix(1 0 0 -1 -53.2974 66.4321)"> <stop offset="0" style="stop-color:#387EB8"/> <stop offset="1" style="stop-color:#366994"/></linearGradient><path fill="url(#python_SVGID_1_)" d="M55.023-0.077c-25.971,0-26.25,10.081-26.25,12.156c0,3.148,0,12.594,0,12.594h26.75v3.781 c0,0-27.852,0-37.375,0c-7.949,0-17.938,4.833-17.938,26.25c0,19.673,7.792,27.281,15.656,27.281c2.335,0,9.344,0,9.344,0 s0-9.765,0-13.125c0-5.491,2.721-15.656,15.406-15.656c15.91,0,19.971,0,26.531,0c3.902,0,14.906-1.696,14.906-14.406 c0-13.452,0-17.89,0-24.219C82.054,11.426,81.515-0.077,55.023-0.077z M40.273,8.392c2.662,0,4.813,2.15,4.813,4.813 c0,2.661-2.151,4.813-4.813,4.813s-4.813-2.151-4.813-4.813C35.46,10.542,37.611,8.392,40.273,8.392z"/><linearGradient id="python_SVGID_2_" gradientUnits="userSpaceOnUse" x1="97.0444" y1="21.6321" x2="155.6665" y2="-34.5308" gradientTransform="matrix(1 0 0 -1 -53.2974 66.4321)"> <stop offset="0" style="stop-color:#FFE052"/> <stop offset="1" style="stop-color:#FFC331"/></linearGradient><path fill="url(#python_SVGID_2_)" d="M55.397,109.923c25.959,0,26.282-10.271,26.282-12.156c0-3.148,0-12.594,0-12.594H54.897v-3.781 c0,0,28.032,0,37.375,0c8.009,0,17.938-4.954,17.938-26.25c0-23.322-10.538-27.281-15.656-27.281c-2.336,0-9.344,0-9.344,0 s0,10.216,0,13.125c0,5.491-2.631,15.656-15.406,15.656c-15.91,0-19.476,0-26.532,0c-3.892,0-14.906,1.896-14.906,14.406 c0,14.475,0,18.265,0,24.219C28.366,100.497,31.562,109.923,55.397,109.923z M70.148,101.454c-2.662,0-4.813-2.151-4.813-4.813 s2.15-4.813,4.813-4.813c2.661,0,4.813,2.151,4.813,4.813S72.809,101.454,70.148,101.454z"/></svg><h2 class="tight sm">파이썬 문법은 다섯 개만 봅니다</h2></div>
   <table class="compact" style="margin-top:20px">
     <tr><th style="width:26%">무엇</th><th>엑셀로 치면</th></tr>
     <tr><td>변수</td><td>셀에 이름을 붙이는 것</td></tr>
@@ -238,7 +256,7 @@ body.chapter-on .kbd{border-color:rgba(255,255,255,.45);color:rgba(255,255,255,.
 
 <!-- 7 DataFrame -->
 <section class="slide" data-ch="1교시">
-  <h2 class="tight">표를 담는 그릇 — DataFrame</h2>
+  <div class="titlerow"><svg class="logo wide onlight" viewBox="0 0 818.63 331.21" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs><style>.cls-1{fill:#130754;}.cls-2{fill:#ffca00;}.cls-3{fill:#e70488;}</style></defs><title>Artboard 63</title><path class="cls-1" d="M290.85,199.21c-10.27,0-20.73-4.25-27.28-12.58v45H243l0-111.09h18.6l.71,12.22c6.38-9.39,17.71-14.35,28.52-14.35,20.73,0,36,17.37,36,40.4S311.58,199.22,290.85,199.21Zm-6.37-65.55c-12.05,0-21.79,9.39-21.79,25.16S272.43,184,284.48,184s21.79-9.39,21.79-25.16S296.53,133.66,284.48,133.66Z"/><path class="cls-1" d="M404.36,197.1l-.71-12.22c-6.38,9.39-17.72,14.35-28.53,14.34-20.73,0-36-17.36-36-40.39s15.24-40.4,36-40.39c10.81,0,22.15,5,28.53,14.35l.71-12.22H423V197.1Zm-22.85-63.43c-12.05,0-21.79,9.39-21.8,25.16S369.45,184,381.5,184s21.8-9.39,21.8-25.16S393.56,133.67,381.51,133.67Z"/><path class="cls-1" d="M494.87,197.11V154.77c0-14.88-5.13-19.84-14.52-19.84-9.75,0-20.38,8.85-20.38,19.48v42.7H439.41V120.57H458.2l.89,14.18c5.14-9.75,16.65-16.3,28.35-16.3,20.37,0,28,14.18,28,33.13v45.54Z"/><path class="cls-1" d="M590.77,197.13l-.71-12.23c-6.38,9.39-17.72,14.35-28.52,14.35-20.73,0-36-17.37-36-40.4s15.24-40.39,36-40.39c10.27,0,20.72,4.26,27.28,12.58V90.83h20.56l0,106.3ZM567.92,133.7c-12,0-21.79,9.39-21.79,25.15S555.87,184,567.92,184s21.79-9.38,21.79-25.15S580,133.7,567.92,133.7Z"/><path class="cls-1" d="M686.6,197.14l-.71-12.22c-6.38,9.39-17.72,14.34-28.53,14.34-20.73,0-36-17.36-36-40.4s15.24-40.39,36-40.39c10.81,0,22.15,5,28.53,14.36l.71-12.23h18.6v76.53Zm-22.85-63.43c-12,0-21.79,9.39-21.8,25.16S651.7,184,663.74,184s21.8-9.39,21.8-25.16S675.8,133.71,663.75,133.71Z"/><path class="cls-1" d="M750.73,199.63a60.16,60.16,0,0,1-30.65-8.69l3.37-14.17c6.2,3.72,15.59,8.51,26.93,8.51,8.15,0,13.82-2.48,13.82-8.86,0-5.49-5.85-7.44-16.3-9.92-18.78-4.08-25.51-14-25.51-24.81,0-12.05,9.39-23.38,30.12-23.38,12.58,0,23.57,5.49,26,6.91l-3.37,13.47A44.59,44.59,0,0,0,753,132.31c-8.32,0-12.4,2.83-12.4,7.44,0,5.13,5.32,7.44,13.46,9.39,20.2,4.25,28.35,13.64,28.35,23.92C782.45,189.53,770.4,199.63,750.73,199.63Z"/><rect class="cls-1" x="74.88" y="68.42" width="24.09" height="50.02"/><rect class="cls-1" x="74.88" y="171.17" width="24.09" height="50.02"/><rect class="cls-2" x="74.88" y="133.04" width="24.09" height="23.6"/><rect class="cls-1" x="36.19" y="109.55" width="24.09" height="166.27"/><rect class="cls-1" x="112.78" y="212.44" width="24.09" height="50.02"/><rect class="cls-1" x="112.78" y="109.61" width="24.09" height="50.02"/><rect class="cls-3" x="112.78" y="174.23" width="24.09" height="23.6"/><rect class="cls-1" x="150.67" y="55.39" width="24.09" height="166.27"/></svg><h2 class="tight">표를 담는 그릇 — DataFrame</h2></div>
   <p class="gap-sm"><strong>엑셀 시트 하나</strong>라고 생각하면 정확합니다.</p>
   <div class="cols eq">
     <div class="card blue">
