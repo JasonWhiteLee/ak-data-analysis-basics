@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>5교시 정리 · 데이터분석 기초</title>
+<style>
+:root{
+  --blue:#1d63ed; --ink:#0d1220; --ink-2:#39415a; --ink-3:#767f95;
+  --bg:#ffffff; --panel:#f6f8fc; --panel-2:#ecf2fe; --line:#dde3ee; --line-2:#c3d1ea;
+  --red:#c4381f;   --red-bg:#fdf1ed;
+  --green:#0b7355; --green-bg:#eaf6f1;
+  --amber:#8f5c00; --amber-bg:#fdf6e6;
+  --shadow:0 2px 3px rgba(13,18,32,.04), 0 9px 33px rgba(13,18,32,.055);
+  --chapter-bg:#1d63ed;
+}
+html[data-theme="dark"]{
+  --blue:#5b93ff; --ink:#eef2fb; --ink-2:#b7c0d3; --ink-3:#828ca4;
+  --bg:#0b0f1a; --panel:#141a28; --panel-2:#182337; --line:#28324c; --line-2:#3a4763;
+  --red:#ff9d85;   --red-bg:#2b1a16;
+  --green:#5ed6ac; --green-bg:#0f2620;
+  --amber:#f0c26a; --amber-bg:#2b2216;
+  --shadow:0 2px 3px rgba(0,0,0,.3), 0 12px 39px rgba(0,0,0,.35);
+  --chapter-bg:#15326f;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;overflow:hidden}
+body{
+  background:var(--bg); color:var(--ink);
+  font-family:"Pretendard","Malgun Gothic","맑은 고딕","Apple SD Gothic Neo","Noto Sans KR",sans-serif;
+  -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
+  word-break:keep-all; overflow-wrap:break-word;
+  transition:background .3s ease, color .3s ease;
+}
+.stage{position:absolute;left:50%;top:50%;width:1920px;height:1080px;transform-origin:50% 50%;overflow:hidden}
+.slide{position:absolute;inset:0;display:none;flex-direction:column;justify-content:center;padding:84px 120px 104px}
+.slide.on{display:flex}
+.slide.on > *{animation:rise .4s cubic-bezier(.22,.9,.28,1) both}
+.slide.on > *:nth-child(2){animation-delay:.05s}
+.slide.on > *:nth-child(3){animation-delay:.1s}
+.slide.on > *:nth-child(4){animation-delay:.15s}
+@keyframes rise{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.slide.on > *{animation:none}}
+
+h1{font-size:118px;line-height:1.16;letter-spacing:-.018em;font-weight:800}
+h2{font-size:78px;line-height:1.26;letter-spacing:-.014em;font-weight:800;margin-bottom:48px}
+h2.tight{margin-bottom:20px}
+h2.sm{font-size:66px}
+h3{font-size:30px;font-weight:700;color:var(--ink-3);margin-bottom:16px}
+p{font-size:36px;line-height:1.66;color:var(--ink-2)}
+p strong,li strong,td strong{color:var(--ink);font-weight:700}
+.lead{font-size:46px;line-height:1.55;color:var(--ink-2)}
+.small{font-size:29px;line-height:1.64}
+.dim{color:var(--ink-3)}
+.gap-sm{margin-bottom:34px}
+.eyebrow{display:flex;align-items:center;gap:18px;font-size:21px;font-weight:800;
+  letter-spacing:.17em;color:var(--blue);text-transform:uppercase;margin-bottom:34px}
+.eyebrow::before{content:"";width:50px;height:3px;background:var(--blue);border-radius:3px;flex:0 0 auto}
+mark{color:inherit;font-weight:700;
+  background:color-mix(in srgb,var(--blue) 13%,transparent);
+  box-shadow:inset 0 -.13em 0 color-mix(in srgb,var(--blue) 42%,transparent);
+  padding:.08em .22em;border-radius:7px;
+  -webkit-box-decoration-break:clone;box-decoration-break:clone}
+.hl{color:var(--blue);font-weight:800}
+ul{list-style:none}
+ul li{font-size:36px;line-height:1.58;color:var(--ink-2);padding-left:46px;position:relative;margin-top:24px}
+ul li::before{content:"";position:absolute;left:11px;top:.62em;width:13px;height:13px;border-radius:50%;background:var(--blue)}
+ol.num{list-style:none;counter-reset:n}
+ol.num li{counter-increment:n;font-size:36px;line-height:1.55;color:var(--ink-2);
+  padding-left:74px;position:relative;margin-top:26px}
+ol.num li::before{content:counter(n);position:absolute;left:0;top:-2px;
+  width:50px;height:50px;border-radius:50%;background:var(--panel-2);color:var(--blue);
+  font-size:27px;font-weight:800;display:flex;align-items:center;justify-content:center}
+
+.card{border:1px solid var(--line);border-radius:20px;padding:40px 44px;background:var(--panel);box-shadow:var(--shadow)}
+.card.pad-sm{padding:30px 36px}
+.card.blue{border-color:var(--line-2);background:var(--panel-2)}
+.card.bad{border-color:color-mix(in srgb,var(--red) 32%,transparent);background:var(--red-bg)}
+.card.good{border-color:color-mix(in srgb,var(--green) 32%,transparent);background:var(--green-bg)}
+.card.warn{border-color:color-mix(in srgb,var(--amber) 34%,transparent);background:var(--amber-bg)}
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:42px;align-items:start}
+.cols.eq{align-items:stretch}
+.cols.eq>.card{display:flex;flex-direction:column}
+.cols3{display:grid;grid-template-columns:repeat(3,1fr);gap:32px;align-items:stretch}
+.cols3 .card{display:flex;flex-direction:column}
+.stat{font-size:72px;font-weight:800;letter-spacing:-.03em;line-height:1.12;margin-top:4px}
+.stat.bad{color:var(--red)} .stat.good{color:var(--green)}
+code{font-family:"Cascadia Mono",Consolas,"D2Coding",ui-monospace,monospace;
+  background:var(--panel-2);border:1px solid var(--line);padding:.1em .38em;border-radius:8px;
+  font-size:.88em;color:var(--ink);word-break:normal}
+
+/* 오늘 어디쯤인가 — 진행 표시 */
+.steps{display:flex;gap:12px;align-items:stretch;margin-top:14px}
+.step{flex:1 1 0;border:2px solid var(--line);border-radius:14px;padding:20px 10px;text-align:center;
+  background:var(--panel);color:var(--ink-3);font-size:24px;font-weight:700;line-height:1.35}
+.step.now{background:var(--blue);border-color:var(--blue);color:#fff;font-weight:800}
+.step.done{background:var(--panel-2);border-color:var(--line-2);color:var(--blue)}
+
+table{width:100%;border-collapse:collapse;font-size:34px}
+th,td{text-align:left;padding:22px 28px;border-bottom:1px solid var(--line);line-height:1.45}
+th{font-size:26px;color:var(--ink-3);font-weight:800;letter-spacing:.04em}
+td{color:var(--ink-2)}
+td:first-child{font-weight:700;color:var(--ink);white-space:nowrap}
+tr:last-child td{border-bottom:0}
+table.compact{font-size:30px}
+table.compact th,table.compact td{padding:15px 24px}
+
+.titlerow{display:flex;align-items:center;gap:30px;margin-bottom:20px}
+.titlerow h2{margin-bottom:0}
+.logo{height:92px;width:auto;flex:0 0 auto;display:block}
+.logo.sq{height:84px}
+.logo.wide{height:62px}
+/* 어두운 배경에서 짙은 로고가 묻히므로 흰 배지를 깔아 준다 */
+html[data-theme="dark"] .logo.onlight{background:#fff;border-radius:12px;padding:10px 16px;box-sizing:content-box}
+.logochip{display:inline-flex;align-items:center;gap:16px;
+  border:1px solid var(--line);border-radius:16px;padding:14px 22px;background:var(--bg)}
+.logochip .logo{height:52px}
+.logochip .nm{font-size:28px;font-weight:800;color:var(--ink)}
+
+.cover{justify-content:center}
+.rule{height:5px;width:170px;background:var(--blue);border-radius:5px;margin:48px 0}
+.chapter{justify-content:center;background:var(--chapter-bg)}
+.chapter .num{font-size:178px;font-weight:800;line-height:1;letter-spacing:-.05em;color:#fff;opacity:.34;margin-bottom:22px}
+.chapter h2{margin:0 0 28px;font-size:92px;color:#fff}
+.chapter .lead{color:rgba(255,255,255,.78)}
+body.chapter-on .bar{background:#fff}
+body.chapter-on .chip,body.chapter-on .pager{color:rgba(255,255,255,.78)}
+body.chapter-on .pager b{color:#fff}
+body.chapter-on .keys{color:rgba(255,255,255,.6)}
+body.chapter-on .kbd{border-color:rgba(255,255,255,.45);color:rgba(255,255,255,.75)}
+.thesis{align-items:center;justify-content:center;text-align:center}
+.thesis .t{font-size:80px;line-height:1.42;font-weight:800;letter-spacing:-.018em;color:var(--ink);max-width:1520px}
+.thesis .t.sm{font-size:64px}
+.thesis .t mark{background:color-mix(in srgb,var(--blue) 15%,transparent)}
+
+.bar{position:absolute;left:0;bottom:0;height:5px;background:var(--blue);
+  transition:width .32s cubic-bezier(.22,.9,.28,1);z-index:9;border-radius:0 5px 5px 0}
+.chip{position:absolute;left:124px;bottom:40px;z-index:9;font-size:22px;font-weight:800;letter-spacing:.11em;color:var(--ink-3)}
+.pager{position:absolute;right:124px;bottom:40px;z-index:9;font-size:22px;color:var(--ink-3);
+  font-variant-numeric:tabular-nums;letter-spacing:.09em}
+.pager b{color:var(--ink);font-weight:800}
+.keys{position:absolute;right:124px;top:40px;z-index:9;display:flex;gap:9px;font-size:19px;color:var(--ink-3);opacity:.42}
+.kbd{border:1px solid var(--line-2);border-bottom-width:3px;border-radius:7px;padding:4px 10px;
+  font-family:ui-monospace,monospace;color:var(--ink-2)}
+@media print{
+  @page{size:1920px 1080px;margin:0}
+  html,body{overflow:visible;height:auto;background:#fff}
+  .stage{position:static;transform:none !important;width:1920px;height:auto;overflow:visible}
+  .slide{display:flex !important;position:relative;inset:auto;width:1920px;height:1080px;page-break-after:always;break-after:page}
+  .slide>*{animation:none !important}
+  .bar,.chip,.pager,.keys{display:none}
+}
+.fig{border:1px solid var(--line);border-radius:14px;overflow:hidden;background:#fff}
+.fig img{display:block;width:100%;height:auto}
+.figcap{font-size:21px;color:var(--ink-3);text-align:center;margin-top:10px;font-weight:700}
+.figrow{display:grid;grid-template-columns:1fr 1fr;gap:38px;align-items:center}
+.figwide{max-width:1500px;margin:0 auto}
+.sec{font-size:24px;font-weight:800;color:var(--blue);letter-spacing:.06em;margin-bottom:8px}
+.defn{font-size:34px;line-height:1.6;margin-bottom:24px}
+
+.sec{font-size:24px;font-weight:800;color:var(--blue);letter-spacing:.06em;margin-bottom:8px}
+.defn{font-size:31px;line-height:1.6;margin-bottom:22px}
+.blk{border:1px solid var(--line);border-radius:14px;overflow:hidden;margin-bottom:18px}
+.blk .lbl{background:var(--panel-2);color:var(--ink-3);font-size:20px;font-weight:800;
+          letter-spacing:.08em;padding:8px 22px;border-bottom:1px solid var(--line)}
+.blk pre{margin:0;padding:18px 24px;font-family:"Consolas","Cascadia Mono",monospace;
+         font-size:25px;line-height:1.5;color:var(--ink);white-space:pre;overflow-x:auto}
+.blk.out pre{background:var(--panel);color:var(--ink-2)}
+.note{font-size:25px;line-height:1.6;color:var(--ink-2);border-left:4px solid var(--amber);
+      padding-left:20px;margin-top:6px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:34px;align-items:start}
+h2.k{font-size:60px}
+</style>
+</head>
+<body>
+<div class="stage" id="stage">
+
+<!-- 1 표지 -->
+<section class="slide cover" data-ch="">
+  <div class="eyebrow">5교시 정리</div>
+  <h1>데이터 시각화</h1>
+  <div class="rule"></div>
+  <p class="lead">이 시간에 쓴 코드와 실행 결과</p>
+</section>
+
+<section class="slide" data-ch="5교시 정리">
+  <div class="sec">5.1</div>
+  <h2 class="tight k">그래프 그리는 순서</h2>
+  <p class="defn">Pandas 는 <strong>자료를 만들고 &#8594; 그리고 &#8594; 꾸민다</strong> 세 단계로 그린다.</p>
+  <div class="blk"><div class="lbl">형식</div><pre>자료 = df.groupby('열')['값'].sum()      # ① 그릴 자료 만들기
+자료.plot(kind='bar', figsize=(9, 3))     # ② 그리기
+plt.title('...')                          # ③ 꾸미기
+plt.show()</pre></div>
+  <div class="blk"><div class="lbl">예제</div><pre>import matplotlib.pyplot as plt
+
+sales = df.groupby('Region')['Sales'].sum()
+sales.plot(kind='bar', figsize=(9, 3))
+plt.title('Sales by Region')
+plt.show()</pre></div>
+  <p class="note">그리기 전에 <strong>무엇을 말할지 먼저 정한다.</strong>
+     그려 놓고 무엇이 보이는지 찾는 방식은 혼자 탐색할 때 쓴다.</p>
+</section>
+
+<section class="slide" data-ch="5교시 정리">
+  <div class="sec">5.2</div>
+  <h2 class="tight k">차트 종류 &mdash; <code>kind=</code></h2>
+  <table class="compact" style="font-size:28px">
+    <tr><th style="width:34%">말하려는 것</th><th style="width:30%"><code>kind=</code></th><th>비고</th></tr>
+    <tr><td>항목 사이의 크기 비교</td><td><code>'bar'</code></td><td>이름이 길면 <code>'barh'</code></td></tr>
+    <tr><td>시간에 따른 추이</td><td><code>'line'</code></td><td>가로축은 날짜</td></tr>
+    <tr><td>두 값의 관계</td><td><code>'scatter'</code></td><td><code>x=</code>, <code>y=</code> 를 함께 지정</td></tr>
+    <tr><td>값이 퍼진 모양</td><td><code>'hist'</code></td><td><code>bins=</code> 로 막대 개수 조절</td></tr>
+  </table>
+  <p class="note" style="margin-top:26px">차트 종류는 취향이 아니라
+     <strong>말하려는 내용이 정한다.</strong> 시간 추이에 막대그래프를 쓰면 흐름이 끊겨 보인다.</p>
+</section>
+
+<section class="slide" data-ch="5교시 정리">
+  <div class="sec">5.3</div>
+  <h2 class="tight k">정렬해서 그리기</h2>
+  <div class="grid2">
+    <div>
+      <div class="blk"><div class="lbl">예제</div><pre>sales = df.groupby('Region')['Sales'].sum()
+
+print(sales.round(0))
+print()
+print(sales.sort_values(ascending=False).round(0))</pre></div>
+      <p class="note">막대그래프는 <strong>정렬하지 않으면 읽기 어렵다.</strong>
+         그리기 전에 <code>sort_values()</code> 를 먼저 건다.</p>
+    </div>
+    <div>
+      <div class="blk out"><div class="lbl">실행 결과</div><pre>Region
+Central    508541.0
+East       805219.0
+South      393544.0
+West       743434.0
+
+Region
+East       805219.0
+West       743434.0
+Central    508541.0
+South      393544.0</pre></div>
+    </div>
+  </div>
+</section>
+
+<section class="slide" data-ch="5교시 정리">
+  <div class="sec">5.4</div>
+  <h2 class="tight k">제목과 축 이름</h2>
+  <div class="blk"><div class="lbl">형식</div><pre>plt.title('...')      &#8594; 제목
+plt.xlabel('...')     &#8594; 가로축 이름
+plt.ylabel('...')     &#8594; 세로축 이름
+plt.ylim(0, 최댓값)   &#8594; 세로축 범위</pre></div>
+  <div class="grid2">
+    <div>
+      <div class="card bad pad-sm"><h3 style="color:var(--red)">이름표 제목</h3>
+        <p class="small"><code>plt.title('지역별 매출')</code><br>
+           <span class="dim">무엇을 그렸는지만 말한다</span></p></div>
+    </div>
+    <div>
+      <div class="card good pad-sm"><h3 style="color:var(--green)">결론 제목</h3>
+        <p class="small"><code>plt.title('East가 전체 매출의 33%를 차지')</code><br>
+           <span class="dim">보는 사람이 알아야 할 것을 말한다</span></p></div>
+    </div>
+  </div>
+  <p class="note">제목 한 줄을 바꾸는 것이 <strong>이 시간에 배우는 것 중 효과가 가장 크다.</strong></p>
+</section>
+
+<section class="slide" data-ch="5교시 정리">
+  <div class="sec">5.5</div>
+  <h2 class="tight k">세로축 범위</h2>
+  <p class="defn">막대그래프의 세로축은 <strong>0부터 시작하는 것이 원칙</strong>이다.
+     시작점을 올리면 차이가 실제보다 커 보인다.</p>
+  <div class="grid2">
+    <div>
+      <div class="blk"><div class="lbl">정직한 버전</div><pre>sales.plot(kind='bar')
+plt.ylim(0, sales.max() * 1.1)
+plt.show()</pre></div>
+    </div>
+    <div>
+      <div class="blk"><div class="lbl">차이를 부풀린 버전</div><pre>sales.plot(kind='bar')
+plt.ylim(sales.min() * 0.95,
+         sales.max() * 1.02)
+plt.show()</pre></div>
+    </div>
+  </div>
+  <p class="note"><strong>숫자는 한 글자도 바뀌지 않았다.</strong> 바뀐 것은 <code>plt.ylim</code> 한 줄이다.
+     선그래프는 축을 자르는 것이 허용되기도 하지만, 막대그래프는 길이로 크기를 나타내므로 0부터 그린다.</p>
+</section>
+
+<section class="slide" data-ch="5교시 정리">
+  <div class="sec">5.6</div>
+  <h2 class="tight k">한글이 깨질 때</h2>
+  <p class="defn">Colab 에는 한글 글꼴이 없어 그래프의 한글이 네모로 나온다.
+     아래 두 셀을 <strong>노트북 맨 앞에서 한 번</strong> 실행한다.</p>
+  <div class="blk"><div class="lbl">예제</div><pre>!apt-get -qq install fonts-nanum &gt; /dev/null</pre></div>
+  <div class="blk"><div class="lbl">예제</div><pre>import matplotlib.pyplot as plt
+import matplotlib.font_manager as fm
+
+fm.fontManager.addfont('/usr/share/fonts/truetype/nanum/NanumGothic.ttf')
+plt.rc('font', family='NanumGothic')
+plt.rc('axes', unicode_minus=False)</pre></div>
+  <p class="note"><code>unicode_minus=False</code> 는 <strong>음수 부호가 깨지는 것</strong>을 막는다.</p>
+</section>
+
+<section class="slide" data-ch="5교시 정리">
+  <h2 class="tight k">한 장 정리</h2>
+  <table class="compact" style="font-size:27px">
+    <tr><td style="width:50%"><code>.plot(kind='bar')</code> &middot; <code>'barh'</code></td><td>항목 비교</td></tr>
+    <tr><td><code>.plot(kind='line')</code></td><td>시간 추이</td></tr>
+    <tr><td><code>.plot(kind='scatter', x=, y=)</code></td><td>두 값의 관계</td></tr>
+    <tr><td><code>.plot(kind='hist', bins=50)</code></td><td>퍼진 모양</td></tr>
+    <tr><td><code>figsize=(10, 4)</code></td><td>그림 크기</td></tr>
+    <tr><td><code>plt.title()</code> &middot; <code>plt.xlabel()</code> &middot; <code>plt.ylabel()</code></td><td>제목 &middot; 축 이름</td></tr>
+    <tr><td><code>plt.ylim(0, 최댓값)</code></td><td>세로축 범위 &mdash; 막대는 0부터</td></tr>
+    <tr><td><code>.sort_values()</code> 를 먼저</td><td>정렬해서 그리기</td></tr>
+  </table>
+</section>
+
+
+  <div class="bar" id="bar"></div>
+  <div class="chip" id="chip"></div>
+  <div class="pager" id="pager"></div>
+  <div class="keys">
+    <span class="kbd">&#8592;</span><span class="kbd">&#8594;</span>
+    <span class="kbd">F</span><span class="kbd">D</span>
+  </div>
+</div>
+<script>
+(function(){
+  const stage=document.getElementById('stage');
+  const slides=Array.from(document.querySelectorAll('.slide'));
+  const bar=document.getElementById('bar'), pager=document.getElementById('pager'), chip=document.getElementById('chip');
+  let i=0;
+  function fit(){const s=Math.min(innerWidth/1920,innerHeight/1080);stage.style.transform='translate(-50%, -50%) scale('+s+')';}
+  addEventListener('resize',fit);
+  function show(n){
+    i=Math.max(0,Math.min(slides.length-1,n));
+    slides.forEach((s,k)=>s.classList.toggle('on',k===i));
+    bar.style.width=((i+1)/slides.length*100)+'%';
+    pager.innerHTML='<b>'+(i+1)+'</b> / '+slides.length;
+    chip.textContent=slides[i].dataset.ch||'';
+    document.body.classList.toggle('chapter-on',slides[i].classList.contains('chapter'));
+    history.replaceState(null,'','#'+(i+1));
+  }
+  function theme(next){document.documentElement.setAttribute('data-theme',next);
+    try{localStorage.setItem('ak-da-deck-theme',next);}catch(e){}}
+  addEventListener('keydown',e=>{
+    if(['ArrowRight','PageDown',' ','Enter'].includes(e.key)){e.preventDefault();show(i+1);}
+    else if(['ArrowLeft','PageUp','Backspace'].includes(e.key)){e.preventDefault();show(i-1);}
+    else if(e.key==='Home')show(0);
+    else if(e.key==='End')show(slides.length-1);
+    else if(e.key==='f'||e.key==='F'){if(document.fullscreenElement)document.exitFullscreen();else document.documentElement.requestFullscreen();}
+    else if(e.key==='d'||e.key==='D'){theme(document.documentElement.getAttribute('data-theme')==='dark'?'light':'dark');}
+  });
+  addEventListener('click',e=>{show(e.clientX<innerWidth*0.25?i-1:i+1);});
+  let x0=null;
+  addEventListener('touchstart',e=>{x0=e.changedTouches[0].clientX;},{passive:true});
+  addEventListener('touchend',e=>{if(x0===null)return;const dx=e.changedTouches[0].clientX-x0;
+    if(Math.abs(dx)>45)show(dx<0?i+1:i-1);x0=null;},{passive:true});
+  try{const saved=localStorage.getItem('ak-da-deck-theme');if(saved)document.documentElement.setAttribute('data-theme',saved);}catch(e){}
+  fit();
+  const start=parseInt(location.hash.replace('#',''),10);
+  show(Number.isFinite(start)&&start>0?start-1:0);
+})();
+</script>
+</body>
+</html>

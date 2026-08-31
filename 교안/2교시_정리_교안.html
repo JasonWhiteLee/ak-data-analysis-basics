@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>2교시 정리 · 데이터분석 기초</title>
+<style>
+:root{
+  --blue:#1d63ed; --ink:#0d1220; --ink-2:#39415a; --ink-3:#767f95;
+  --bg:#ffffff; --panel:#f6f8fc; --panel-2:#ecf2fe; --line:#dde3ee; --line-2:#c3d1ea;
+  --red:#c4381f;   --red-bg:#fdf1ed;
+  --green:#0b7355; --green-bg:#eaf6f1;
+  --amber:#8f5c00; --amber-bg:#fdf6e6;
+  --shadow:0 2px 3px rgba(13,18,32,.04), 0 9px 33px rgba(13,18,32,.055);
+  --chapter-bg:#1d63ed;
+}
+html[data-theme="dark"]{
+  --blue:#5b93ff; --ink:#eef2fb; --ink-2:#b7c0d3; --ink-3:#828ca4;
+  --bg:#0b0f1a; --panel:#141a28; --panel-2:#182337; --line:#28324c; --line-2:#3a4763;
+  --red:#ff9d85;   --red-bg:#2b1a16;
+  --green:#5ed6ac; --green-bg:#0f2620;
+  --amber:#f0c26a; --amber-bg:#2b2216;
+  --shadow:0 2px 3px rgba(0,0,0,.3), 0 12px 39px rgba(0,0,0,.35);
+  --chapter-bg:#15326f;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;overflow:hidden}
+body{
+  background:var(--bg); color:var(--ink);
+  font-family:"Pretendard","Malgun Gothic","맑은 고딕","Apple SD Gothic Neo","Noto Sans KR",sans-serif;
+  -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
+  word-break:keep-all; overflow-wrap:break-word;
+  transition:background .3s ease, color .3s ease;
+}
+.stage{position:absolute;left:50%;top:50%;width:1920px;height:1080px;transform-origin:50% 50%;overflow:hidden}
+.slide{position:absolute;inset:0;display:none;flex-direction:column;justify-content:center;padding:84px 120px 104px}
+.slide.on{display:flex}
+.slide.on > *{animation:rise .4s cubic-bezier(.22,.9,.28,1) both}
+.slide.on > *:nth-child(2){animation-delay:.05s}
+.slide.on > *:nth-child(3){animation-delay:.1s}
+.slide.on > *:nth-child(4){animation-delay:.15s}
+@keyframes rise{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.slide.on > *{animation:none}}
+
+h1{font-size:118px;line-height:1.16;letter-spacing:-.018em;font-weight:800}
+h2{font-size:78px;line-height:1.26;letter-spacing:-.014em;font-weight:800;margin-bottom:48px}
+h2.tight{margin-bottom:20px}
+h2.sm{font-size:66px}
+h3{font-size:30px;font-weight:700;color:var(--ink-3);margin-bottom:16px}
+p{font-size:36px;line-height:1.66;color:var(--ink-2)}
+p strong,li strong,td strong{color:var(--ink);font-weight:700}
+.lead{font-size:46px;line-height:1.55;color:var(--ink-2)}
+.small{font-size:29px;line-height:1.64}
+.dim{color:var(--ink-3)}
+.gap-sm{margin-bottom:34px}
+.eyebrow{display:flex;align-items:center;gap:18px;font-size:21px;font-weight:800;
+  letter-spacing:.17em;color:var(--blue);text-transform:uppercase;margin-bottom:34px}
+.eyebrow::before{content:"";width:50px;height:3px;background:var(--blue);border-radius:3px;flex:0 0 auto}
+mark{color:inherit;font-weight:700;
+  background:color-mix(in srgb,var(--blue) 13%,transparent);
+  box-shadow:inset 0 -.13em 0 color-mix(in srgb,var(--blue) 42%,transparent);
+  padding:.08em .22em;border-radius:7px;
+  -webkit-box-decoration-break:clone;box-decoration-break:clone}
+.hl{color:var(--blue);font-weight:800}
+ul{list-style:none}
+ul li{font-size:36px;line-height:1.58;color:var(--ink-2);padding-left:46px;position:relative;margin-top:24px}
+ul li::before{content:"";position:absolute;left:11px;top:.62em;width:13px;height:13px;border-radius:50%;background:var(--blue)}
+ol.num{list-style:none;counter-reset:n}
+ol.num li{counter-increment:n;font-size:36px;line-height:1.55;color:var(--ink-2);
+  padding-left:74px;position:relative;margin-top:26px}
+ol.num li::before{content:counter(n);position:absolute;left:0;top:-2px;
+  width:50px;height:50px;border-radius:50%;background:var(--panel-2);color:var(--blue);
+  font-size:27px;font-weight:800;display:flex;align-items:center;justify-content:center}
+
+.card{border:1px solid var(--line);border-radius:20px;padding:40px 44px;background:var(--panel);box-shadow:var(--shadow)}
+.card.pad-sm{padding:30px 36px}
+.card.blue{border-color:var(--line-2);background:var(--panel-2)}
+.card.bad{border-color:color-mix(in srgb,var(--red) 32%,transparent);background:var(--red-bg)}
+.card.good{border-color:color-mix(in srgb,var(--green) 32%,transparent);background:var(--green-bg)}
+.card.warn{border-color:color-mix(in srgb,var(--amber) 34%,transparent);background:var(--amber-bg)}
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:42px;align-items:start}
+.cols.eq{align-items:stretch}
+.cols.eq>.card{display:flex;flex-direction:column}
+.cols3{display:grid;grid-template-columns:repeat(3,1fr);gap:32px;align-items:stretch}
+.cols3 .card{display:flex;flex-direction:column}
+.stat{font-size:72px;font-weight:800;letter-spacing:-.03em;line-height:1.12;margin-top:4px}
+.stat.bad{color:var(--red)} .stat.good{color:var(--green)}
+code{font-family:"Cascadia Mono",Consolas,"D2Coding",ui-monospace,monospace;
+  background:var(--panel-2);border:1px solid var(--line);padding:.1em .38em;border-radius:8px;
+  font-size:.88em;color:var(--ink);word-break:normal}
+
+/* 오늘 어디쯤인가 — 진행 표시 */
+.steps{display:flex;gap:12px;align-items:stretch;margin-top:14px}
+.step{flex:1 1 0;border:2px solid var(--line);border-radius:14px;padding:20px 10px;text-align:center;
+  background:var(--panel);color:var(--ink-3);font-size:24px;font-weight:700;line-height:1.35}
+.step.now{background:var(--blue);border-color:var(--blue);color:#fff;font-weight:800}
+.step.done{background:var(--panel-2);border-color:var(--line-2);color:var(--blue)}
+
+table{width:100%;border-collapse:collapse;font-size:34px}
+th,td{text-align:left;padding:22px 28px;border-bottom:1px solid var(--line);line-height:1.45}
+th{font-size:26px;color:var(--ink-3);font-weight:800;letter-spacing:.04em}
+td{color:var(--ink-2)}
+td:first-child{font-weight:700;color:var(--ink);white-space:nowrap}
+tr:last-child td{border-bottom:0}
+table.compact{font-size:30px}
+table.compact th,table.compact td{padding:15px 24px}
+
+.titlerow{display:flex;align-items:center;gap:30px;margin-bottom:20px}
+.titlerow h2{margin-bottom:0}
+.logo{height:92px;width:auto;flex:0 0 auto;display:block}
+.logo.sq{height:84px}
+.logo.wide{height:62px}
+/* 어두운 배경에서 짙은 로고가 묻히므로 흰 배지를 깔아 준다 */
+html[data-theme="dark"] .logo.onlight{background:#fff;border-radius:12px;padding:10px 16px;box-sizing:content-box}
+.logochip{display:inline-flex;align-items:center;gap:16px;
+  border:1px solid var(--line);border-radius:16px;padding:14px 22px;background:var(--bg)}
+.logochip .logo{height:52px}
+.logochip .nm{font-size:28px;font-weight:800;color:var(--ink)}
+
+.cover{justify-content:center}
+.rule{height:5px;width:170px;background:var(--blue);border-radius:5px;margin:48px 0}
+.chapter{justify-content:center;background:var(--chapter-bg)}
+.chapter .num{font-size:178px;font-weight:800;line-height:1;letter-spacing:-.05em;color:#fff;opacity:.34;margin-bottom:22px}
+.chapter h2{margin:0 0 28px;font-size:92px;color:#fff}
+.chapter .lead{color:rgba(255,255,255,.78)}
+body.chapter-on .bar{background:#fff}
+body.chapter-on .chip,body.chapter-on .pager{color:rgba(255,255,255,.78)}
+body.chapter-on .pager b{color:#fff}
+body.chapter-on .keys{color:rgba(255,255,255,.6)}
+body.chapter-on .kbd{border-color:rgba(255,255,255,.45);color:rgba(255,255,255,.75)}
+.thesis{align-items:center;justify-content:center;text-align:center}
+.thesis .t{font-size:80px;line-height:1.42;font-weight:800;letter-spacing:-.018em;color:var(--ink);max-width:1520px}
+.thesis .t.sm{font-size:64px}
+.thesis .t mark{background:color-mix(in srgb,var(--blue) 15%,transparent)}
+
+.bar{position:absolute;left:0;bottom:0;height:5px;background:var(--blue);
+  transition:width .32s cubic-bezier(.22,.9,.28,1);z-index:9;border-radius:0 5px 5px 0}
+.chip{position:absolute;left:124px;bottom:40px;z-index:9;font-size:22px;font-weight:800;letter-spacing:.11em;color:var(--ink-3)}
+.pager{position:absolute;right:124px;bottom:40px;z-index:9;font-size:22px;color:var(--ink-3);
+  font-variant-numeric:tabular-nums;letter-spacing:.09em}
+.pager b{color:var(--ink);font-weight:800}
+.keys{position:absolute;right:124px;top:40px;z-index:9;display:flex;gap:9px;font-size:19px;color:var(--ink-3);opacity:.42}
+.kbd{border:1px solid var(--line-2);border-bottom-width:3px;border-radius:7px;padding:4px 10px;
+  font-family:ui-monospace,monospace;color:var(--ink-2)}
+@media print{
+  @page{size:1920px 1080px;margin:0}
+  html,body{overflow:visible;height:auto;background:#fff}
+  .stage{position:static;transform:none !important;width:1920px;height:auto;overflow:visible}
+  .slide{display:flex !important;position:relative;inset:auto;width:1920px;height:1080px;page-break-after:always;break-after:page}
+  .slide>*{animation:none !important}
+  .bar,.chip,.pager,.keys{display:none}
+}
+.sec{font-size:24px;font-weight:800;color:var(--blue);letter-spacing:.06em;margin-bottom:8px}
+.defn{font-size:34px;line-height:1.6;margin-bottom:24px}
+
+.sec{font-size:24px;font-weight:800;color:var(--blue);letter-spacing:.06em;margin-bottom:8px}
+.defn{font-size:31px;line-height:1.6;margin-bottom:22px}
+.blk{border:1px solid var(--line);border-radius:14px;overflow:hidden;margin-bottom:18px}
+.blk .lbl{background:var(--panel-2);color:var(--ink-3);font-size:20px;font-weight:800;
+          letter-spacing:.08em;padding:8px 22px;border-bottom:1px solid var(--line)}
+.blk pre{margin:0;padding:18px 24px;font-family:"Consolas","Cascadia Mono",monospace;
+         font-size:25px;line-height:1.5;color:var(--ink);white-space:pre;overflow-x:auto}
+.blk.out pre{background:var(--panel);color:var(--ink-2)}
+.note{font-size:25px;line-height:1.6;color:var(--ink-2);border-left:4px solid var(--amber);
+      padding-left:20px;margin-top:6px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:34px;align-items:start}
+h2.k{font-size:60px}
+</style>
+</head>
+<body>
+<div class="stage" id="stage">
+
+<!-- 1 표지 -->
+<section class="slide cover" data-ch="">
+  <div class="eyebrow">2교시 정리</div>
+  <h1>데이터 조회와 전처리</h1>
+  <div class="rule"></div>
+  <p class="lead">이 시간에 쓴 코드와 실행 결과</p>
+</section>
+
+<section class="slide" data-ch="2교시 정리">
+  <div class="sec">2.1</div>
+  <h2 class="tight k">열 고르기</h2>
+  <div class="blk"><div class="lbl">형식</div><pre>df[['열1', '열2']]              &#8594; 그 열만 남긴다
+df.drop(['열'], axis=1)        &#8594; 그 열을 버린다</pre></div>
+  <div class="grid2">
+    <div>
+      <div class="blk"><div class="lbl">예제</div><pre>cols = ['Order ID', 'Region', 'Sales']
+print(df[cols].shape)
+print(df.drop(['Row ID'], axis=1).shape)</pre></div>
+    </div>
+    <div>
+      <div class="blk out"><div class="lbl">실행 결과</div><pre>(10239, 3)
+(10239, 20)</pre></div>
+      <p class="note"><code>axis=1</code> 은 열 방향을 뜻한다.
+         <code>axis=0</code> 은 행 방향이다.</p>
+    </div>
+  </div>
+</section>
+
+<section class="slide" data-ch="2교시 정리">
+  <div class="sec">2.2</div>
+  <h2 class="tight k">조건으로 거르기</h2>
+  <div class="blk"><div class="lbl">형식</div><pre>df[조건]                       &#8594; 조건이 참인 행만 남는다
+df[(조건1) &amp; (조건2)]           &#8594; 그리고
+df[(조건1) | (조건2)]           &#8594; 또는</pre></div>
+  <div class="grid2">
+    <div>
+      <div class="blk"><div class="lbl">예제</div><pre>print(len(df[df['Sales'] &gt; 1000]))
+
+print(len(df[(df['Sales'] &gt; 1000) &amp;
+             (df['Profit'] &lt; 0)]))</pre></div>
+    </div>
+    <div>
+      <div class="blk out"><div class="lbl">실행 결과</div><pre>476
+
+80</pre></div>
+      <p class="note">조건이 두 개 이상이면 <strong>각 조건을 괄호로 감싼다.</strong>
+         빠뜨리면 오류가 난다.</p>
+    </div>
+  </div>
+</section>
+
+<section class="slide" data-ch="2교시 정리">
+  <div class="sec">2.3</div>
+  <h2 class="tight k">여러 값 &middot; 범위 &middot; 글자</h2>
+  <div class="grid2">
+    <div>
+      <table class="compact" style="font-size:26px">
+        <tr><th style="width:44%">함수</th><th>기능</th></tr>
+        <tr><td><code>.isin([...])</code></td><td>목록 중 하나와 같은가</td></tr>
+        <tr><td><code>.between(a, b)</code></td><td>a 이상 b 이하인가</td></tr>
+        <tr><td><code>.str.contains('...')</code></td><td>글자가 들어 있는가</td></tr>
+      </table>
+      <div class="blk" style="margin-top:20px"><div class="lbl">예제</div><pre>print(len(df[df['Region'].isin(['West','East'])]))
+print(len(df[df['Sales'].between(100, 500)]))
+print(len(df[df['Product Name']
+             .str.contains('Chair', na=False)]))</pre></div>
+    </div>
+    <div>
+      <div class="blk out"><div class="lbl">실행 결과</div><pre>6270
+2649
+697</pre></div>
+      <p class="note"><code>str.contains()</code> 에 <code>na=False</code> 를 넣지 않으면
+         빈 칸에서 오류가 난다.</p>
+    </div>
+  </div>
+</section>
+
+<section class="slide" data-ch="2교시 정리">
+  <div class="sec">2.4</div>
+  <h2 class="tight k">정렬</h2>
+  <div class="blk"><div class="lbl">형식</div><pre>df.sort_values('열', ascending=False)     &#8594; 큰 값부터</pre></div>
+  <div class="grid2">
+    <div>
+      <div class="blk"><div class="lbl">예제</div><pre>df.sort_values('Sales', ascending=False)[
+    ['Sub-Category', 'Sales']].head(3)</pre></div>
+    </div>
+    <div>
+      <div class="blk out"><div class="lbl">실행 결과</div><pre>     Sub-Category      Sales
+7547       Tables  104835.00
+227      Machines   22638.48
+5920      Copiers   17499.95</pre></div>
+    </div>
+  </div>
+  <p class="note"><code>ascending=True</code> (기본값) 는 작은 값부터 정렬한다.</p>
+</section>
+
+<section class="slide" data-ch="2교시 정리">
+  <div class="sec">2.5</div>
+  <h2 class="tight k">결측치 처리</h2>
+  <div class="grid2">
+    <div>
+      <table class="compact" style="font-size:26px">
+        <tr><th style="width:22%">방법</th><th style="width:40%">코드</th><th>언제</th></tr>
+        <tr><td>세기</td><td><code>.isna().sum()</code></td><td>항상 먼저</td></tr>
+        <tr><td>버리기</td><td><code>.dropna(subset=['열'])</code></td><td>무작위 &middot; 양이 적을 때</td></tr>
+        <tr><td>채우기</td><td><code>.fillna(값)</code></td><td>근거가 있을 때</td></tr>
+      </table>
+      <div class="blk" style="margin-top:20px"><div class="lbl">예제</div><pre>print(df['Ship Date'].isna().sum())
+print(len(df))
+print(len(df.dropna(subset=['Ship Date'])))</pre></div>
+    </div>
+    <div>
+      <div class="blk out"><div class="lbl">실행 결과</div><pre>321
+10239
+9918</pre></div>
+      <p class="note"><code>dropna()</code> 한 줄로 <strong>321행이 사라졌다.</strong>
+         이 결측치는 반품 건에 몰려 있었으므로, 지우면 반품률이 실제보다 낮게 나온다.</p>
+    </div>
+  </div>
+</section>
+
+<section class="slide" data-ch="2교시 정리">
+  <div class="sec">2.6</div>
+  <h2 class="tight k">중복 처리</h2>
+  <div class="blk"><div class="lbl">형식</div><pre>df.duplicated().sum()          &#8594; 모든 칸이 같은 행이 몇 개인가
+df.drop_duplicates()           &#8594; 그 행을 지운다</pre></div>
+  <div class="grid2">
+    <div>
+      <div class="blk"><div class="lbl">예제</div><pre>print(df.duplicated().sum())
+print(len(df.drop_duplicates()))</pre></div>
+    </div>
+    <div>
+      <div class="blk out"><div class="lbl">실행 결과</div><pre>45
+10194</pre></div>
+    </div>
+  </div>
+  <p class="note"><code>subset=['Order ID']</code> 처럼 특정 열만 기준으로 지우면
+     <strong>같은 주문의 다른 품목이 통째로 사라진다.</strong> 주문번호 반복은 중복이 아니다.</p>
+</section>
+
+<section class="slide" data-ch="2교시 정리">
+  <div class="sec">2.7</div>
+  <h2 class="tight k">자료형 바꾸기</h2>
+  <div class="blk"><div class="lbl">형식</div><pre>df['열'].astype(int)                       &#8594; 정수로
+pd.to_numeric(df['열'], errors='coerce')   &#8594; 숫자로, 안 되는 값은 결측치로
+pd.to_datetime(df['열'])                   &#8594; 날짜로</pre></div>
+  <div class="grid2">
+    <div>
+      <div class="blk"><div class="lbl">예제</div><pre>s = pd.Series(['10', '20', '삼십'])
+print(pd.to_numeric(s, errors='coerce'))</pre></div>
+    </div>
+    <div>
+      <div class="blk out"><div class="lbl">실행 결과</div><pre>0    10.0
+1    20.0
+2     NaN
+dtype: float64</pre></div>
+    </div>
+  </div>
+  <p class="note"><code>errors='coerce'</code> 는 <strong>바꿀 수 없는 값을 결측치로</strong> 만든다.
+     이것을 빼면 값 하나 때문에 전체가 오류로 멈춘다.</p>
+</section>
+
+<section class="slide" data-ch="2교시 정리">
+  <div class="sec">2.8</div>
+  <h2 class="tight k">날짜에서 조각 꺼내기</h2>
+  <p class="defn">날짜로 읽힌 열은 <code>.dt</code> 를 통해 연 &middot; 월 &middot; 요일을 꺼낼 수 있다.</p>
+  <div class="grid2">
+    <div>
+      <div class="blk"><div class="lbl">예제</div><pre>print(df['Order Date'].dt.year.head(2).tolist())
+print(df['Order Date'].dt.month.head(2).tolist())
+print(df['Order Date'].dt.to_period('M')
+      .head(2).astype(str).tolist())</pre></div>
+    </div>
+    <div>
+      <div class="blk out"><div class="lbl">실행 결과</div><pre>[2023, 2023]
+[1, 1]
+['2023-01', '2023-01']</pre></div>
+      <p class="note">글자로 읽힌 날짜에는 <code>.dt</code> 를 쓸 수 없다.
+         1교시의 <code>parse_dates</code> 가 필요한 이유다.</p>
+    </div>
+  </div>
+</section>
+
+<section class="slide" data-ch="2교시 정리">
+  <h2 class="tight k">한 장 정리</h2>
+  <table class="compact" style="font-size:27px">
+    <tr><td style="width:46%"><code>df[['열1','열2']]</code> &middot; <code>.drop(['열'], axis=1)</code></td><td>열 고르기 &middot; 버리기</td></tr>
+    <tr><td><code>df[df['열'] &gt; 값]</code></td><td>조건으로 거르기</td></tr>
+    <tr><td><code>(조건1) &amp; (조건2)</code> &middot; <code>|</code></td><td>조건 잇기 &mdash; 각 조건에 괄호</td></tr>
+    <tr><td><code>.isin()</code> &middot; <code>.between()</code> &middot; <code>.str.contains()</code></td><td>여러 값 &middot; 범위 &middot; 글자</td></tr>
+    <tr><td><code>.sort_values('열', ascending=False)</code></td><td>정렬</td></tr>
+    <tr><td><code>.isna().sum()</code> &middot; <code>.dropna()</code> &middot; <code>.fillna()</code></td><td>결측치 세기 &middot; 버리기 &middot; 채우기</td></tr>
+    <tr><td><code>.duplicated().sum()</code> &middot; <code>.drop_duplicates()</code></td><td>중복 세기 &middot; 지우기</td></tr>
+    <tr><td><code>.astype()</code> &middot; <code>pd.to_numeric(errors='coerce')</code></td><td>자료형 바꾸기</td></tr>
+    <tr><td><code>.dt.year</code> &middot; <code>.dt.month</code> &middot; <code>.dt.to_period('M')</code></td><td>날짜 조각</td></tr>
+  </table>
+</section>
+
+
+  <div class="bar" id="bar"></div>
+  <div class="chip" id="chip"></div>
+  <div class="pager" id="pager"></div>
+  <div class="keys">
+    <span class="kbd">&#8592;</span><span class="kbd">&#8594;</span>
+    <span class="kbd">F</span><span class="kbd">D</span>
+  </div>
+</div>
+<script>
+(function(){
+  const stage=document.getElementById('stage');
+  const slides=Array.from(document.querySelectorAll('.slide'));
+  const bar=document.getElementById('bar'), pager=document.getElementById('pager'), chip=document.getElementById('chip');
+  let i=0;
+  function fit(){const s=Math.min(innerWidth/1920,innerHeight/1080);stage.style.transform='translate(-50%, -50%) scale('+s+')';}
+  addEventListener('resize',fit);
+  function show(n){
+    i=Math.max(0,Math.min(slides.length-1,n));
+    slides.forEach((s,k)=>s.classList.toggle('on',k===i));
+    bar.style.width=((i+1)/slides.length*100)+'%';
+    pager.innerHTML='<b>'+(i+1)+'</b> / '+slides.length;
+    chip.textContent=slides[i].dataset.ch||'';
+    document.body.classList.toggle('chapter-on',slides[i].classList.contains('chapter'));
+    history.replaceState(null,'','#'+(i+1));
+  }
+  function theme(next){document.documentElement.setAttribute('data-theme',next);
+    try{localStorage.setItem('ak-da-deck-theme',next);}catch(e){}}
+  addEventListener('keydown',e=>{
+    if(['ArrowRight','PageDown',' ','Enter'].includes(e.key)){e.preventDefault();show(i+1);}
+    else if(['ArrowLeft','PageUp','Backspace'].includes(e.key)){e.preventDefault();show(i-1);}
+    else if(e.key==='Home')show(0);
+    else if(e.key==='End')show(slides.length-1);
+    else if(e.key==='f'||e.key==='F'){if(document.fullscreenElement)document.exitFullscreen();else document.documentElement.requestFullscreen();}
+    else if(e.key==='d'||e.key==='D'){theme(document.documentElement.getAttribute('data-theme')==='dark'?'light':'dark');}
+  });
+  addEventListener('click',e=>{show(e.clientX<innerWidth*0.25?i-1:i+1);});
+  let x0=null;
+  addEventListener('touchstart',e=>{x0=e.changedTouches[0].clientX;},{passive:true});
+  addEventListener('touchend',e=>{if(x0===null)return;const dx=e.changedTouches[0].clientX-x0;
+    if(Math.abs(dx)>45)show(dx<0?i+1:i-1);x0=null;},{passive:true});
+  try{const saved=localStorage.getItem('ak-da-deck-theme');if(saved)document.documentElement.setAttribute('data-theme',saved);}catch(e){}
+  fit();
+  const start=parseInt(location.hash.replace('#',''),10);
+  show(Number.isFinite(start)&&start>0?start-1:0);
+})();
+</script>
+</body>
+</html>

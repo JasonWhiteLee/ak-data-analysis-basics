@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>6교시 정리 · 데이터분석 기초</title>
+<style>
+:root{
+  --blue:#1d63ed; --ink:#0d1220; --ink-2:#39415a; --ink-3:#767f95;
+  --bg:#ffffff; --panel:#f6f8fc; --panel-2:#ecf2fe; --line:#dde3ee; --line-2:#c3d1ea;
+  --red:#c4381f;   --red-bg:#fdf1ed;
+  --green:#0b7355; --green-bg:#eaf6f1;
+  --amber:#8f5c00; --amber-bg:#fdf6e6;
+  --shadow:0 2px 3px rgba(13,18,32,.04), 0 9px 33px rgba(13,18,32,.055);
+  --chapter-bg:#1d63ed;
+}
+html[data-theme="dark"]{
+  --blue:#5b93ff; --ink:#eef2fb; --ink-2:#b7c0d3; --ink-3:#828ca4;
+  --bg:#0b0f1a; --panel:#141a28; --panel-2:#182337; --line:#28324c; --line-2:#3a4763;
+  --red:#ff9d85;   --red-bg:#2b1a16;
+  --green:#5ed6ac; --green-bg:#0f2620;
+  --amber:#f0c26a; --amber-bg:#2b2216;
+  --shadow:0 2px 3px rgba(0,0,0,.3), 0 12px 39px rgba(0,0,0,.35);
+  --chapter-bg:#15326f;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;overflow:hidden}
+body{
+  background:var(--bg); color:var(--ink);
+  font-family:"Pretendard","Malgun Gothic","맑은 고딕","Apple SD Gothic Neo","Noto Sans KR",sans-serif;
+  -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
+  word-break:keep-all; overflow-wrap:break-word;
+  transition:background .3s ease, color .3s ease;
+}
+.stage{position:absolute;left:50%;top:50%;width:1920px;height:1080px;transform-origin:50% 50%;overflow:hidden}
+.slide{position:absolute;inset:0;display:none;flex-direction:column;justify-content:center;padding:84px 120px 104px}
+.slide.on{display:flex}
+.slide.on > *{animation:rise .4s cubic-bezier(.22,.9,.28,1) both}
+.slide.on > *:nth-child(2){animation-delay:.05s}
+.slide.on > *:nth-child(3){animation-delay:.1s}
+.slide.on > *:nth-child(4){animation-delay:.15s}
+@keyframes rise{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.slide.on > *{animation:none}}
+
+h1{font-size:118px;line-height:1.16;letter-spacing:-.018em;font-weight:800}
+h2{font-size:78px;line-height:1.26;letter-spacing:-.014em;font-weight:800;margin-bottom:48px}
+h2.tight{margin-bottom:20px}
+h2.sm{font-size:66px}
+h3{font-size:30px;font-weight:700;color:var(--ink-3);margin-bottom:16px}
+p{font-size:36px;line-height:1.66;color:var(--ink-2)}
+p strong,li strong,td strong{color:var(--ink);font-weight:700}
+.lead{font-size:46px;line-height:1.55;color:var(--ink-2)}
+.small{font-size:29px;line-height:1.64}
+.dim{color:var(--ink-3)}
+.gap-sm{margin-bottom:34px}
+.eyebrow{display:flex;align-items:center;gap:18px;font-size:21px;font-weight:800;
+  letter-spacing:.17em;color:var(--blue);text-transform:uppercase;margin-bottom:34px}
+.eyebrow::before{content:"";width:50px;height:3px;background:var(--blue);border-radius:3px;flex:0 0 auto}
+mark{color:inherit;font-weight:700;
+  background:color-mix(in srgb,var(--blue) 13%,transparent);
+  box-shadow:inset 0 -.13em 0 color-mix(in srgb,var(--blue) 42%,transparent);
+  padding:.08em .22em;border-radius:7px;
+  -webkit-box-decoration-break:clone;box-decoration-break:clone}
+.hl{color:var(--blue);font-weight:800}
+ul{list-style:none}
+ul li{font-size:36px;line-height:1.58;color:var(--ink-2);padding-left:46px;position:relative;margin-top:24px}
+ul li::before{content:"";position:absolute;left:11px;top:.62em;width:13px;height:13px;border-radius:50%;background:var(--blue)}
+ol.num{list-style:none;counter-reset:n}
+ol.num li{counter-increment:n;font-size:36px;line-height:1.55;color:var(--ink-2);
+  padding-left:74px;position:relative;margin-top:26px}
+ol.num li::before{content:counter(n);position:absolute;left:0;top:-2px;
+  width:50px;height:50px;border-radius:50%;background:var(--panel-2);color:var(--blue);
+  font-size:27px;font-weight:800;display:flex;align-items:center;justify-content:center}
+
+.card{border:1px solid var(--line);border-radius:20px;padding:40px 44px;background:var(--panel);box-shadow:var(--shadow)}
+.card.pad-sm{padding:30px 36px}
+.card.blue{border-color:var(--line-2);background:var(--panel-2)}
+.card.bad{border-color:color-mix(in srgb,var(--red) 32%,transparent);background:var(--red-bg)}
+.card.good{border-color:color-mix(in srgb,var(--green) 32%,transparent);background:var(--green-bg)}
+.card.warn{border-color:color-mix(in srgb,var(--amber) 34%,transparent);background:var(--amber-bg)}
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:42px;align-items:start}
+.cols.eq{align-items:stretch}
+.cols.eq>.card{display:flex;flex-direction:column}
+.cols3{display:grid;grid-template-columns:repeat(3,1fr);gap:32px;align-items:stretch}
+.cols3 .card{display:flex;flex-direction:column}
+.stat{font-size:72px;font-weight:800;letter-spacing:-.03em;line-height:1.12;margin-top:4px}
+.stat.bad{color:var(--red)} .stat.good{color:var(--green)}
+code{font-family:"Cascadia Mono",Consolas,"D2Coding",ui-monospace,monospace;
+  background:var(--panel-2);border:1px solid var(--line);padding:.1em .38em;border-radius:8px;
+  font-size:.88em;color:var(--ink);word-break:normal}
+
+/* 오늘 어디쯤인가 — 진행 표시 */
+.steps{display:flex;gap:12px;align-items:stretch;margin-top:14px}
+.step{flex:1 1 0;border:2px solid var(--line);border-radius:14px;padding:20px 10px;text-align:center;
+  background:var(--panel);color:var(--ink-3);font-size:24px;font-weight:700;line-height:1.35}
+.step.now{background:var(--blue);border-color:var(--blue);color:#fff;font-weight:800}
+.step.done{background:var(--panel-2);border-color:var(--line-2);color:var(--blue)}
+
+table{width:100%;border-collapse:collapse;font-size:34px}
+th,td{text-align:left;padding:22px 28px;border-bottom:1px solid var(--line);line-height:1.45}
+th{font-size:26px;color:var(--ink-3);font-weight:800;letter-spacing:.04em}
+td{color:var(--ink-2)}
+td:first-child{font-weight:700;color:var(--ink);white-space:nowrap}
+tr:last-child td{border-bottom:0}
+table.compact{font-size:30px}
+table.compact th,table.compact td{padding:15px 24px}
+
+.titlerow{display:flex;align-items:center;gap:30px;margin-bottom:20px}
+.titlerow h2{margin-bottom:0}
+.logo{height:92px;width:auto;flex:0 0 auto;display:block}
+.logo.sq{height:84px}
+.logo.wide{height:62px}
+/* 어두운 배경에서 짙은 로고가 묻히므로 흰 배지를 깔아 준다 */
+html[data-theme="dark"] .logo.onlight{background:#fff;border-radius:12px;padding:10px 16px;box-sizing:content-box}
+.logochip{display:inline-flex;align-items:center;gap:16px;
+  border:1px solid var(--line);border-radius:16px;padding:14px 22px;background:var(--bg)}
+.logochip .logo{height:52px}
+.logochip .nm{font-size:28px;font-weight:800;color:var(--ink)}
+
+.cover{justify-content:center}
+.rule{height:5px;width:170px;background:var(--blue);border-radius:5px;margin:48px 0}
+.chapter{justify-content:center;background:var(--chapter-bg)}
+.chapter .num{font-size:178px;font-weight:800;line-height:1;letter-spacing:-.05em;color:#fff;opacity:.34;margin-bottom:22px}
+.chapter h2{margin:0 0 28px;font-size:92px;color:#fff}
+.chapter .lead{color:rgba(255,255,255,.78)}
+body.chapter-on .bar{background:#fff}
+body.chapter-on .chip,body.chapter-on .pager{color:rgba(255,255,255,.78)}
+body.chapter-on .pager b{color:#fff}
+body.chapter-on .keys{color:rgba(255,255,255,.6)}
+body.chapter-on .kbd{border-color:rgba(255,255,255,.45);color:rgba(255,255,255,.75)}
+.thesis{align-items:center;justify-content:center;text-align:center}
+.thesis .t{font-size:80px;line-height:1.42;font-weight:800;letter-spacing:-.018em;color:var(--ink);max-width:1520px}
+.thesis .t.sm{font-size:64px}
+.thesis .t mark{background:color-mix(in srgb,var(--blue) 15%,transparent)}
+
+.bar{position:absolute;left:0;bottom:0;height:5px;background:var(--blue);
+  transition:width .32s cubic-bezier(.22,.9,.28,1);z-index:9;border-radius:0 5px 5px 0}
+.chip{position:absolute;left:124px;bottom:40px;z-index:9;font-size:22px;font-weight:800;letter-spacing:.11em;color:var(--ink-3)}
+.pager{position:absolute;right:124px;bottom:40px;z-index:9;font-size:22px;color:var(--ink-3);
+  font-variant-numeric:tabular-nums;letter-spacing:.09em}
+.pager b{color:var(--ink);font-weight:800}
+.keys{position:absolute;right:124px;top:40px;z-index:9;display:flex;gap:9px;font-size:19px;color:var(--ink-3);opacity:.42}
+.kbd{border:1px solid var(--line-2);border-bottom-width:3px;border-radius:7px;padding:4px 10px;
+  font-family:ui-monospace,monospace;color:var(--ink-2)}
+@media print{
+  @page{size:1920px 1080px;margin:0}
+  html,body{overflow:visible;height:auto;background:#fff}
+  .stage{position:static;transform:none !important;width:1920px;height:auto;overflow:visible}
+  .slide{display:flex !important;position:relative;inset:auto;width:1920px;height:1080px;page-break-after:always;break-after:page}
+  .slide>*{animation:none !important}
+  .bar,.chip,.pager,.keys{display:none}
+}
+.fig{border:1px solid var(--line);border-radius:14px;overflow:hidden;background:#fff}
+.fig img{display:block;width:100%;height:auto}
+.figcap{font-size:21px;color:var(--ink-3);text-align:center;margin-top:10px;font-weight:700}
+.figrow{display:grid;grid-template-columns:1fr 1fr;gap:38px;align-items:center}
+.figwide{max-width:1320px;margin:0 auto}
+.sec{font-size:24px;font-weight:800;color:var(--blue);letter-spacing:.06em;margin-bottom:8px}
+.defn{font-size:34px;line-height:1.6;margin-bottom:24px}
+
+.sec{font-size:24px;font-weight:800;color:var(--blue);letter-spacing:.06em;margin-bottom:8px}
+.defn{font-size:31px;line-height:1.6;margin-bottom:22px}
+.blk{border:1px solid var(--line);border-radius:14px;overflow:hidden;margin-bottom:18px}
+.blk .lbl{background:var(--panel-2);color:var(--ink-3);font-size:20px;font-weight:800;
+          letter-spacing:.08em;padding:8px 22px;border-bottom:1px solid var(--line)}
+.blk pre{margin:0;padding:18px 24px;font-family:"Consolas","Cascadia Mono",monospace;
+         font-size:25px;line-height:1.5;color:var(--ink);white-space:pre;overflow-x:auto}
+.blk.out pre{background:var(--panel);color:var(--ink-2)}
+.note{font-size:25px;line-height:1.6;color:var(--ink-2);border-left:4px solid var(--amber);
+      padding-left:20px;margin-top:6px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:34px;align-items:start}
+h2.k{font-size:60px}
+</style>
+</head>
+<body>
+<div class="stage" id="stage">
+
+
+<!-- 1 표지 -->
+<section class="slide cover" data-ch="">
+  <div class="eyebrow">6교시 정리</div>
+  <h1>통계분석 기초</h1>
+  <div class="rule"></div>
+  <p class="lead">이 시간에 쓴 코드와 실행 결과</p>
+</section>
+
+<section class="slide" data-ch="6교시 정리">
+  <div class="sec">6.1</div>
+  <h2 class="tight k">두 집단의 평균 비교</h2>
+  <div class="blk"><div class="lbl">형식</div><pre>from scipy import stats
+
+stats.ttest_ind(집단A, 집단B, equal_var=False)</pre></div>
+  <div class="grid2">
+    <div>
+      <div class="blk"><div class="lbl">예제</div><pre>a = df[df['Discount'] &gt; 0]['Profit']
+b = df[df['Discount'] == 0]['Profit']
+
+print(round(a.mean(), 2))
+print(round(b.mean(), 2))
+print(stats.ttest_ind(a, b, equal_var=False).pvalue)</pre></div>
+    </div>
+    <div>
+      <div class="blk out"><div class="lbl">실행 결과</div><pre>-6.68
+66.33
+
+1.07e-56</pre></div>
+      <p class="note"><code>1.07e-56</code> 은 <strong>0을 55개 붙인 것보다 작은 수</strong>다.
+         우연으로 보기는 어렵다는 뜻이다.</p>
+    </div>
+  </div>
+  <p class="note"><code>equal_var=False</code> 는 두 집단의 퍼진 정도가 다를 수 있다고 보는 방식이다.
+     보통 이쪽이 안전하다.</p>
+</section>
+
+<section class="slide" data-ch="6교시 정리">
+  <div class="sec">6.2</div>
+  <h2 class="tight k">차이가 작을 때는 이렇게 나온다</h2>
+  <div class="grid2">
+    <div>
+      <div class="blk"><div class="lbl">예제</div><pre>c = df[df['Segment'] == 'Consumer']['Profit']
+g = df[df['Segment'] == 'Corporate']['Profit']
+
+print(round(c.mean(), 2))
+print(round(g.mean(), 2))
+print(round(stats.ttest_ind(c, g,
+      equal_var=False).pvalue, 3))</pre></div>
+    </div>
+    <div>
+      <div class="blk out"><div class="lbl">실행 결과</div><pre>25.82
+30.14
+
+0.415</pre></div>
+      <p class="note">p = 0.415 는 <strong>&ldquo;차이가 없다&rdquo;는 뜻이 아니다.</strong>
+         &ldquo;다르다고 말할 근거가 부족하다&rdquo;는 뜻이다.</p>
+    </div>
+  </div>
+  <p class="note">눈으로 보면 4점 넘게 차이가 나지만, 그 정도는 <strong>우연히도 나올 수 있는 크기</strong>다.</p>
+</section>
+
+<section class="slide" data-ch="6교시 정리">
+  <div class="sec">6.3</div>
+  <h2 class="tight k">p값이 아닌 것</h2>
+  <table class="compact" style="font-size:28px">
+    <tr><th style="width:52%">흔한 오해</th><th>실제</th></tr>
+    <tr><td>p=0.03 이면 내 주장이 맞을 확률 97%</td><td><strong>아니다.</strong> p값은 내 주장의 확률이 아니다</td></tr>
+    <tr><td>p=0.4 면 두 집단이 같다는 뜻</td><td><strong>아니다.</strong> 다르다고 말할 근거가 부족할 뿐이다</td></tr>
+    <tr><td>p가 작으면 차이가 크다</td><td><strong>아니다.</strong> 차이의 크기와 p값은 다른 이야기다</td></tr>
+  </table>
+  <div class="card blue pad-sm" style="margin-top:28px">
+    <p class="small">p값의 뜻은 하나뿐이다 &mdash;
+       <mark>두 집단이 사실 같다고 쳤을 때, 지금 본 정도의 차이가 우연히 나올 확률.</mark></p>
+  </div>
+</section>
+
+<section class="slide" data-ch="6교시 정리">
+  <div class="sec">6.4</div>
+  <h2 class="tight k">유의하다 &ne; 중요하다</h2>
+  <p class="defn">데이터가 많아지면 <strong>아무리 작은 차이도 p값이 작게 나온다.</strong></p>
+  <div class="grid2">
+    <div>
+      <div class="blk"><div class="lbl">예제</div><pre>import numpy as np
+np.random.seed(0)
+
+for n in [100, 1000, 100000]:
+    A = np.random.normal(100,   10, n)
+    B = np.random.normal(100.5, 10, n)
+    p = stats.ttest_ind(A, B, equal_var=False).pvalue
+    print(n, round(p, 4))</pre></div>
+    </div>
+    <div>
+      <div class="blk out"><div class="lbl">실행 결과</div><pre>100      0.6195
+1000     0.0769
+100000   0.0000</pre></div>
+      <p class="note"><strong>실제 차이는 셋 다 0.5 로 같다.</strong>
+         표본이 커지자 p값만 작아졌다.</p>
+    </div>
+  </div>
+  <p class="note">그래서 보고할 때는 <strong>p값과 차이의 크기를 함께</strong> 적는다 &mdash;
+     &ldquo;할인한 주문은 건당 이익이 73 낮습니다 (p &lt; 0.001)&rdquo;.</p>
+</section>
+
+<section class="slide" data-ch="6교시 정리">
+  <div class="sec">6.5</div>
+  <h2 class="tight k">상관계수</h2>
+  <div class="blk"><div class="lbl">형식</div><pre>df['열1'].corr(df['열2'])      &#8594; -1 에서 +1 사이의 값</pre></div>
+  <div class="grid2">
+    <div>
+      <div class="blk"><div class="lbl">예제</div><pre>print(round(df['Discount'].corr(df['Profit']), 3))
+print(round(df['Sales'].corr(df['Profit']), 3))</pre></div>
+      <table class="compact" style="font-size:26px;margin-top:18px">
+        <tr><td style="width:40%">+1 에 가깝다</td><td>한쪽이 오르면 다른 쪽도 오른다</td></tr>
+        <tr><td>0 에 가깝다</td><td>직선 관계가 약하다</td></tr>
+        <tr><td>-1 에 가깝다</td><td>한쪽이 오르면 다른 쪽은 내린다</td></tr>
+      </table>
+    </div>
+    <div>
+      <div class="blk out"><div class="lbl">실행 결과</div><pre>-0.22
+0.243</pre></div>
+      <p class="note">할인율과 이익은 <strong>음의 관계</strong>이지만 &minus;0.22 로 약하다.
+         숫자만 보지 말고 <strong>산점도를 함께</strong> 확인한다.</p>
+    </div>
+  </div>
+</section>
+
+<section class="slide" data-ch="6교시 정리">
+  <div class="sec">6.6</div>
+  <h2 class="tight k">AI 에게 물어볼 때 넣을 다섯 가지</h2>
+  <p class="defn">회사 데이터는 대개 올릴 수 없다. 대신 <strong>데이터가 어떻게 생겼는지 말로 설명</strong>한다.</p>
+  <table class="compact" style="font-size:28px">
+    <tr><th style="width:26%">요소</th><th>무엇을 적나</th></tr>
+    <tr><td><strong>① 상황</strong></td><td>무슨 일을 하는 조직이고 왜 궁금한가</td></tr>
+    <tr><td><strong>② 알고 싶은 것</strong></td><td>한 문장으로</td></tr>
+    <tr><td><strong>③ 데이터 형태</strong></td><td>한 행이 무엇인지, 열 이름과 종류, 행 수</td></tr>
+    <tr><td><strong>④ 비교 대상</strong></td><td>집단이 몇 개인지, 짝지어져 있는지</td></tr>
+    <tr><td><strong>⑤ 제약</strong></td><td>못 하는 것, 쓰는 도구</td></tr>
+  </table>
+  <p class="note" style="margin-top:24px">그리고 <strong>&ldquo;이 방법이 맞지 않게 되는 경우&rdquo;</strong> 를 꼭 함께 묻는다.
+     AI 는 대체로 자신 있게 답하므로, 이 질문을 해야 스스로 조건을 붙인다.</p>
+</section>
+
+<section class="slide" data-ch="6교시 정리">
+  <h2 class="tight k">한 장 정리</h2>
+  <table class="compact" style="font-size:27px">
+    <tr><td style="width:50%"><code>stats.ttest_ind(A, B, equal_var=False)</code></td><td>두 집단 평균 비교</td></tr>
+    <tr><td><code>.pvalue</code></td><td>우연히 나올 확률</td></tr>
+    <tr><td><code>df['열1'].corr(df['열2'])</code></td><td>상관계수 (&minus;1 ~ +1)</td></tr>
+    <tr><td colspan="2" style="padding-top:22px"><strong>기억할 것 셋</strong></td></tr>
+    <tr><td>p값은 내 주장이 맞을 확률이 아니다</td><td>두 집단이 같다고 쳤을 때의 확률이다</td></tr>
+    <tr><td>유의하다 &ne; 중요하다</td><td>p값과 차이의 크기를 함께 적는다</td></tr>
+    <tr><td>상관 &ne; 인과</td><td>숨은 원인이 둘을 함께 움직였을 수 있다</td></tr>
+  </table>
+</section>
+
+  <div class="bar" id="bar"></div>
+  <div class="chip" id="chip"></div>
+  <div class="pager" id="pager"></div>
+  <div class="keys">
+    <span class="kbd">&#8592;</span><span class="kbd">&#8594;</span>
+    <span class="kbd">F</span><span class="kbd">D</span>
+  </div>
+</div>
+<script>
+(function(){
+  const stage=document.getElementById('stage');
+  const slides=Array.from(document.querySelectorAll('.slide'));
+  const bar=document.getElementById('bar'), pager=document.getElementById('pager'), chip=document.getElementById('chip');
+  let i=0;
+  function fit(){const s=Math.min(innerWidth/1920,innerHeight/1080);stage.style.transform='translate(-50%, -50%) scale('+s+')';}
+  addEventListener('resize',fit);
+  function show(n){
+    i=Math.max(0,Math.min(slides.length-1,n));
+    slides.forEach((s,k)=>s.classList.toggle('on',k===i));
+    bar.style.width=((i+1)/slides.length*100)+'%';
+    pager.innerHTML='<b>'+(i+1)+'</b> / '+slides.length;
+    chip.textContent=slides[i].dataset.ch||'';
+    document.body.classList.toggle('chapter-on',slides[i].classList.contains('chapter'));
+    history.replaceState(null,'','#'+(i+1));
+  }
+  function theme(next){document.documentElement.setAttribute('data-theme',next);
+    try{localStorage.setItem('ak-da-deck-theme',next);}catch(e){}}
+  addEventListener('keydown',e=>{
+    if(['ArrowRight','PageDown',' ','Enter'].includes(e.key)){e.preventDefault();show(i+1);}
+    else if(['ArrowLeft','PageUp','Backspace'].includes(e.key)){e.preventDefault();show(i-1);}
+    else if(e.key==='Home')show(0);
+    else if(e.key==='End')show(slides.length-1);
+    else if(e.key==='f'||e.key==='F'){if(document.fullscreenElement)document.exitFullscreen();else document.documentElement.requestFullscreen();}
+    else if(e.key==='d'||e.key==='D'){theme(document.documentElement.getAttribute('data-theme')==='dark'?'light':'dark');}
+  });
+  addEventListener('click',e=>{show(e.clientX<innerWidth*0.25?i-1:i+1);});
+  let x0=null;
+  addEventListener('touchstart',e=>{x0=e.changedTouches[0].clientX;},{passive:true});
+  addEventListener('touchend',e=>{if(x0===null)return;const dx=e.changedTouches[0].clientX-x0;
+    if(Math.abs(dx)>45)show(dx<0?i+1:i-1);x0=null;},{passive:true});
+  try{const saved=localStorage.getItem('ak-da-deck-theme');if(saved)document.documentElement.setAttribute('data-theme',saved);}catch(e){}
+  fit();
+  const start=parseInt(location.hash.replace('#',''),10);
+  show(Number.isFinite(start)&&start>0?start-1:0);
+})();
+</script>
+</body>
+</html>
