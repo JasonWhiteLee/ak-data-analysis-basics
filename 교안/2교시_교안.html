@@ -202,20 +202,20 @@ body.chapter-on .kbd{border-color:rgba(255,255,255,.45);color:rgba(255,255,255,.
 <!-- 4 조회 도구 -->
 <section class="slide" data-ch="2교시">
   <div class="titlerow"><svg class="logo wide onlight" viewBox="0 0 818.63 331.21" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs><style>.cls-1{fill:#130754;}.cls-2{fill:#ffca00;}.cls-3{fill:#e70488;}</style></defs><title>Artboard 63</title><path class="cls-1" d="M290.85,199.21c-10.27,0-20.73-4.25-27.28-12.58v45H243l0-111.09h18.6l.71,12.22c6.38-9.39,17.71-14.35,28.52-14.35,20.73,0,36,17.37,36,40.4S311.58,199.22,290.85,199.21Zm-6.37-65.55c-12.05,0-21.79,9.39-21.79,25.16S272.43,184,284.48,184s21.79-9.39,21.79-25.16S296.53,133.66,284.48,133.66Z"/><path class="cls-1" d="M404.36,197.1l-.71-12.22c-6.38,9.39-17.72,14.35-28.53,14.34-20.73,0-36-17.36-36-40.39s15.24-40.4,36-40.39c10.81,0,22.15,5,28.53,14.35l.71-12.22H423V197.1Zm-22.85-63.43c-12.05,0-21.79,9.39-21.8,25.16S369.45,184,381.5,184s21.8-9.39,21.8-25.16S393.56,133.67,381.51,133.67Z"/><path class="cls-1" d="M494.87,197.11V154.77c0-14.88-5.13-19.84-14.52-19.84-9.75,0-20.38,8.85-20.38,19.48v42.7H439.41V120.57H458.2l.89,14.18c5.14-9.75,16.65-16.3,28.35-16.3,20.37,0,28,14.18,28,33.13v45.54Z"/><path class="cls-1" d="M590.77,197.13l-.71-12.23c-6.38,9.39-17.72,14.35-28.52,14.35-20.73,0-36-17.37-36-40.4s15.24-40.39,36-40.39c10.27,0,20.72,4.26,27.28,12.58V90.83h20.56l0,106.3ZM567.92,133.7c-12,0-21.79,9.39-21.79,25.15S555.87,184,567.92,184s21.79-9.38,21.79-25.15S580,133.7,567.92,133.7Z"/><path class="cls-1" d="M686.6,197.14l-.71-12.22c-6.38,9.39-17.72,14.34-28.53,14.34-20.73,0-36-17.36-36-40.4s15.24-40.39,36-40.39c10.81,0,22.15,5,28.53,14.36l.71-12.23h18.6v76.53Zm-22.85-63.43c-12,0-21.79,9.39-21.8,25.16S651.7,184,663.74,184s21.8-9.39,21.8-25.16S675.8,133.71,663.75,133.71Z"/><path class="cls-1" d="M750.73,199.63a60.16,60.16,0,0,1-30.65-8.69l3.37-14.17c6.2,3.72,15.59,8.51,26.93,8.51,8.15,0,13.82-2.48,13.82-8.86,0-5.49-5.85-7.44-16.3-9.92-18.78-4.08-25.51-14-25.51-24.81,0-12.05,9.39-23.38,30.12-23.38,12.58,0,23.57,5.49,26,6.91l-3.37,13.47A44.59,44.59,0,0,0,753,132.31c-8.32,0-12.4,2.83-12.4,7.44,0,5.13,5.32,7.44,13.46,9.39,20.2,4.25,28.35,13.64,28.35,23.92C782.45,189.53,770.4,199.63,750.73,199.63Z"/><rect class="cls-1" x="74.88" y="68.42" width="24.09" height="50.02"/><rect class="cls-1" x="74.88" y="171.17" width="24.09" height="50.02"/><rect class="cls-2" x="74.88" y="133.04" width="24.09" height="23.6"/><rect class="cls-1" x="36.19" y="109.55" width="24.09" height="166.27"/><rect class="cls-1" x="112.78" y="212.44" width="24.09" height="50.02"/><rect class="cls-1" x="112.78" y="109.61" width="24.09" height="50.02"/><rect class="cls-3" x="112.78" y="174.23" width="24.09" height="23.6"/><rect class="cls-1" x="150.67" y="55.39" width="24.09" height="166.27"/></svg><h2 class="tight sm">골라내고 걸러내는 도구</h2></div>
-  <p class="small dim gap-sm">엑셀의 필터·정렬과 하는 일이 같습니다</p>
-  <table class="compact">
-    <tr><th style="width:38%">하고 싶은 것</th><th>쓰는 것</th></tr>
-    <tr><td>열 몇 개만 보기</td><td><code>df[['열1','열2']]</code></td></tr>
-    <tr><td>필요 없는 열 버리기</td><td><code>.drop(['열'], axis=1)</code></td></tr>
-    <tr><td>조건에 맞는 행만</td><td><code>df[df['Sales'] &gt; 1000]</code></td></tr>
-    <tr><td><strong>조건 두 개 이상</strong></td><td><code>&amp;</code> 그리고 · <code>|</code> 또는 — <strong>각 조건을 괄호로 감쌉니다</strong></td></tr>
-    <tr><td>여러 값 / 범위 / 글자</td><td><code>.isin()</code> · <code>.between()</code> · <code>.str.contains()</code></td></tr>
-    <tr><td>정렬</td><td><code>.sort_values('열', ascending=False)</code></td></tr>
-    <tr><td>이름으로 한 칸</td><td><code>.loc[0, 'Sales']</code> — 끝을 <strong>포함합니다</strong></td></tr>
-    <tr><td>번호로 한 칸</td><td><code>.iloc[0, 17]</code> — 끝을 <strong>포함하지 않습니다</strong></td></tr>
+  <p class="small dim gap-sm">엑셀에서 필터 걸고 정렬하던 일이 그대로 있습니다. 이름만 다릅니다</p>
+  <table class="compact" style="font-size:30px">
+    <tr><th style="width:46%">엑셀에서 하던 일</th><th>Pandas 에서 부르는 이름</th></tr>
+    <tr><td>필요한 열만 보기</td><td>열 선택</td></tr>
+    <tr><td>필요 없는 열 숨기기</td><td>열 버리기 (drop)</td></tr>
+    <tr><td>자동 필터로 조건 걸기</td><td>조건 필터</td></tr>
+    <tr><td>조건 여러 개 걸기</td><td>그리고 · 또는 로 조건 잇기</td></tr>
+    <tr><td>정렬</td><td>정렬 (sort)</td></tr>
   </table>
-  <p class="small dim" style="margin-top:16px">
-    <code>iloc</code> 의 <code>i</code> 는 index(번호)의 i 입니다. 헷갈리면 결과 행 수를 세어 보면 됩니다</p>
+  <div class="card blue pad-sm" style="margin-top:26px">
+    <p class="small"><strong>코드를 외울 필요는 없습니다.</strong>
+       하고 싶은 일에 <mark>이름을 붙일 수 있으면</mark> 코드는 검색하거나 물어보면 나옵니다.
+       노트북에 전부 적혀 있으니 오늘은 따라 실행해 보시면 됩니다.</p>
+  </div>
 </section>
 
 <!-- 6 빈칸은 랜덤인가 -->
@@ -261,13 +261,13 @@ body.chapter-on .kbd{border-color:rgba(255,255,255,.45);color:rgba(255,255,255,.
 <section class="slide" data-ch="2교시">
   <h2 class="tight sm">결측치를 만나면 셋 중 하나를 고릅니다</h2>
   <table class="compact">
-    <tr><th style="width:18%">방법</th><th style="width:34%">쓰는 것</th><th>언제</th></tr>
-    <tr><td>버린다</td><td><code>.dropna(subset=['열'])</code></td><td>결측치가 무작위로 흩어져 있고, 양이 적을 때</td></tr>
-    <tr><td>채운다</td><td><code>.fillna(값)</code></td><td>결측치의 의미를 알고, 대체값이 타당할 때</td></tr>
-    <tr><td><strong>표시한다</strong></td><td><code>.isna()</code> 로 새 열</td><td><strong>결측치 자체가 정보일 때</strong></td></tr>
+    <tr><th style="width:22%">방법</th><th>언제 그렇게 하나</th></tr>
+    <tr><td><strong>버린다</strong></td><td>결측치가 무작위로 흩어져 있고, 양이 적을 때</td></tr>
+    <tr><td><strong>채운다</strong></td><td>결측치의 의미를 알고, 무엇으로 채울지 근거가 있을 때</td></tr>
+    <tr><td><strong>표시한다</strong></td><td><strong>비어 있다는 사실 자체가 정보일 때</strong> — 비었다는 표시를 새 열로 남깁니다</td></tr>
   </table>
   <div class="card bad" style="margin-top:36px">
-    <p><code>fillna(0)</code> 을 습관적으로 쓰는 것이 가장 위험합니다.
+    <p><strong>빈 칸을 습관적으로 0으로 채우는 것</strong>이 가장 위험합니다.
        <strong>비어 있는 것과 0은 다릅니다.</strong>
        매출이 &ldquo;없는 것&rdquo;과 &ldquo;0원인 것&rdquo;은 완전히 다른 이야기입니다.</p>
   </div>
@@ -276,24 +276,25 @@ body.chapter-on .kbd{border-color:rgba(255,255,255,.45);color:rgba(255,255,255,.
 
 <!-- 9 중복과 형식 -->
 <section class="slide" data-ch="2교시">
-  <h2 class="tight sm">중복은 세어 보고, 형식은 바꿉니다</h2>
+  <h2 class="tight sm">중복과 형식 — 눈으로는 안 보이는 것들</h2>
+  <p class="small dim gap-sm">둘 다 그냥 지나치면 뒤에서 숫자가 조용히 어긋납니다</p>
   <div class="cols eq">
     <div class="card">
-      <h3>중복값 — 모든 열이 똑같은 행만 지웁니다</h3>
-      <p><code>.duplicated().sum()</code> 으로 세고
-         <code>.drop_duplicates()</code> 로 지웁니다.</p>
-      <p class="small" style="margin-top:20px">한 주문에 품목이 여럿이면 <code>Order ID</code> 가 반복됩니다.
-         <strong>이건 중복이 아니라 정상입니다.</strong>
-         <code>subset=['Order ID']</code> 로 지우면 품목 정보가 통째로 날아갑니다.</p>
+      <h3>중복처럼 보이지만 중복이 아닌 것</h3>
+      <p class="small">한 주문에 물건을 여럿 담으면 <strong>주문번호가 여러 줄에 반복</strong>됩니다.
+         1교시에 본 10,239행 · 5,111주문이 그 이야기입니다.</p>
+      <p class="small" style="margin-top:18px"><strong>주문번호가 같다고 지우면 품목 정보가 통째로 날아갑니다.</strong>
+         지울 것은 <mark>모든 칸이 똑같은 행</mark>뿐입니다.</p>
     </div>
     <div class="card">
-      <h3>글자로 읽힌 숫자를 되돌립니다</h3>
-      <p><code>.astype(int)</code><br><code>pd.to_numeric(..., errors='coerce')</code></p>
-      <p class="small" style="margin-top:20px">1교시의 <code>'1500' + '900'</code> 이 실무에서 나타나는 모습입니다.
-         날짜는 <code>.dt.year</code> · <code>.dt.month</code> 로 조각을 꺼내 월별 집계에 씁니다.</p>
+      <h3>숫자·날짜인데 글자로 읽힌 것</h3>
+      <p class="small">엑셀에서 숫자가 왼쪽으로 붙고 <code>SUM</code> 이 0으로 나오던 그 상황입니다.
+         글자로 읽히면 <strong>더하면 이어 붙고, 크기 비교도 되지 않습니다.</strong></p>
+      <p class="small" style="margin-top:18px">날짜도 마찬가지입니다. 날짜로 읽혀야
+         <strong>월별로 묶는 일</strong>이 됩니다. 오늘 오후에 실제로 만납니다.</p>
     </div>
   </div>
-  <p style="margin-top:36px">두 날짜를 빼서 <strong>배송일수</strong>를 만들면 <code>count</code> 가 전체 행보다 적습니다.
+  <p style="margin-top:32px">두 날짜를 빼서 <strong>배송일수</strong>를 만들면, 배송일이 비어 있던 행은 배송일수도 비게 됩니다.
      <mark>결측치는 이렇게 조용히 아래로 퍼집니다.</mark></p>
 </section>
 
