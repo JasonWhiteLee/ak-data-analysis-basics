@@ -198,7 +198,7 @@ body.chapter-on .kbd{border-color:rgba(255,255,255,.45);color:rgba(255,255,255,.
   <table class="compact" style="font-size:26px">
     <tr><th style="width:14%">교시</th><th>남길 것</th></tr>
     <tr><td>1교시</td><td>행 수는 주문 수가 아닙니다. 이 데이터가 누구를 대표하는지 먼저 봅니다</td></tr>
-    <tr><td>2교시</td><td>결측치에는 이유가 있습니다. 그냥 지우면 반품률 같은 숫자가 조용히 바뀝니다</td></tr>
+    <tr><td>2교시</td><td>결측치에는 이유가 있습니다. 그대로 지우면 반품률 같은 숫자가 조용히 바뀝니다</td></tr>
     <tr><td>3교시</td><td>기준선에 따라 같은 달이 -5.3%도 되고 +39.3%도 됩니다</td></tr>
     <tr><td>4교시</td><td>평균 239 뒤에 중앙값 54 가 있었습니다. 지울지 남길지가 어려운 판단입니다</td></tr>
     <tr><td>5교시</td><td>같은 데이터로 정반대 인상의 그래프를 만들 수 있습니다. 축은 0부터</td></tr>
@@ -218,7 +218,7 @@ body.chapter-on .kbd{border-color:rgba(255,255,255,.45);color:rgba(255,255,255,.
          <strong>그래서 무엇을 다르게 할 것인가</strong> — 한 문장</p>
     </div>
     <div class="card pad-sm">
-      <h3>채워 보면</h3>
+      <h3>채운 예</h3>
       <p class="small"><strong>질문</strong> 내년에 어느 품목에 힘을 더 실을 것인가<br>
          <strong>결론</strong> Tables 는 이익률 -8.5%(이익 -17,753)로 적자다 / 적자 품목은 평균 할인이 25.8%로 전체 15.5%보다 높다 / Paper·Labels 는 이익률 40% 이상이다<br>
          <strong>한계</strong> 할인이 원인인지 결과인지 모른다 / 이익에 광고비·물류비가 빠져 있다</p>
@@ -256,7 +256,7 @@ body.chapter-on .kbd{border-color:rgba(255,255,255,.45);color:rgba(255,255,255,.
 
 <!-- ═══ 복습 1 · 도구와 불러오기 ═══ -->
 <section class="slide" data-ch="복습">
-  <h2 class="tight">하나 — 무엇으로 다루나</h2>
+  <h2 class="tight">하나 — 무엇으로 다루는가</h2>
   <p class="small dim gap-sm">1교시</p>
   <div class="cols eq">
     <div class="card blue">
@@ -276,7 +276,7 @@ body.chapter-on .kbd{border-color:rgba(255,255,255,.45);color:rgba(255,255,255,.
 
 <!-- ═══ 복습 2 · 화면 ═══ -->
 <section class="slide" data-ch="복습">
-  <h2 class="tight">둘 — 우리가 하루 종일 쓴 화면</h2>
+  <h2 class="tight">둘 — 하루 종일 사용한 화면</h2>
   <p class="small dim gap-sm">1교시</p>
   <div class="card blue" style="margin-bottom:30px">
     <h3 style="color:var(--blue)">③ Jupyter Notebook (주피터 노트북)</h3>
@@ -365,7 +365,7 @@ body.chapter-on .kbd{border-color:rgba(255,255,255,.45);color:rgba(255,255,255,.
   <h2 class="tight">일곱 — 결과를 읽을 때</h2>
   <p class="small dim gap-sm">오늘 하루 내내 이야기한 것입니다</p>
   <div class="card good" style="margin-bottom:26px">
-    <h3 style="color:var(--green)">⑩ 이것만은 기억하세요</h3>
+    <h3 style="color:var(--green)">⑩ 반드시 기억할 것</h3>
     <p style="font-size:42px;color:var(--ink);font-weight:800">
       상관관계가 높아도<br><span style="color:var(--green)">인과관계가 있다고 단정할 수 없습니다</span></p>
   </div>
@@ -377,7 +377,7 @@ body.chapter-on .kbd{border-color:rgba(255,255,255,.45);color:rgba(255,255,255,.
     </div>
     <div class="card bad">
       <h3 style="color:var(--red)">이상치는 항상 지운다?</h3>
-      <p>아닙니다. 오류일 수도, <strong>진짜 일어난 큰 거래</strong>일 수도 있습니다.
+      <p>아닙니다. 오류일 수도, <strong>실제로 일어난 큰 거래</strong>일 수도 있습니다.
          보고 판단합니다.</p>
     </div>
   </div>
@@ -409,7 +409,7 @@ body.chapter-on .kbd{border-color:rgba(255,255,255,.45);color:rgba(255,255,255,.
     <div class="card pad-sm"><h3>한계를 밝히기</h3><p class="small">광고비가 빠졌다는 것도, 그게 결론을 흔들 크기인지도 사람이 판단합니다</p></div>
   </div>
   <div class="card blue pad-sm">
-    <p class="small"><strong>회사에 돌아가서 할 첫 걸음</strong> — 이번 주 안에 평소 보던 엑셀 파일 하나로 오늘 흐름을 한 번 반복해 보세요.
+    <p class="small"><strong>회사에 돌아가서 할 첫 걸음</strong> — 이번 주 안에 평소 보던 엑셀 파일 하나로 오늘 흐름을 한 번 반복해 봅니다.
        불러오기 → 첫인상 <code>head()</code>·<code>info()</code> → <code>groupby</code> 로 묶어 보기 → 그림 하나. 한 시간이면 됩니다.
        <span class="dim">코드가 기억나지 않으면 각 교시 노트북 맨 끝의 정리 표에 다 있습니다.</span></p>
   </div>
