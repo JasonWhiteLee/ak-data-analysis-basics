@@ -195,40 +195,44 @@ body.chapter-on .kbd{border-color:rgba(255,255,255,.45);color:rgba(255,255,255,.
   </ol>
 </section>
 <!-- 12 하루 정리 -->
+
+<!-- 결론·보고 한 장 -->
 <section class="slide" data-ch="7교시">
   <h2 class="tight sm">오늘 하루, 교시마다 하나씩</h2>
   <table class="compact" style="font-size:26px">
     <tr><th style="width:14%">교시</th><th>남길 것</th></tr>
-    <tr><td>1교시</td><td>행 수는 주문 수가 아닙니다. 이 데이터가 누구를 대표하는지 먼저 봅니다</td></tr>
-    <tr><td>2교시</td><td>결측치에는 이유가 있습니다. 그대로 지우면 반품률 같은 숫자가 조용히 바뀝니다</td></tr>
-    <tr><td>3교시</td><td>기준선에 따라 같은 달이 -5.3%도 되고 +39.3%도 됩니다</td></tr>
-    <tr><td>4교시</td><td>평균 239 뒤에 중앙값 54 가 있었습니다. 지울지 남길지가 어려운 판단입니다</td></tr>
+    <tr><td>1교시</td><td>행 수는 대상의 수가 아닙니다. 한 행이 무엇인지 먼저 확인합니다</td></tr>
+    <tr><td>2교시</td><td>결측치에는 이유가 있습니다. 그대로 지우면 결과 숫자가 조용히 바뀝니다</td></tr>
+    <tr><td>3교시</td><td>기준선을 무엇으로 잡느냐에 따라 같은 달이 감소도 되고 증가도 됩니다</td></tr>
+    <tr><td>4교시</td><td>평균 뒤에 중앙값이 있습니다. 이상치를 지울지 남길지가 어려운 판단입니다</td></tr>
     <tr><td>5교시</td><td>같은 데이터로 정반대 인상의 그래프를 만들 수 있습니다. 축은 0부터</td></tr>
     <tr><td>6교시</td><td>차이는 항상 있습니다. p 값은 차이의 크기를 말해 주지 않습니다</td></tr>
-    <tr><td>7교시</td><td>보고서는 질문·결론·한계·할 일 네 칸입니다. 마지막 줄에는 할 일을 씁니다</td></tr>
+    <tr><td>7교시</td><td>보고서는 질문·결론·한계·할 일 네 칸입니다</td></tr>
   </table>
 </section>
-<!-- 결론·보고 한 장 -->
+
 <section class="slide" data-ch="7교시">
-  <h2 class="tight sm">보고서 한 장 — 네 칸으로 씁니다</h2>
+  <h2 class="tight sm">보고서 한 장 &mdash; 네 칸으로 쓴다</h2>
   <div class="cols eq">
     <div class="card blue pad-sm">
       <h3 style="color:var(--blue)">양식</h3>
-      <p class="small"><strong>질문</strong> — 한 문장<br>
-         <strong>결론</strong> — 세 줄, 줄마다 근거 숫자<br>
-         <strong>한계</strong> — 두 줄, 말할 수 없는 것<br>
-         <strong>그래서 무엇을 다르게 할 것인가</strong> — 한 문장</p>
+      <p class="small"><strong>질문</strong> &mdash; 한 문장<br>
+         <strong>결론</strong> &mdash; 세 줄, 줄마다 근거 숫자<br>
+         <strong>한계</strong> &mdash; 두 줄, 말할 수 없는 것<br>
+         <strong>그래서 무엇을 다르게 할 것인가</strong> &mdash; 한 문장</p>
     </div>
     <div class="card pad-sm">
-      <h3>채운 예</h3>
-      <p class="small"><strong>질문</strong> 내년에 어느 품목에 힘을 더 실을 것인가<br>
-         <strong>결론</strong> Tables 는 이익률 -8.5%(이익 -17,753)로 적자다 / 적자 품목은 평균 할인이 25.8%로 전체 15.5%보다 높다 / Paper·Labels 는 이익률 40% 이상이다<br>
-         <strong>한계</strong> 할인이 원인인지 결과인지 모른다 / 이익에 광고비·물류비가 빠져 있다</p>
+      <h3>각 칸의 원칙</h3>
+      <p class="small"><strong>질문</strong> 결과에 따라 행동이 달라지는 질문인가<br>
+         <strong>결론</strong> 주장마다 <strong>숫자를 붙인다</strong><br>
+         <strong>한계</strong> 짜내는 것이 아니라 <strong>작업 중에 적어 둔 것</strong>을 옮긴다<br>
+         <strong>할 일</strong> 무엇을 언제 바꾸고, 언제 다시 확인하는가</p>
     </div>
   </div>
-  <div class="card good pad-sm" style="margin-top:26px">
-    <p class="small"><strong>그래서 무엇을 다르게 할 것인가</strong> —
-       “내년 1분기에 Tables 의 <mark>할인율 상한을 20%로 묶고</mark>, 3개월 뒤 이익률이 개선되는지 다시 확인하겠습니다.”</p>
+  <div class="card warn pad-sm" style="margin-top:26px">
+    <p class="small"><strong>한계 칸이 비어 있는 보고서는 의심스럽다.</strong>
+       데이터에 없는 것(광고비 &middot; 경쟁사 &middot; 이탈 고객)과
+       <mark>전처리에서 버린 것</mark>이 여기에 들어간다.</p>
   </div>
 </section>
 
@@ -238,12 +242,12 @@ body.chapter-on .kbd{border-color:rgba(255,255,255,.45);color:rgba(255,255,255,.
   <div class="cols eq">
     <div class="card bad">
       <h3 style="color:var(--red)">이것은 행동이 아닙니다</h3>
-      <p>“Tables 를 주의 깊게<br>살펴보겠습니다”</p>
+      <p>“해당 품목을 주의 깊게<br>살펴보겠습니다”</p>
       <p class="small dim" style="margin-top:18px">언제 무엇을 하는지가 없습니다. 석 달 뒤에 무엇이 달라졌는지 확인할 방법도 없습니다.</p>
     </div>
     <div class="card good">
       <h3 style="color:var(--green)">이것은 행동입니다</h3>
-      <p>“Tables 할인율 상한 20%,<br>3개월 뒤 재확인”</p>
+      <p>“해당 품목 할인율 상한 20%,<br>3개월 뒤 재확인”</p>
       <p class="small dim" style="margin-top:18px">무엇을 바꾸는지와 언제 확인하는지가 들어 있습니다.</p>
     </div>
   </div>
@@ -374,8 +378,8 @@ body.chapter-on .kbd{border-color:rgba(255,255,255,.45);color:rgba(255,255,255,.
   <div class="cols eq">
     <div class="card bad">
       <h3 style="color:var(--red)">평균만 확인하면?</h3>
-      <p>충분하지 않습니다. 주문 금액은 평균 239 인데
-         <strong>77%가 그보다 적었습니다.</strong></p>
+      <p>충분하지 않습니다. 치우친 분포에서는
+         <strong>대다수가 평균보다 적습니다.</strong></p>
     </div>
     <div class="card bad">
       <h3 style="color:var(--red)">이상치는 항상 지운다?</h3>

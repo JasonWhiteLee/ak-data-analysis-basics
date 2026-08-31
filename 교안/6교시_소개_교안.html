@@ -285,27 +285,21 @@ body.chapter-on .kbd{border-color:rgba(255,255,255,.45);color:rgba(255,255,255,.
 </section>
 
 <section class="slide" data-ch="6교시">
-  <h2 class="tight sm">눈으로 본 차이를 그대로 믿지 않습니다</h2>
-  <div class="cols eq" style="margin-bottom:30px">
-    <div class="card good">
-      <h3 style="color:var(--green)">할인 있음 vs 없음 — 이익 평균</h3>
-      <p style="font-size:46px;color:var(--ink);font-weight:800">-6.53 &nbsp;vs&nbsp; 66.34</p>
-      <p class="small" style="margin-top:14px">p = 3.7e-56 → 우연으로 보기 어렵습니다</p>
-    </div>
-    <div class="card bad">
-      <h3 style="color:var(--red)">Consumer vs Corporate — 이익 평균</h3>
-      <p style="font-size:46px;color:var(--ink);font-weight:800">25.82 &nbsp;vs&nbsp; 30.50</p>
-      <p class="small" style="margin-top:14px">p = 0.38 → 100번 중 38번은 우연히 나올 수 있는 차이입니다</p>
-    </div>
+  <h2 class="tight sm">눈으로 본 차이를 그대로 믿지 않는다</h2>
+  <p class="defn">두 집단의 평균을 재면 <strong>언제나 다르게 나온다.</strong>
+     문제는 &ldquo;차이가 있느냐&rdquo;가 아니라 <strong>&ldquo;의미 있는 차이인가&rdquo;</strong> 다.</p>
+  <div class="cols eq" style="margin-bottom:26px">
+    <div class="card good pad-sm"><h3 style="color:var(--green)">p값이 아주 작을 때</h3>
+      <p class="small">두 집단이 같다고 쳤을 때 <strong>이만큼 차이가 우연히 나기는 어렵다</strong>는 뜻.
+         차이를 근거로 삼을 수 있다.</p></div>
+    <div class="card bad pad-sm"><h3 style="color:var(--red)">p값이 클 때</h3>
+      <p class="small">눈으로는 차이가 보여도 <strong>흔들림 범위 안</strong>이다.
+         이 숫자를 근거로 무엇을 결정하면 안 된다.</p></div>
   </div>
-  <p class="gap-sm">눈으로는 “Corporate이 건당 4.68 더 남네” 싶지만, 재 보면 흔들림 범위 안입니다.
-     <strong>이 숫자를 근거로 무엇을 결정하면 안 됩니다.</strong></p>
-  <div class="card blue">
-    <p style="font-size:44px;color:var(--ink);font-weight:800">
-      차이는 항상 있습니다. 문제는 <span class="hl">의미 있는 차이인가</span>입니다.</p>
-    <p class="small" style="margin-top:16px">반대쪽 함정도 있습니다. 데이터가 아주 많으면 아무리 작은 차이도 p값이 작게 나옵니다.
-       <strong>유의하다는 것과 중요하다는 것은 다릅니다.</strong> 그래서 실제 차이 크기를 함께 봅니다 —
-       “할인한 주문은 건당 이익이 73 낮습니다. (p &lt; 0.001)”</p>
+  <div class="card warn pad-sm">
+    <p class="small">반대쪽 함정도 있다. 데이터가 아주 많으면 <strong>아무리 작은 차이도 p값이 작게 나온다.</strong>
+       <mark>유의하다는 것과 중요하다는 것은 다르다.</mark>
+       그래서 p값과 <strong>실제 차이의 크기</strong>를 함께 본다.</p>
   </div>
 </section>
 
@@ -331,19 +325,22 @@ body.chapter-on .kbd{border-color:rgba(255,255,255,.45);color:rgba(255,255,255,.
 </section>
 
 <section class="slide" data-ch="6교시">
-  <h2 class="tight sm">상관은 인과가 아닙니다</h2>
-  <p class="small dim gap-sm">브라질 온라인 커머스의 주문과 별점 데이터입니다</p>
-  <div class="cols eq" style="margin-bottom:28px">
-    <div class="card good pad-sm"><h3 style="color:var(--green)">배송 약속을 지킨 주문 89,949건</h3>
-      <p class="stat good" style="font-size:52px">평균 별점 4.29</p></div>
-    <div class="card bad pad-sm"><h3 style="color:var(--red)">약속을 넘긴 주문 6,410건</h3>
-      <p class="stat bad" style="font-size:52px">평균 별점 2.27</p></div>
+  <h2 class="tight sm">상관은 인과가 아니다</h2>
+  <p class="defn">두 집단의 차이가 <strong>크고, 검정도 확실</strong>하다고 하자.
+     그렇다고 &ldquo;한쪽을 바꾸면 다른 쪽이 따라온다&rdquo; 고 말할 수 있는 것은 아니다.</p>
+  <div class="cols eq" style="margin-bottom:26px">
+    <div class="card pad-sm"><h3>확인된 것</h3>
+      <p class="small">두 집단의 값이 <strong>다르다</strong>는 사실.<br>
+         그리고 그 차이가 우연으로 보기 어렵다는 것.</p></div>
+    <div class="card bad pad-sm"><h3 style="color:var(--red)">확인되지 않은 것</h3>
+      <p class="small">두 집단이 <strong>애초에 다른 집단</strong>이었을 수 있다.
+         나눈 기준 말고도 여러 가지가 함께 달랐다면, 무엇이 원인인지 알 수 없다.</p></div>
   </div>
-  <p>2점 차이고 검정도 확실합니다. 그러면
-     <strong>“배송을 빨리 하면 별점이 오릅니다. 물류에 투자합시다”</strong> 라고 보고해도 됩니까?
-     <span class="hl">알 수 없습니다.</span></p>
-  <p class="small dim" style="margin-top:22px">늦게 배송된 주문은 애초에 다른 주문들입니다 — 먼 지역, 무거운 물건, 재고가 없던 상품, 영세 판매자.
-     그 어느 것이든 배송 속도와 상관없이 별점을 낮출 수 있습니다.</p>
+  <div class="card warn pad-sm">
+    <p class="small">배송이 늦은 주문은 애초에 <strong>먼 지역 &middot; 무거운 물건 &middot; 재고가 없던 상품</strong>일 수 있다.
+       그 어느 것이든 배송 속도와 상관없이 만족도를 낮춘다.
+       <mark>비교하는 두 집단이 그 기준 말고 무엇이 또 다른지</mark> 를 항상 묻는다.</p>
+  </div>
 </section>
 
 <section class="slide" data-ch="6교시">
