@@ -82,16 +82,28 @@ olist   = pd.read_csv(BASE + 'olist/olist_orders_dataset.csv')
 
 ## 강의 교안
 
-`교안/` 폴더의 HTML 파일입니다. 내려받아 브라우저로 열면 바로 발표됩니다
-(설치·인터넷 불필요).
+**열기** 를 누르면 브라우저에서 바로 발표됩니다. 설치할 것도, 내려받을 것도 없습니다.
+강의장 PC에서 쓸 거라면 **내려받기** 로 파일을 저장해 두세요 — 인터넷 없이도 열립니다.
+
+| 교시 | 내용 | | |
+|---|---|---|---|
+| 0 | 방향성 (철학) | [열기](https://jasonwhitelee.github.io/ak-data-analysis-basics/%EA%B5%90%EC%95%88/0%EA%B5%90%EC%8B%9C_%EB%B0%A9%ED%96%A5%EC%84%B1_%EA%B5%90%EC%95%88.html) | [내려받기](https://raw.githubusercontent.com/JasonWhiteLee/ak-data-analysis-basics/main/%EA%B5%90%EC%95%88/0%EA%B5%90%EC%8B%9C_%EB%B0%A9%ED%96%A5%EC%84%B1_%EA%B5%90%EC%95%88.html) |
+| 1 | 환경과 기본 문법 | [열기](https://jasonwhitelee.github.io/ak-data-analysis-basics/%EA%B5%90%EC%95%88/1%EA%B5%90%EC%8B%9C_%EA%B5%90%EC%95%88.html) | [내려받기](https://raw.githubusercontent.com/JasonWhiteLee/ak-data-analysis-basics/main/%EA%B5%90%EC%95%88/1%EA%B5%90%EC%8B%9C_%EA%B5%90%EC%95%88.html) |
+| 2 | 조회와 전처리 | [열기](https://jasonwhitelee.github.io/ak-data-analysis-basics/%EA%B5%90%EC%95%88/2%EA%B5%90%EC%8B%9C_%EA%B5%90%EC%95%88.html) | [내려받기](https://raw.githubusercontent.com/JasonWhiteLee/ak-data-analysis-basics/main/%EA%B5%90%EC%95%88/2%EA%B5%90%EC%8B%9C_%EA%B5%90%EC%95%88.html) |
+| 3 | 결합과 집계 | [열기](https://jasonwhitelee.github.io/ak-data-analysis-basics/%EA%B5%90%EC%95%88/3%EA%B5%90%EC%8B%9C_%EA%B5%90%EC%95%88.html) | [내려받기](https://raw.githubusercontent.com/JasonWhiteLee/ak-data-analysis-basics/main/%EA%B5%90%EC%95%88/3%EA%B5%90%EC%8B%9C_%EA%B5%90%EC%95%88.html) |
+| 4 | 탐색과 정리 | [열기](https://jasonwhitelee.github.io/ak-data-analysis-basics/%EA%B5%90%EC%95%88/4%EA%B5%90%EC%8B%9C_%EA%B5%90%EC%95%88.html) | [내려받기](https://raw.githubusercontent.com/JasonWhiteLee/ak-data-analysis-basics/main/%EA%B5%90%EC%95%88/4%EA%B5%90%EC%8B%9C_%EA%B5%90%EC%95%88.html) |
+| 5 | 시각화 | [열기](https://jasonwhitelee.github.io/ak-data-analysis-basics/%EA%B5%90%EC%95%88/5%EA%B5%90%EC%8B%9C_%EA%B5%90%EC%95%88.html) | [내려받기](https://raw.githubusercontent.com/JasonWhiteLee/ak-data-analysis-basics/main/%EA%B5%90%EC%95%88/5%EA%B5%90%EC%8B%9C_%EA%B5%90%EC%95%88.html) |
+| 6 | 통계분석 기초 | [열기](https://jasonwhitelee.github.io/ak-data-analysis-basics/%EA%B5%90%EC%95%88/6%EA%B5%90%EC%8B%9C_%EA%B5%90%EC%95%88.html) | [내려받기](https://raw.githubusercontent.com/JasonWhiteLee/ak-data-analysis-basics/main/%EA%B5%90%EC%95%88/6%EA%B5%90%EC%8B%9C_%EA%B5%90%EC%95%88.html) |
+| 7 | 종합 실습 + 복습 | [열기](https://jasonwhitelee.github.io/ak-data-analysis-basics/%EA%B5%90%EC%95%88/7%EA%B5%90%EC%8B%9C_%EA%B5%90%EC%95%88.html) | [내려받기](https://raw.githubusercontent.com/JasonWhiteLee/ak-data-analysis-basics/main/%EA%B5%90%EC%95%88/7%EA%B5%90%EC%8B%9C_%EA%B5%90%EC%95%88.html) |
 
 | 조작 | |
 |---|---|
 | `←` `→` · 클릭 | 넘기기 |
 | `F` | 전체화면 |
 | `D` | 어두운 배경으로 |
+| `P` 또는 인쇄 | 한 장씩 인쇄 (유인물) |
 
-`강의안/` 에는 0교시(방향성)에서 말할 내용이 글로 정리돼 있습니다.
+0교시에서 말할 내용은 [강의안](강의안/00_방향성_강의안.md) 에 글로 정리돼 있습니다.
 
 ---
 
