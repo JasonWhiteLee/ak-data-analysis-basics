@@ -33,7 +33,6 @@
 
 | 교시 | 하는 일 | 이 단계에서 던지는 질문 |
 |---|---|---|
-| 0 | 방향성 | 이 분석으로 무엇이 달라지는가 |
 | 1 | 데이터 이해 | 이 데이터는 누구를 대표하는가 |
 | 2 | 전처리 | 이 결측치는 왜 생겼는가 |
 | 3 | 집계·비교 | 무엇과 비교할 것인가 |
@@ -82,7 +81,6 @@ olist   = pd.read_csv(BASE + 'olist/olist_orders_dataset.csv')
 
 | 교시 | 내용 | 소개 파트 | 정리 파트 |
 |---|---|---|---|
-| 0 | 방향성 (철학) | [열기](https://jasonwhitelee.github.io/ak-data-analysis-basics/%EA%B5%90%EC%95%88/0%EA%B5%90%EC%8B%9C_%EB%B0%A9%ED%96%A5%EC%84%B1_%EA%B5%90%EC%95%88.html) | — |
 | 1 | 환경과 기본 문법 | [열기](https://jasonwhitelee.github.io/ak-data-analysis-basics/%EA%B5%90%EC%95%88/1%EA%B5%90%EC%8B%9C_%EC%86%8C%EA%B0%9C_%EA%B5%90%EC%95%88.html) | [열기](https://jasonwhitelee.github.io/ak-data-analysis-basics/%EA%B5%90%EC%95%88/1%EA%B5%90%EC%8B%9C_%EC%A0%95%EB%A6%AC_%EA%B5%90%EC%95%88.html) |
 | 2 | 조회와 전처리 | [열기](https://jasonwhitelee.github.io/ak-data-analysis-basics/%EA%B5%90%EC%95%88/2%EA%B5%90%EC%8B%9C_%EC%86%8C%EA%B0%9C_%EA%B5%90%EC%95%88.html) | [열기](https://jasonwhitelee.github.io/ak-data-analysis-basics/%EA%B5%90%EC%95%88/2%EA%B5%90%EC%8B%9C_%EC%A0%95%EB%A6%AC_%EA%B5%90%EC%95%88.html) |
 | 3 | 결합과 집계 | [열기](https://jasonwhitelee.github.io/ak-data-analysis-basics/%EA%B5%90%EC%95%88/3%EA%B5%90%EC%8B%9C_%EC%86%8C%EA%B0%9C_%EA%B5%90%EC%95%88.html) | [열기](https://jasonwhitelee.github.io/ak-data-analysis-basics/%EA%B5%90%EC%95%88/3%EA%B5%90%EC%8B%9C_%EC%A0%95%EB%A6%AC_%EA%B5%90%EC%95%88.html) |
