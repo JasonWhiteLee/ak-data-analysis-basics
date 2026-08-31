@@ -323,13 +323,11 @@ body.chapter-on .kbd{border-color:rgba(255,255,255,.45);color:rgba(255,255,255,.
      특정 열의 값이 반복되는 것은 대개 중복이 아니다.</p>
   <div class="cols eq">
     <div class="card bad pad-sm"><h3 style="color:var(--red)">중복이 아닌 것</h3>
-      <p class="small">한 주문에 물건을 여럿 담으면 <strong>주문번호가 여러 행에 반복</strong>된다. 이건 정상이다.</p>
-      <p class="small" style="margin-top:14px">주문번호만 기준으로 지우면
-         <strong>같은 주문의 다른 품목이 통째로 사라진다.</strong></p></div>
+      <p class="small">한 주문에 물건을 여럿 담으면 <strong>주문번호가 반복</strong>된다.<br>
+         주문번호로 지우면 <strong>다른 품목이 통째로 사라진다.</strong></p></div>
     <div class="card good pad-sm"><h3 style="color:var(--green)">중복인 것</h3>
-      <p class="small">모든 열의 값이 똑같은 행. 대개 <strong>같은 자료를 두 번 저장</strong>했거나
-         파일을 두 번 합친 결과다.</p>
-      <p class="small" style="margin-top:14px">먼저 <strong>몇 개인지 세어 보고</strong> 지운다.</p></div>
+      <p class="small"><strong>모든 열의 값이 똑같은 행.</strong><br>
+         먼저 몇 개인지 세어 보고 지운다.</p></div>
   </div>
   <p class="small" style="margin-top:26px">순서도 중요하다 &mdash;
      <mark>중복을 지운 뒤에 집계해야</mark> 같은 자료가 두 번 더해지지 않는다.</p>
@@ -348,8 +346,7 @@ body.chapter-on .kbd{border-color:rgba(255,255,255,.45);color:rgba(255,255,255,.
     <tr><td>연 &middot; 월 추출</td><td>월별로 묶는 일이 되지 않는다</td></tr>
   </table>
   <div class="card warn pad-sm" style="margin-top:26px">
-    <p class="small">숫자로 바꿀 때 <strong>바꿀 수 없는 값이 섞여 있으면</strong> 오류로 멈춘다.
-       그 값을 결측치로 처리하며 넘어가는 방법이 있는데, 그러면
+    <p class="small">바꿀 수 없는 값을 결측치로 넘기면
        <mark>결측치가 여기서 새로 생긴다.</mark></p>
   </div>
 </section>
