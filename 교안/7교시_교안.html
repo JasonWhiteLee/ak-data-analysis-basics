@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>7교시 · 종합 실습 — 데이터분석 기초</title>
+<title>7교시 · 복습과 정리 — 데이터분석 기초</title>
 <style>
 :root{
   --blue:#1d63ed; --ink:#0d1220; --ink-2:#39415a; --ink-3:#767f95;
@@ -154,19 +154,17 @@ body.chapter-on .kbd{border-color:rgba(255,255,255,.45);color:rgba(255,255,255,.
 </head>
 <body>
 <div class="stage" id="stage">
-
 <!-- 1 표지 -->
 <section class="slide cover" data-ch="">
   <div class="eyebrow">7교시</div>
-  <h1>그래서 무엇을<br><span class="hl">다르게 할 것인가</span></h1>
+  <h1>오늘 배운 것을<br><span class="hl">정리하겠습니다</span></h1>
   <div class="rule"></div>
-  <p class="lead">종합 실습 — 오늘 배운 것을 처음부터 끝까지 한 번에 이어 붙입니다</p>
+  <p class="lead">복습과 정리 — 하루를 되짚고, 회사에 가져갈 것을 추립니다</p>
 </section>
-
 <!-- 2 지금 어디 -->
 <section class="slide" data-ch="7교시">
   <h2 class="tight">오늘 여덟 단계 중 지금 여기입니다</h2>
-  <p class="small dim gap-sm">마지막 칸입니다. 앞의 일곱 칸은 오늘 다 지나왔습니다</p>
+  <p class="small dim gap-sm">마지막 칸입니다. 앞의 일곱 칸을 오늘 다 지나왔습니다</p>
   <div class="steps">
     <div class="step done">문제<br>정의</div>
     <div class="step done">데이터<br>이해</div>
@@ -175,189 +173,25 @@ body.chapter-on .kbd{border-color:rgba(255,255,255,.45);color:rgba(255,255,255,.
     <div class="step done">탐색<br>(EDA)</div>
     <div class="step done">시각화</div>
     <div class="step done">통계<br>검정</div>
-    <div class="step now">결론·보고</div>
+    <div class="step now">복습·정리</div>
   </div>
   <div class="card blue" style="margin-top:46px">
     <p>이 단계에서 던지는 질문 —
-       <span class="hl" style="font-size:44px">“이 분석으로 말할 수 없는 것은 무엇인가”</span></p>
+       <span class="hl" style="font-size:44px">“오늘 배운 것 중 무엇을 회사로 가져갈 것인가”</span></p>
   </div>
 </section>
 
 <!-- 3 이 시간에 할 일 -->
 <section class="slide" data-ch="7교시">
   <h2 class="tight">이 시간이 끝나면</h2>
-  <p class="small dim gap-sm">새로 배우는 문법이 거의 없습니다. 배운 것을 이어 붙이는 시간입니다</p>
+  <p class="small dim gap-sm">새로 배우는 것은 없습니다. 오늘 지나온 것을 다시 한 번 짚는 시간입니다</p>
   <ol class="num">
-    <li>분석 질문을 한 문장으로 쓸 수 있다</li>
-    <li>데이터를 불러오는 데서 결론까지 혼자 한 바퀴 돌 수 있다</li>
-    <li>결론에 근거 숫자를 붙여서 쓸 수 있다</li>
-    <li><strong>이 분석으로 말할 수 없는 것을 적을 수 있다</strong></li>
+    <li>오늘 배운 용어를 <strong>제자리에 놓을 수 있다</strong></li>
+    <li>어떤 상황에 어떤 기능을 쓰는지 말할 수 있다</li>
+    <li>결과를 해석할 때 하지 말아야 할 것을 안다</li>
+    <li><strong>회사에 돌아가서 무엇부터 해 볼지 정한다</strong></li>
   </ol>
 </section>
-
-<!-- 4 오늘의 질문 -->
-<section class="slide" data-ch="7교시">
-  <h2 class="tight sm">오늘의 질문과, 그것을 쪼개는 방법</h2>
-  <div class="card blue" style="margin-bottom:30px">
-    <p style="font-size:46px;color:var(--ink);font-weight:800">
-      “내년에 어느 품목에 <span class="hl">힘을 더 실을 것인가</span>?”</p>
-  </div>
-  <div class="cols eq">
-    <div class="card pad-sm">
-      <h3>하위 질문 네 개로 쪼갭니다</h3>
-      <p class="small">1. 품목별 <strong>매출</strong>이 얼마인가<br>
-         2. 품목별 <strong>이익</strong>은? 적자인 품목이 있나<br>
-         3. 적자 품목은 <strong>왜</strong> 적자인가<br>
-         4. 그래서 <strong>무엇을 할 것인가</strong></p>
-    </div>
-    <div class="card warn pad-sm">
-      <h3 style="color:var(--amber)">질문을 고를 때의 기준</h3>
-      <p class="small"><mark>결과가 어느 쪽으로 나오든 같은 행동을 할 거라면, 그 분석은 하지 않아도 됩니다.</mark></p>
-      <p class="small dim" style="margin-top:14px">“A가 나오면 나는 무엇을 하지? B가 나오면?” 두 답이 같으면 다른 질문을 찾는 편이 낫습니다.</p>
-    </div>
-  </div>
-</section>
-
-<!-- 5 8단계 한 장 -->
-<section class="slide" data-ch="7교시">
-  <h2 class="tight sm">오늘 밟은 여덟 단계를 한 장으로</h2>
-  <p class="small dim" style="margin-bottom:18px">왼쪽은 코드가 하는 일, 오른쪽은 사람이 하는 일입니다</p>
-  <table class="compact" style="font-size:27px">
-    <tr><th style="width:26%">단계</th><th>여기서 물어야 할 것</th></tr>
-    <tr><td>1 질문 정하기</td><td>답이 나오면 <strong>무엇을 다르게 할 것인가</strong></td></tr>
-    <tr><td>2 데이터 확인</td><td>이 데이터는 <strong>누구를 대표하나</strong>. 없는 데이터는 무엇인가</td></tr>
-    <tr><td>3 정제</td><td><strong>무엇을 뺐고, 왜 뺐나</strong></td></tr>
-    <tr><td>4 집계와 비교</td><td>어떤 <strong>기준선</strong>과 비교했나</td></tr>
-    <tr><td>5 분포 확인</td><td>이 평균, <strong>믿어도 되나</strong></td></tr>
-    <tr><td>6 시각화</td><td>제목이 <strong>결론 문장</strong>인가. 축은 0부터인가</td></tr>
-    <tr><td>7 검정</td><td>차이가 <strong>의미 있는 크기</strong>인가. 인과라고 말하고 있진 않나</td></tr>
-    <tr><td>8 결론과 한계</td><td><strong>이 분석으로 말할 수 없는 것</strong>은 무엇인가</td></tr>
-  </table>
-</section>
-
-<!-- 6 정제 기록표 -->
-<section class="slide" data-ch="7교시">
-  <h2 class="tight sm">무엇을 몇 건 뺐는지 적어 둡니다</h2>
-  <table class="compact" style="font-size:28px;margin-bottom:22px">
-    <tr><th style="width:34%">처리</th><th style="width:14%">건수</th><th>이유</th></tr>
-    <tr><td>중복 행 제거</td><td><strong>45건</strong></td><td>모든 열이 똑같아 같은 건이 두 번 들어간 것으로 판단</td></tr>
-    <tr><td>매출 0 · 수량 음수 제외</td><td><strong>24건</strong></td><td>사은품인지 입력 누락인지 알 수 없어 제외</td></tr>
-    <tr><td>자릿수 오류 보정</td><td><strong>1건</strong></td><td>Tables 104,835 → 1,048.35 으로 고침</td></tr>
-  </table>
-  <p class="small gap-sm">10,239행에서 <mark>10,170행(99.3%)이</mark> 남았습니다. 다른 사람이 같은 데이터로 다른 숫자를 냈을 때 어디서 갈렸는지 찾으려고 적습니다.</p>
-  <div class="card bad pad-sm">
-    <p class="small">이 보정 하나 때문에 <strong>3교시에서 본 Furniture 매출 858,518 이 754,067 로 바뀝니다.</strong>
-       틀린 게 아닙니다. 이상치 하나를 어떻게 처리했느냐로 카테고리 매출 순위까지 바뀌는 것이고, 그래서 위 표를 적어 두는 것입니다.</p>
-  </div>
-</section>
-
-<!-- 7 찾아낸 결론 -->
-<section class="slide" data-ch="7교시">
-  <h2 class="tight sm">찾아낸 것 — 적자 품목은 할인율이 높습니다</h2>
-  <div class="cols eq" style="margin-bottom:26px">
-    <div class="card pad-sm">
-      <h3>적자 품목과 평균 할인</h3>
-      <table class="compact" style="font-size:26px">
-        <tr><th>품목</th><th>이익률</th><th>평균 할인</th></tr>
-        <tr><td>Tables</td><td style="color:var(--red);font-weight:800">-8.5%</td><td><strong>25.8%</strong></td></tr>
-        <tr><td>Machines</td><td>1.8%</td><td><strong>30.6%</strong></td></tr>
-      </table>
-      <p class="small dim" style="margin-top:14px">전체 평균 할인율은 <strong>15.5%</strong> 입니다</p>
-    </div>
-    <div class="card blue pad-sm">
-      <h3 style="color:var(--blue)">할인 구간별 평균 이익</h3>
-      <table class="compact" style="font-size:26px">
-        <tr><td>0%</td><td style="color:var(--green);font-weight:800">+66.4</td></tr>
-        <tr><td>~20%</td><td style="color:var(--green);font-weight:800">+26.3</td></tr>
-        <tr><td>~40%</td><td style="color:var(--red);font-weight:800">-77.6</td></tr>
-        <tr><td>40% 초과</td><td style="color:var(--red);font-weight:800">-105.6</td></tr>
-      </table>
-    </div>
-  </div>
-  <div class="card warn pad-sm">
-    <p class="small">할인 20% 초과 1,411건의 평균 이익은 <strong>-96.4</strong>, 20% 이하 8,759건은 <strong>+48.8</strong> 입니다 (p &lt; 0.000001).
-       다만 <mark>왜 할인했는지가 데이터에 없어서</mark> 할인이 원인인지, 안 팔려서 할인을 붙인 것인지는 구분할 수 없습니다.</p>
-  </div>
-</section>
-
-<!-- 8 한계 -->
-<section class="slide" data-ch="7교시">
-  <h2 class="tight sm">한계는 짜내는 것이 아니라 주워 오는 것입니다</h2>
-  <p class="small dim" style="margin-bottom:18px">“데이터가 부족하여 추가 분석이 필요합니다”는 아무 말도 안 한 문장입니다. 오늘 지나온 단계마다 한계가 하나씩 생겼습니다</p>
-  <table class="compact" style="font-size:26px">
-    <tr><th style="width:28%">어느 단계에서</th><th>오늘 생긴 한계</th></tr>
-    <tr><td>1교시 데이터 확인</td><td>광고비·인건비가 없습니다. 안 산 사람은 기록이 없습니다</td></tr>
-    <tr><td>2교시 정제</td><td>중복 45건, 매출 0·수량 음수 24건을 뺐습니다</td></tr>
-    <tr><td>3교시 집계</td><td>4년을 전부 합쳤습니다. 최근 1년만 보면 순위가 달라질 수 있습니다</td></tr>
-    <tr><td>4교시 이상치</td><td>104,835 를 고친 것은 추정이지 원래 값을 확인한 것이 아닙니다</td></tr>
-    <tr><td>5교시 시각화</td><td>이익률로 그렸습니다. 매출 규모로 그렸으면 다른 품목이 커 보입니다</td></tr>
-    <tr><td>6교시 검정</td><td>상관은 인과가 아닙니다</td></tr>
-  </table>
-  <p class="small" style="margin-top:20px">여섯 칸을 다 쓰면 읽지 않습니다. <mark>결론을 뒤집을 만한 것 두 개</mark>만 고릅니다.</p>
-</section>
-
-<!-- 9 보고서 양식 -->
-<section class="slide" data-ch="7교시">
-  <h2 class="tight sm">보고서 한 장 — 네 칸으로 씁니다</h2>
-  <div class="cols eq">
-    <div class="card blue pad-sm">
-      <h3 style="color:var(--blue)">양식</h3>
-      <p class="small"><strong>질문</strong> — 한 문장<br>
-         <strong>결론</strong> — 세 줄, 줄마다 근거 숫자<br>
-         <strong>한계</strong> — 두 줄, 말할 수 없는 것<br>
-         <strong>그래서 무엇을 다르게 할 것인가</strong> — 한 문장</p>
-    </div>
-    <div class="card pad-sm">
-      <h3>채워 보면</h3>
-      <p class="small"><strong>질문</strong> 내년에 어느 품목에 힘을 더 실을 것인가<br>
-         <strong>결론</strong> Tables 는 이익률 -8.5%(이익 -17,753)로 적자다 / 적자 품목은 평균 할인이 25.8%로 전체 15.5%보다 높다 / Paper·Labels 는 이익률 40% 이상이다<br>
-         <strong>한계</strong> 할인이 원인인지 결과인지 모른다 / 이익에 광고비·물류비가 빠져 있다</p>
-    </div>
-  </div>
-  <div class="card good pad-sm" style="margin-top:26px">
-    <p class="small"><strong>그래서 무엇을 다르게 할 것인가</strong> —
-       “내년 1분기에 Tables 의 <mark>할인율 상한을 20%로 묶고</mark>, 3개월 뒤 이익률이 개선되는지 다시 확인하겠습니다.”</p>
-  </div>
-</section>
-
-<!-- 10 행동 대비 -->
-<section class="slide" data-ch="7교시">
-  <h2 class="tight">마지막 줄에는 할 일을 씁니다</h2>
-  <p class="small dim gap-sm">이 한 줄이 있어야 앞의 세 칸이 쓸모가 생깁니다</p>
-  <div class="cols eq">
-    <div class="card bad">
-      <h3 style="color:var(--red)">이것은 행동이 아닙니다</h3>
-      <p>“Tables 를 주의 깊게<br>살펴보겠습니다”</p>
-      <p class="small dim" style="margin-top:18px">언제 무엇을 하는지가 없습니다. 석 달 뒤에 무엇이 달라졌는지 확인할 방법도 없습니다.</p>
-    </div>
-    <div class="card good">
-      <h3 style="color:var(--green)">이것은 행동입니다</h3>
-      <p>“Tables 할인율 상한 20%,<br>3개월 뒤 재확인”</p>
-      <p class="small dim" style="margin-top:18px">무엇을 바꾸는지와 언제 확인하는지가 들어 있습니다.</p>
-    </div>
-  </div>
-</section>
-
-<!-- 11 재현성 + 노트북 -->
-<section class="slide" data-ch="7교시">
-  <h2 class="tight sm">같은 코드를 다시 돌리면 같은 결과가 나옵니다</h2>
-  <p class="small dim gap-sm">코드가 엑셀보다 똑똑해서가 아닙니다. 다음 달에 데이터가 새로 들어왔을 때 차이가 납니다</p>
-  <div class="cols eq" style="margin-bottom:28px">
-    <div class="card bad pad-sm">
-      <h3 style="color:var(--red)">손으로 정렬하고 복사한 작업</h3>
-      <p class="small">필터를 어떤 순서로 걸었는지 기억을 더듬습니다. 지난번에 뺀 24건을 이번에도 뺐는지 확신이 없습니다.</p>
-    </div>
-    <div class="card good pad-sm">
-      <h3 style="color:var(--green)">코드로 한 작업</h3>
-      <p class="small">파일 이름만 바꿔 위에서 아래로 다시 실행합니다. 무엇을 뺐는지가 코드에 그대로 적혀 있습니다.</p>
-    </div>
-  </div>
-  <div class="card blue pad-sm">
-    <p class="small">이제 <strong>노트북 7교시</strong>를 엽니다. 데이터 불러오기 → 정제 기록 → 품목별 집계 → 원인 찾기 →
-       <mark>보고서 네 칸 채우기</mark> 순서로 갑니다.</p>
-  </div>
-</section>
-
 <!-- 12 하루 정리 -->
 <section class="slide" data-ch="7교시">
   <h2 class="tight sm">오늘 하루, 교시마다 하나씩</h2>
@@ -369,26 +203,9 @@ body.chapter-on .kbd{border-color:rgba(255,255,255,.45);color:rgba(255,255,255,.
     <tr><td>4교시</td><td>평균 239 뒤에 중앙값 54 가 있었습니다. 지울지 남길지가 어려운 판단입니다</td></tr>
     <tr><td>5교시</td><td>같은 데이터로 정반대 인상의 그래프를 만들 수 있습니다. 축은 0부터</td></tr>
     <tr><td>6교시</td><td>차이는 항상 있습니다. p 값은 차이의 크기를 말해 주지 않습니다</td></tr>
-    <tr><td>7교시</td><td>결론에는 근거 숫자를, 보고서에는 한계를, 마지막 줄에는 할 일을</td></tr>
+    <tr><td>7교시</td><td>배운 것을 제자리에 놓고, 회사에서 무엇부터 해 볼지 정합니다</td></tr>
   </table>
 </section>
-
-<!-- 13 마무리 -->
-<section class="slide" data-ch="7교시">
-  <h2 class="tight sm">코드는 도구가 대신 써 줄 수 있습니다</h2>
-  <p class="small gap-sm">“품목별 이익률 내 줘”라고 하면 <code>groupby</code> 코드는 몇 초 만에 나옵니다. 그런데 도구가 대신 못 하는 일이 셋 있습니다.</p>
-  <div class="cols3" style="margin-bottom:28px">
-    <div class="card pad-sm"><h3>무엇을 물을지 정하기</h3><p class="small">어떤 답이 나와야 회사가 뭔가를 바꾸는지는 그 사정을 아는 사람만 압니다</p></div>
-    <div class="card pad-sm"><h3>결과를 해석하기</h3><p class="small">-8.5% 가 물류비 문제인지 과도한 할인인지는 업무를 아는 사람이 압니다</p></div>
-    <div class="card pad-sm"><h3>한계를 밝히기</h3><p class="small">광고비가 빠졌다는 것도, 그게 결론을 흔들 크기인지도 사람이 판단합니다</p></div>
-  </div>
-  <div class="card blue pad-sm">
-    <p class="small"><strong>회사에 돌아가서 할 첫 걸음</strong> — 이번 주 안에 평소 보던 엑셀 파일 하나로 오늘 흐름을 한 번 반복해 보세요.
-       불러오기 → 첫인상 → <code>groupby</code> → 그림 하나 → 보고서 네 칸. 한 시간이면 됩니다.
-       <span class="dim">코드가 기억나지 않으면 각 교시 노트북 맨 끝의 정리 표에 다 있습니다.</span></p>
-  </div>
-</section>
-
   <!-- ═══ 복습 도입 ═══ -->
 <section class="slide thesis" data-ch="복습">
   <div class="eyebrow" style="justify-content:center">마지막으로</div>
@@ -540,6 +357,21 @@ body.chapter-on .kbd{border-color:rgba(255,255,255,.45);color:rgba(255,255,255,.
     <tr><td>⑨ 상관계수</td><td>−1 ~ +1, 같이 움직이는 정도</td></tr>
     <tr><td>⑩ 상관 ≠ 인과</td><td>평균만 봐도 안 되고, 이상치를 항상 지워도 안 됩니다</td></tr>
   </table>
+</section>
+<!-- 13 마무리 -->
+<section class="slide" data-ch="7교시">
+  <h2 class="tight sm">코드는 도구가 대신 써 줄 수 있습니다</h2>
+  <p class="small gap-sm">“품목별 이익률 내 줘”라고 하면 <code>groupby</code> 코드는 몇 초 만에 나옵니다. 그런데 도구가 대신 못 하는 일이 셋 있습니다.</p>
+  <div class="cols3" style="margin-bottom:28px">
+    <div class="card pad-sm"><h3>무엇을 물을지 정하기</h3><p class="small">어떤 답이 나와야 회사가 뭔가를 바꾸는지는 그 사정을 아는 사람만 압니다</p></div>
+    <div class="card pad-sm"><h3>결과를 해석하기</h3><p class="small">-8.5% 가 물류비 문제인지 과도한 할인인지는 업무를 아는 사람이 압니다</p></div>
+    <div class="card pad-sm"><h3>한계를 밝히기</h3><p class="small">광고비가 빠졌다는 것도, 그게 결론을 흔들 크기인지도 사람이 판단합니다</p></div>
+  </div>
+  <div class="card blue pad-sm">
+    <p class="small"><strong>회사에 돌아가서 할 첫 걸음</strong> — 이번 주 안에 평소 보던 엑셀 파일 하나로 오늘 흐름을 한 번 반복해 보세요.
+       불러오기 → 첫인상 <code>head()</code>·<code>info()</code> → <code>groupby</code> 로 묶어 보기 → 그림 하나. 한 시간이면 됩니다.
+       <span class="dim">코드가 기억나지 않으면 각 교시 노트북 맨 끝의 정리 표에 다 있습니다.</span></p>
+  </div>
 </section>
 
   <div class="bar" id="bar"></div>

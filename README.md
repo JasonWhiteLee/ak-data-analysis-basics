@@ -20,7 +20,7 @@
 | 4 | 탐색과 정리 | [열기](https://colab.research.google.com/github/JasonWhiteLee/ak-data-analysis-basics/blob/main/notebooks/4%EA%B5%90%EC%8B%9C_%ED%83%90%EC%83%89%EA%B3%BC_%EC%A0%95%EB%A6%AC_%EC%8B%A4%EC%8A%B5.ipynb) | [열기](https://colab.research.google.com/github/JasonWhiteLee/ak-data-analysis-basics/blob/main/notebooks/4%EA%B5%90%EC%8B%9C_%ED%83%90%EC%83%89%EA%B3%BC_%EC%A0%95%EB%A6%AC_%EC%A0%95%EB%8B%B5.ipynb) |
 | 5 | 시각화 | [열기](https://colab.research.google.com/github/JasonWhiteLee/ak-data-analysis-basics/blob/main/notebooks/5%EA%B5%90%EC%8B%9C_%EC%8B%9C%EA%B0%81%ED%99%94_%EC%8B%A4%EC%8A%B5.ipynb) | [열기](https://colab.research.google.com/github/JasonWhiteLee/ak-data-analysis-basics/blob/main/notebooks/5%EA%B5%90%EC%8B%9C_%EC%8B%9C%EA%B0%81%ED%99%94_%EC%A0%95%EB%8B%B5.ipynb) |
 | 6 | 통계분석 기초 with LLM | [열기](https://colab.research.google.com/github/JasonWhiteLee/ak-data-analysis-basics/blob/main/notebooks/6%EA%B5%90%EC%8B%9C_%ED%86%B5%EA%B3%84%EB%B6%84%EC%84%9D_%EA%B8%B0%EC%B4%88_with_LLM_%EC%8B%A4%EC%8A%B5.ipynb) | [열기](https://colab.research.google.com/github/JasonWhiteLee/ak-data-analysis-basics/blob/main/notebooks/6%EA%B5%90%EC%8B%9C_%ED%86%B5%EA%B3%84%EB%B6%84%EC%84%9D_%EA%B8%B0%EC%B4%88_with_LLM_%EC%A0%95%EB%8B%B5.ipynb) |
-| 7 | 종합 실습 (보고서 작성) | [열기](https://colab.research.google.com/github/JasonWhiteLee/ak-data-analysis-basics/blob/main/notebooks/7%EA%B5%90%EC%8B%9C_%EC%A2%85%ED%95%A9_%EB%B3%B4%EA%B3%A0%EC%84%9C%EC%9E%91%EC%84%B1_%EC%8B%A4%EC%8A%B5.ipynb) | [열기](https://colab.research.google.com/github/JasonWhiteLee/ak-data-analysis-basics/blob/main/notebooks/7%EA%B5%90%EC%8B%9C_%EC%A2%85%ED%95%A9_%EB%B3%B4%EA%B3%A0%EC%84%9C%EC%9E%91%EC%84%B1_%EC%A0%95%EB%8B%B5.ipynb) |
+| 7 | 복습과 정리 | [열기](https://colab.research.google.com/github/JasonWhiteLee/ak-data-analysis-basics/blob/main/notebooks/7%EA%B5%90%EC%8B%9C_%EB%B3%B5%EC%8A%B5_%EC%A0%95%EB%A6%AC_%EC%8B%A4%EC%8A%B5.ipynb) | [열기](https://colab.research.google.com/github/JasonWhiteLee/ak-data-analysis-basics/blob/main/notebooks/7%EA%B5%90%EC%8B%9C_%EB%B3%B5%EC%8A%B5_%EC%A0%95%EB%A6%AC_%EC%A0%95%EB%8B%B5.ipynb) |
 
 **실습본**은 핵심 코드 몇 줄이 빈칸(`____`)으로 비어 있습니다. 수업 중에 채웁니다.
 **정답본**은 전부 채워져 있습니다. 복습할 때 보세요.
@@ -46,7 +46,7 @@
 | 4 | 탐색 (EDA) | 이 평균을 믿어도 되는가 |
 | 5 | 시각화 | 이 그림이 오해를 부르지 않는가 |
 | 6 | 통계 검정 | 어떤 검정을 써야 하는가 — 물어보는 법 |
-| 7 | 결론·보고 | 그래서 무엇을 다르게 할 것인가 |
+| 7 | 복습·정리 | 오늘 배운 것을 열 가지로 정리하기 |
 
 ---
 
@@ -94,7 +94,7 @@ olist   = pd.read_csv(BASE + 'olist/olist_orders_dataset.csv')
 | 4 | 탐색과 정리 | [열기](https://jasonwhitelee.github.io/ak-data-analysis-basics/%EA%B5%90%EC%95%88/4%EA%B5%90%EC%8B%9C_%EA%B5%90%EC%95%88.html) | [내려받기](https://raw.githubusercontent.com/JasonWhiteLee/ak-data-analysis-basics/main/%EA%B5%90%EC%95%88/4%EA%B5%90%EC%8B%9C_%EA%B5%90%EC%95%88.html) |
 | 5 | 시각화 | [열기](https://jasonwhitelee.github.io/ak-data-analysis-basics/%EA%B5%90%EC%95%88/5%EA%B5%90%EC%8B%9C_%EA%B5%90%EC%95%88.html) | [내려받기](https://raw.githubusercontent.com/JasonWhiteLee/ak-data-analysis-basics/main/%EA%B5%90%EC%95%88/5%EA%B5%90%EC%8B%9C_%EA%B5%90%EC%95%88.html) |
 | 6 | 통계분석 기초 with LLM | [열기](https://jasonwhitelee.github.io/ak-data-analysis-basics/%EA%B5%90%EC%95%88/6%EA%B5%90%EC%8B%9C_%EA%B5%90%EC%95%88.html) | [내려받기](https://raw.githubusercontent.com/JasonWhiteLee/ak-data-analysis-basics/main/%EA%B5%90%EC%95%88/6%EA%B5%90%EC%8B%9C_%EA%B5%90%EC%95%88.html) |
-| 7 | 종합 실습 + 복습 | [열기](https://jasonwhitelee.github.io/ak-data-analysis-basics/%EA%B5%90%EC%95%88/7%EA%B5%90%EC%8B%9C_%EA%B5%90%EC%95%88.html) | [내려받기](https://raw.githubusercontent.com/JasonWhiteLee/ak-data-analysis-basics/main/%EA%B5%90%EC%95%88/7%EA%B5%90%EC%8B%9C_%EA%B5%90%EC%95%88.html) |
+| 7 | 복습과 정리 | [열기](https://jasonwhitelee.github.io/ak-data-analysis-basics/%EA%B5%90%EC%95%88/7%EA%B5%90%EC%8B%9C_%EA%B5%90%EC%95%88.html) | [내려받기](https://raw.githubusercontent.com/JasonWhiteLee/ak-data-analysis-basics/main/%EA%B5%90%EC%95%88/7%EA%B5%90%EC%8B%9C_%EA%B5%90%EC%95%88.html) |
 
 | 조작 | |
 |---|---|
