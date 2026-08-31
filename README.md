@@ -91,14 +91,6 @@ olist   = pd.read_csv(BASE + 'olist/olist_orders_dataset.csv')
 | 6 | 관계와 분석 에이전트 | [열기](https://jasonwhitelee.github.io/ak-data-analysis-basics/%EA%B5%90%EC%95%88/6%EA%B5%90%EC%8B%9C_%EC%86%8C%EA%B0%9C_%EA%B5%90%EC%95%88.html) | [열기](https://jasonwhitelee.github.io/ak-data-analysis-basics/%EA%B5%90%EC%95%88/6%EA%B5%90%EC%8B%9C_%EC%A0%95%EB%A6%AC_%EA%B5%90%EC%95%88.html) |
 | 7 | 복습과 정리 | [열기](https://jasonwhitelee.github.io/ak-data-analysis-basics/%EA%B5%90%EC%95%88/7%EA%B5%90%EC%8B%9C_%EC%86%8C%EA%B0%9C_%EA%B5%90%EC%95%88.html) | — |
 
-| 조작 | |
-|---|---|
-| `←` `→` · 클릭 | 넘기기 |
-| `F` | 전체화면 |
-| `D` | 어두운 배경으로 |
-| `P` 또는 인쇄 | 한 장씩 인쇄 (유인물) |
-
-0교시에서 말할 내용은 [강의안](강의안/00_방향성_강의안.md) 에 글로 정리돼 있습니다.
 
 ---
 
