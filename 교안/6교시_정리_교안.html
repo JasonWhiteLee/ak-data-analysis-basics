@@ -154,9 +154,14 @@ body.chapter-on .kbd{border-color:rgba(255,255,255,.45);color:rgba(255,255,255,.
 .fig img{display:block;width:100%;height:auto}
 .figcap{font-size:21px;color:var(--ink-3);text-align:center;margin-top:10px;font-weight:700}
 .figrow{display:grid;grid-template-columns:1fr 1fr;gap:38px;align-items:center}
-.figwide{max-width:1320px;margin:0 auto}
 .sec{font-size:24px;font-weight:800;color:var(--blue);letter-spacing:.06em;margin-bottom:8px}
 .defn{font-size:34px;line-height:1.6;margin-bottom:24px}
+
+.sec{font-size:24px;font-weight:800;color:var(--blue);letter-spacing:.06em;margin-bottom:8px}
+.defn{font-size:34px;line-height:1.6;margin-bottom:24px}
+.code{font-family:"Consolas","Cascadia Mono",monospace;font-size:26px;line-height:1.55;
+      background:var(--panel);border:1px solid var(--line);border-radius:14px;
+      padding:22px 26px;white-space:pre;overflow-x:auto;color:var(--ink)}
 
 .sec{font-size:24px;font-weight:800;color:var(--blue);letter-spacing:.06em;margin-bottom:8px}
 .defn{font-size:31px;line-height:1.6;margin-bottom:22px}
@@ -175,161 +180,166 @@ h2.k{font-size:60px}
 <body>
 <div class="stage" id="stage">
 
-
 <!-- 1 표지 -->
 <section class="slide cover" data-ch="">
   <div class="eyebrow">6교시 정리</div>
-  <h1>통계분석 기초</h1>
+  <h1>관계와 에이전트</h1>
   <div class="rule"></div>
   <p class="lead">이 시간에 쓴 코드와 실행 결과</p>
 </section>
 
 <section class="slide" data-ch="6교시 정리">
   <div class="sec">6.1</div>
-  <h2 class="tight k">두 집단의 평균 비교</h2>
-  <div class="blk"><div class="lbl">형식</div><pre>from scipy import stats
-
-stats.ttest_ind(집단A, 집단B, equal_var=False)</pre></div>
+  <h2 class="tight k">상관계수</h2>
+  <div class="blk"><div class="lbl">형식</div><pre>df['열1'].corr(df['열2'])           &#8594; 두 열 사이
+df[['A','B','C']].corr()            &#8594; 여러 열을 한 번에</pre></div>
   <div class="grid2">
     <div>
-      <div class="blk"><div class="lbl">예제</div><pre>a = df[df['Discount'] &gt; 0]['Profit']
-b = df[df['Discount'] == 0]['Profit']
-
-print(round(a.mean(), 2))
-print(round(b.mean(), 2))
-print(stats.ttest_ind(a, b, equal_var=False).pvalue)</pre></div>
+      <div class="blk"><div class="lbl">예제</div><pre>print(round(df['Discount'].corr(df['Profit']), 3))</pre></div>
+      <div class="blk out"><div class="lbl">실행 결과</div><pre>-0.22</pre></div>
     </div>
     <div>
-      <div class="blk out"><div class="lbl">실행 결과</div><pre>-6.68
-66.33
-
-1.07e-56</pre></div>
-      <p class="note"><code>1.07e-56</code> 은 <strong>0을 55개 붙인 것보다 작은 수</strong>다.
-         우연으로 보기는 어렵다는 뜻이다.</p>
+      <table class="compact" style="font-size:26px">
+        <tr><td style="width:40%">+1 에 가깝다</td><td>같이 오른다</td></tr>
+        <tr><td>0 에 가깝다</td><td>직선 관계가 약하다</td></tr>
+        <tr><td>&minus;1 에 가깝다</td><td>반대로 움직인다</td></tr>
+      </table>
+      <p class="note" style="margin-top:20px">&minus;0.22 는 음의 관계이지만
+         <strong>&minus;1 에서 한참 멀어</strong> 약한 관계다.</p>
     </div>
   </div>
-  <p class="note"><code>equal_var=False</code> 는 두 집단의 퍼진 정도가 다를 수 있다고 보는 방식이다.
-     보통 이쪽이 안전하다.</p>
 </section>
 
 <section class="slide" data-ch="6교시 정리">
   <div class="sec">6.2</div>
-  <h2 class="tight k">차이가 작을 때는 이렇게 나온다</h2>
-  <div class="grid2">
-    <div>
-      <div class="blk"><div class="lbl">예제</div><pre>c = df[df['Segment'] == 'Consumer']['Profit']
-g = df[df['Segment'] == 'Corporate']['Profit']
+  <h2 class="tight k">숫자만 보지 말고 그림도</h2>
+  <div class="blk"><div class="lbl">예제</div><pre>보기 = df[df['Profit'].between(-500, 500)]
 
-print(round(c.mean(), 2))
-print(round(g.mean(), 2))
-print(round(stats.ttest_ind(c, g,
-      equal_var=False).pvalue, 3))</pre></div>
-    </div>
-    <div>
-      <div class="blk out"><div class="lbl">실행 결과</div><pre>25.82
-30.14
-
-0.415</pre></div>
-      <p class="note">p = 0.415 는 <strong>&ldquo;차이가 없다&rdquo;는 뜻이 아니다.</strong>
-         &ldquo;다르다고 말할 근거가 부족하다&rdquo;는 뜻이다.</p>
-    </div>
-  </div>
-  <p class="note">눈으로 보면 4점 넘게 차이가 나지만, 그 정도는 <strong>우연히도 나올 수 있는 크기</strong>다.</p>
+보기.plot(kind='scatter', x='Discount', y='Profit', alpha=0.15, figsize=(8, 4))
+plt.axhline(0, color='red', linewidth=1)
+plt.title('할인율과 이익')
+plt.show()</pre></div>
+  <p class="note"><code>alpha=0.15</code> 로 점을 흐리게 하면 <strong>겹쳐 있는 곳이 진하게</strong> 보인다.
+     점이 많을 때 쓰는 방법이다.</p>
+  <p class="note">같은 상관계수라도 <strong>점이 흩어진 모양은 아주 다를 수 있다.</strong>
+     숫자 하나만 보고 판단하지 않는다.</p>
 </section>
 
 <section class="slide" data-ch="6교시 정리">
   <div class="sec">6.3</div>
-  <h2 class="tight k">p값이 아닌 것</h2>
-  <table class="compact" style="font-size:28px">
-    <tr><th style="width:52%">흔한 오해</th><th>실제</th></tr>
-    <tr><td>p=0.03 이면 내 주장이 맞을 확률 97%</td><td><strong>아니다.</strong> p값은 내 주장의 확률이 아니다</td></tr>
-    <tr><td>p=0.4 면 두 집단이 같다는 뜻</td><td><strong>아니다.</strong> 다르다고 말할 근거가 부족할 뿐이다</td></tr>
-    <tr><td>p가 작으면 차이가 크다</td><td><strong>아니다.</strong> 차이의 크기와 p값은 다른 이야기다</td></tr>
+  <h2 class="tight k">상관은 인과가 아니다</h2>
+  <table class="compact" style="font-size:29px">
+    <tr><th style="width:26%">무엇</th><th>이 경우라면</th></tr>
+    <tr><td><strong>순서가 반대</strong></td><td>이익이 할인을 부른 것 &mdash; 안 팔리는 품목이라 할인을 했다</td></tr>
+    <tr><td><strong>숨은 원인</strong></td><td>제3의 것이 둘을 함께 움직임 &mdash; 재고가 오래돼 할인도 하고 이익도 낮다</td></tr>
   </table>
-  <div class="card blue pad-sm" style="margin-top:28px">
-    <p class="small">p값의 뜻은 하나뿐이다 &mdash;
-       <mark>두 집단이 사실 같다고 쳤을 때, 지금 본 정도의 차이가 우연히 나올 확률.</mark></p>
+  <div class="card blue pad-sm" style="margin-top:30px">
+    <p class="small">인과를 말하려면 <strong>다른 조건은 같게 두고 한 가지만 바꿔</strong> 봐야 한다.
+       무작위로 두 무리로 나눠 한쪽만 바꾸는 방식을 <mark>A/B 테스트</mark> 라고 한다.</p>
   </div>
 </section>
 
 <section class="slide" data-ch="6교시 정리">
   <div class="sec">6.4</div>
-  <h2 class="tight k">유의하다 &ne; 중요하다</h2>
-  <p class="defn">데이터가 많아지면 <strong>아무리 작은 차이도 p값이 작게 나온다.</strong></p>
+  <h2 class="tight k">표의 구조만 뽑기</h2>
+  <p class="defn">데이터를 보내지 않고 <strong>열 이름과 자료형만</strong> 보낸다.</p>
   <div class="grid2">
     <div>
-      <div class="blk"><div class="lbl">예제</div><pre>import numpy as np
-np.random.seed(0)
+      <div class="blk"><div class="lbl">예제</div><pre>def 구조(df):
+    줄 = ['- {} ({})'.format(k, v)
+          for k, v in df.dtypes.astype(str).items()]
+    return '\n'.join(줄)
 
-for n in [100, 1000, 100000]:
-    A = np.random.normal(100,   10, n)
-    B = np.random.normal(100.5, 10, n)
-    p = stats.ttest_ind(A, B, equal_var=False).pvalue
-    print(n, round(p, 4))</pre></div>
+print(구조(df))</pre></div>
     </div>
     <div>
-      <div class="blk out"><div class="lbl">실행 결과</div><pre>100      0.6195
-1000     0.0769
-100000   0.0000</pre></div>
-      <p class="note"><strong>실제 차이는 셋 다 0.5 로 같다.</strong>
-         표본이 커지자 p값만 작아졌다.</p>
+      <div class="blk out"><div class="lbl">실행 결과</div><pre>- Order ID (object)
+- Order Date (datetime64[ns])
+- Region (object)
+- Sales (float64)
+- Quantity (int64)
+- Profit (float64)
+   ...</pre></div>
+      <p class="note"><strong>실제 값이 하나도 없다.</strong> 열 이름과 자료형뿐이다.</p>
     </div>
   </div>
-  <p class="note">그래서 보고할 때는 <strong>p값과 차이의 크기를 함께</strong> 적는다 &mdash;
-     &ldquo;할인한 주문은 건당 이익이 73 낮습니다 (p &lt; 0.001)&rdquo;.</p>
 </section>
 
 <section class="slide" data-ch="6교시 정리">
   <div class="sec">6.5</div>
-  <h2 class="tight k">상관계수</h2>
-  <div class="blk"><div class="lbl">형식</div><pre>df['열1'].corr(df['열2'])      &#8594; -1 에서 +1 사이의 값</pre></div>
+  <h2 class="tight k">에이전트 함수</h2>
+  <div class="blk"><div class="lbl">예제</div><pre>def 물어보기(질문, df, 이름='orders', 실행=True):
+    지시 = f'''표 이름: {이름}
+행 수: {len(df):,}
+열:
+{구조(df)}
+
+질문: {질문}
+규칙: import 금지(pd, plt 이미 있음). 코드만 출력.'''
+
+    답 = client.chat.completions.create(
+        model='gpt-5.6-luna',
+        messages=[{'role': 'user', 'content': 지시}])
+
+    코드 = 답.choices[0].message.content.strip()
+    print(코드)
+    if 실행:
+        exec(코드, {'pd': pd, 'plt': plt, 이름: df})</pre></div>
+  <p class="note"><code>exec()</code> 가 <strong>도구</strong>, <code>구조(df)</code> 가 <strong>맥락</strong>에 해당한다.</p>
+</section>
+
+<section class="slide" data-ch="6교시 정리">
+  <div class="sec">6.6</div>
+  <h2 class="tight k">키를 안전하게 입력하기</h2>
   <div class="grid2">
     <div>
-      <div class="blk"><div class="lbl">예제</div><pre>print(round(df['Discount'].corr(df['Profit']), 3))
-print(round(df['Sales'].corr(df['Profit']), 3))</pre></div>
-      <table class="compact" style="font-size:26px;margin-top:18px">
-        <tr><td style="width:40%">+1 에 가깝다</td><td>한쪽이 오르면 다른 쪽도 오른다</td></tr>
-        <tr><td>0 에 가깝다</td><td>직선 관계가 약하다</td></tr>
-        <tr><td>-1 에 가깝다</td><td>한쪽이 오르면 다른 쪽은 내린다</td></tr>
-      </table>
+      <div class="blk"><div class="lbl">예제</div><pre>from getpass import getpass
+
+client = OpenAI(api_key=getpass('키: '))</pre></div>
+      <p class="note"><code>getpass()</code> 는 입력한 값이
+         <strong>화면에 보이지 않고 노트북에도 저장되지 않는다.</strong></p>
     </div>
     <div>
-      <div class="blk out"><div class="lbl">실행 결과</div><pre>-0.22
-0.243</pre></div>
-      <p class="note">할인율과 이익은 <strong>음의 관계</strong>이지만 &minus;0.22 로 약하다.
-         숫자만 보지 말고 <strong>산점도를 함께</strong> 확인한다.</p>
+      <div class="card bad pad-sm"><h3 style="color:var(--red)">이렇게 하지 않는다</h3>
+        <p class="small"><code>api_key = 'sk-...'</code><br>
+           노트북에 키가 <strong>그대로 남는다.</strong>
+           파일을 공유하면 키도 함께 나간다.</p></div>
     </div>
   </div>
 </section>
 
 <section class="slide" data-ch="6교시 정리">
-  <div class="sec">6.6</div>
-  <h2 class="tight k">AI 에게 물어볼 때 넣을 다섯 가지</h2>
-  <p class="defn">회사 데이터는 대개 올릴 수 없다. 대신 <strong>데이터가 어떻게 생겼는지 말로 설명</strong>한다.</p>
-  <table class="compact" style="font-size:28px">
-    <tr><th style="width:26%">요소</th><th>무엇을 적나</th></tr>
-    <tr><td><strong>① 상황</strong></td><td>무슨 일을 하는 조직이고 왜 궁금한가</td></tr>
-    <tr><td><strong>② 알고 싶은 것</strong></td><td>한 문장으로</td></tr>
-    <tr><td><strong>③ 데이터 형태</strong></td><td>한 행이 무엇인지, 열 이름과 종류, 행 수</td></tr>
-    <tr><td><strong>④ 비교 대상</strong></td><td>집단이 몇 개인지, 짝지어져 있는지</td></tr>
-    <tr><td><strong>⑤ 제약</strong></td><td>못 하는 것, 쓰는 도구</td></tr>
+  <div class="sec">6.7</div>
+  <h2 class="tight k">세 가지 상황</h2>
+  <table class="compact" style="font-size:27px">
+    <tr><th style="width:34%">물어본 것</th><th style="width:34%">AI 가 한 것</th><th>판단</th></tr>
+    <tr><td>지역별 매출 합계</td><td><code>groupby().sum()</code></td><td>맞음</td></tr>
+    <tr><td>주문은 몇 건인가</td><td><code>nunique()</code></td><td>맞음 &mdash; 행 수와 다름을 알아챘다</td></tr>
+    <tr><td>반품률이 높은 지역</td><td>데이터에 없다고 답함</td><td>거부 &mdash; <strong>다른 표에 있다</strong></td></tr>
+    <tr><td>고객 재구매율</td><td><code>nunique() &gt; 1</code> 비율 &mdash; 98.5%</td><td><strong>코드는 맞고 해석이 틀림</strong></td></tr>
   </table>
-  <p class="note" style="margin-top:24px">그리고 <strong>&ldquo;이 방법이 맞지 않게 되는 경우&rdquo;</strong> 를 꼭 함께 묻는다.
-     AI 는 대체로 자신 있게 답하므로, 이 질문을 해야 스스로 조건을 붙인다.</p>
+  <div class="card warn pad-sm" style="margin-top:28px">
+    <p class="small"><strong>4년치 데이터</strong>다. 4년 동안 2번 이상 산 사람이 98.5%인 것은 당연하다.
+       <mark>재구매율을 말하려면 기간을 정해야 한다.</mark></p>
+  </div>
 </section>
 
 <section class="slide" data-ch="6교시 정리">
   <h2 class="tight k">한 장 정리</h2>
   <table class="compact" style="font-size:27px">
-    <tr><td style="width:50%"><code>stats.ttest_ind(A, B, equal_var=False)</code></td><td>두 집단 평균 비교</td></tr>
-    <tr><td><code>.pvalue</code></td><td>우연히 나올 확률</td></tr>
-    <tr><td><code>df['열1'].corr(df['열2'])</code></td><td>상관계수 (&minus;1 ~ +1)</td></tr>
-    <tr><td colspan="2" style="padding-top:22px"><strong>기억할 것 셋</strong></td></tr>
-    <tr><td>p값은 내 주장이 맞을 확률이 아니다</td><td>두 집단이 같다고 쳤을 때의 확률이다</td></tr>
-    <tr><td>유의하다 &ne; 중요하다</td><td>p값과 차이의 크기를 함께 적는다</td></tr>
-    <tr><td>상관 &ne; 인과</td><td>숨은 원인이 둘을 함께 움직였을 수 있다</td></tr>
+    <tr><td style="width:46%"><code>df['A'].corr(df['B'])</code></td><td>두 열의 상관계수 (&minus;1 ~ +1)</td></tr>
+    <tr><td><code>df[['A','B']].corr()</code></td><td>여러 열을 한 번에</td></tr>
+    <tr><td><code>.plot(kind='scatter', x=, y=)</code></td><td>관계를 그림으로</td></tr>
+    <tr><td><code>df.dtypes</code></td><td>표의 구조 &mdash; 값은 포함되지 않음</td></tr>
+    <tr><td><code>getpass()</code></td><td>키 입력 (화면에 안 보임)</td></tr>
+    <tr><td><code>exec(코드)</code></td><td>받은 코드를 실행 &mdash; 에이전트의 <strong>도구</strong></td></tr>
+    <tr><td colspan="2" style="padding-top:20px"><strong>기억할 것</strong> &mdash;
+        상관 &ne; 인과 / 코드가 맞아도 해석은 틀릴 수 있다</td></tr>
   </table>
 </section>
+
+
+
 
   <div class="bar" id="bar"></div>
   <div class="chip" id="chip"></div>
