@@ -12,18 +12,18 @@
 아래 **실습본** 링크를 눌러 Colab에서 열고, 상단 **파일 > 드라이브에 사본 저장**을
 누른 뒤 사용하세요. 사본을 만들어야 내가 고친 내용이 남습니다.
 
-| 교시 | 내용 | 실습본 | 완성본 |
+| 교시 | 내용 | 실습본 | 정답본 |
 |---|---|---|---|
-| 1 | 환경과 기본 문법 | [열기](https://colab.research.google.com/github/JasonWhiteLee/ak-data-analysis-basics/blob/main/notebooks/01_%EC%8B%A4%EC%8A%B5.ipynb) | [열기](https://colab.research.google.com/github/JasonWhiteLee/ak-data-analysis-basics/blob/main/notebooks/01_%EC%99%84%EC%84%B1%EB%B3%B8.ipynb) |
-| 2 | 조회와 전처리 | [열기](https://colab.research.google.com/github/JasonWhiteLee/ak-data-analysis-basics/blob/main/notebooks/02_%EC%8B%A4%EC%8A%B5.ipynb) | [열기](https://colab.research.google.com/github/JasonWhiteLee/ak-data-analysis-basics/blob/main/notebooks/02_%EC%99%84%EC%84%B1%EB%B3%B8.ipynb) |
-| 3 | 결합과 집계 | [열기](https://colab.research.google.com/github/JasonWhiteLee/ak-data-analysis-basics/blob/main/notebooks/03_%EC%8B%A4%EC%8A%B5.ipynb) | [열기](https://colab.research.google.com/github/JasonWhiteLee/ak-data-analysis-basics/blob/main/notebooks/03_%EC%99%84%EC%84%B1%EB%B3%B8.ipynb) |
-| 4 | 탐색과 정리 | [열기](https://colab.research.google.com/github/JasonWhiteLee/ak-data-analysis-basics/blob/main/notebooks/04_%EC%8B%A4%EC%8A%B5.ipynb) | [열기](https://colab.research.google.com/github/JasonWhiteLee/ak-data-analysis-basics/blob/main/notebooks/04_%EC%99%84%EC%84%B1%EB%B3%B8.ipynb) |
-| 5 | 시각화 | [열기](https://colab.research.google.com/github/JasonWhiteLee/ak-data-analysis-basics/blob/main/notebooks/05_%EC%8B%A4%EC%8A%B5.ipynb) | [열기](https://colab.research.google.com/github/JasonWhiteLee/ak-data-analysis-basics/blob/main/notebooks/05_%EC%99%84%EC%84%B1%EB%B3%B8.ipynb) |
-| 6 | 통계분석 기초 | [열기](https://colab.research.google.com/github/JasonWhiteLee/ak-data-analysis-basics/blob/main/notebooks/06_%EC%8B%A4%EC%8A%B5.ipynb) | [열기](https://colab.research.google.com/github/JasonWhiteLee/ak-data-analysis-basics/blob/main/notebooks/06_%EC%99%84%EC%84%B1%EB%B3%B8.ipynb) |
-| 7 | 종합 실습 | [열기](https://colab.research.google.com/github/JasonWhiteLee/ak-data-analysis-basics/blob/main/notebooks/07_%EC%8B%A4%EC%8A%B5.ipynb) | [열기](https://colab.research.google.com/github/JasonWhiteLee/ak-data-analysis-basics/blob/main/notebooks/07_%EC%99%84%EC%84%B1%EB%B3%B8.ipynb) |
+| 1 | 환경과 기본 문법 | [열기](https://colab.research.google.com/github/JasonWhiteLee/ak-data-analysis-basics/blob/main/notebooks/1%EA%B5%90%EC%8B%9C_%ED%99%98%EA%B2%BD%EA%B3%BC_%EA%B8%B0%EB%B3%B8%EB%AC%B8%EB%B2%95_%EC%8B%A4%EC%8A%B5.ipynb) | [열기](https://colab.research.google.com/github/JasonWhiteLee/ak-data-analysis-basics/blob/main/notebooks/1%EA%B5%90%EC%8B%9C_%ED%99%98%EA%B2%BD%EA%B3%BC_%EA%B8%B0%EB%B3%B8%EB%AC%B8%EB%B2%95_%EC%A0%95%EB%8B%B5.ipynb) |
+| 2 | 조회와 전처리 | [열기](https://colab.research.google.com/github/JasonWhiteLee/ak-data-analysis-basics/blob/main/notebooks/2%EA%B5%90%EC%8B%9C_%EC%A1%B0%ED%9A%8C%EC%99%80_%EC%A0%84%EC%B2%98%EB%A6%AC_%EC%8B%A4%EC%8A%B5.ipynb) | [열기](https://colab.research.google.com/github/JasonWhiteLee/ak-data-analysis-basics/blob/main/notebooks/2%EA%B5%90%EC%8B%9C_%EC%A1%B0%ED%9A%8C%EC%99%80_%EC%A0%84%EC%B2%98%EB%A6%AC_%EC%A0%95%EB%8B%B5.ipynb) |
+| 3 | 결합과 집계 | [열기](https://colab.research.google.com/github/JasonWhiteLee/ak-data-analysis-basics/blob/main/notebooks/3%EA%B5%90%EC%8B%9C_%EA%B2%B0%ED%95%A9%EA%B3%BC_%EC%A7%91%EA%B3%84_%EC%8B%A4%EC%8A%B5.ipynb) | [열기](https://colab.research.google.com/github/JasonWhiteLee/ak-data-analysis-basics/blob/main/notebooks/3%EA%B5%90%EC%8B%9C_%EA%B2%B0%ED%95%A9%EA%B3%BC_%EC%A7%91%EA%B3%84_%EC%A0%95%EB%8B%B5.ipynb) |
+| 4 | 탐색과 정리 | [열기](https://colab.research.google.com/github/JasonWhiteLee/ak-data-analysis-basics/blob/main/notebooks/4%EA%B5%90%EC%8B%9C_%ED%83%90%EC%83%89%EA%B3%BC_%EC%A0%95%EB%A6%AC_%EC%8B%A4%EC%8A%B5.ipynb) | [열기](https://colab.research.google.com/github/JasonWhiteLee/ak-data-analysis-basics/blob/main/notebooks/4%EA%B5%90%EC%8B%9C_%ED%83%90%EC%83%89%EA%B3%BC_%EC%A0%95%EB%A6%AC_%EC%A0%95%EB%8B%B5.ipynb) |
+| 5 | 시각화 | [열기](https://colab.research.google.com/github/JasonWhiteLee/ak-data-analysis-basics/blob/main/notebooks/5%EA%B5%90%EC%8B%9C_%EC%8B%9C%EA%B0%81%ED%99%94_%EC%8B%A4%EC%8A%B5.ipynb) | [열기](https://colab.research.google.com/github/JasonWhiteLee/ak-data-analysis-basics/blob/main/notebooks/5%EA%B5%90%EC%8B%9C_%EC%8B%9C%EA%B0%81%ED%99%94_%EC%A0%95%EB%8B%B5.ipynb) |
+| 6 | 통계분석 기초 | [열기](https://colab.research.google.com/github/JasonWhiteLee/ak-data-analysis-basics/blob/main/notebooks/6%EA%B5%90%EC%8B%9C_%ED%86%B5%EA%B3%84%EB%B6%84%EC%84%9D_%EA%B8%B0%EC%B4%88_%EC%8B%A4%EC%8A%B5.ipynb) | [열기](https://colab.research.google.com/github/JasonWhiteLee/ak-data-analysis-basics/blob/main/notebooks/6%EA%B5%90%EC%8B%9C_%ED%86%B5%EA%B3%84%EB%B6%84%EC%84%9D_%EA%B8%B0%EC%B4%88_%EC%A0%95%EB%8B%B5.ipynb) |
+| 7 | 종합 실습 (보고서 작성) | [열기](https://colab.research.google.com/github/JasonWhiteLee/ak-data-analysis-basics/blob/main/notebooks/7%EA%B5%90%EC%8B%9C_%EC%A2%85%ED%95%A9_%EB%B3%B4%EA%B3%A0%EC%84%9C%EC%9E%91%EC%84%B1_%EC%8B%A4%EC%8A%B5.ipynb) | [열기](https://colab.research.google.com/github/JasonWhiteLee/ak-data-analysis-basics/blob/main/notebooks/7%EA%B5%90%EC%8B%9C_%EC%A2%85%ED%95%A9_%EB%B3%B4%EA%B3%A0%EC%84%9C%EC%9E%91%EC%84%B1_%EC%A0%95%EB%8B%B5.ipynb) |
 
 **실습본**은 핵심 코드 몇 줄이 빈칸(`____`)으로 비어 있습니다. 수업 중에 채웁니다.
-**완성본**은 전부 채워져 있습니다. 복습할 때 보세요.
+**정답본**은 전부 채워져 있습니다. 복습할 때 보세요.
 
 > 코드가 꼬였을 때는 상단 **런타임 > 모두 실행**을 누르면 처음부터 다시 돌아갑니다.
 
