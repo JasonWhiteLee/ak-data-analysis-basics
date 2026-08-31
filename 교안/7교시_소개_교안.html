@@ -164,6 +164,15 @@ body.chapter-on .kbd{border-color:rgba(255,255,255,.45);color:rgba(255,255,255,.
 .kv .k{font-size:30px;font-weight:800;color:var(--blue);white-space:nowrap}
 .kv .v{font-size:30px;line-height:1.5}
 .big{font-size:50px;font-weight:800;letter-spacing:-.02em;line-height:1.3}
+
+.kv{display:grid;grid-template-columns:auto 1fr;gap:16px 26px;align-items:baseline;margin-top:8px}
+.kv .k{font-size:30px;font-weight:800;color:var(--blue);white-space:nowrap}
+.kv .v{font-size:30px;line-height:1.5}
+.big{font-size:50px;font-weight:800;letter-spacing:-.02em;line-height:1.3}
+.key{display:inline-block;border:2.5px solid var(--red);border-radius:10px;
+     padding:1px 12px;background:color-mix(in srgb,var(--red) 8%,transparent);
+     font-weight:800;color:var(--ink)}
+.key code{background:none;padding:0;color:var(--ink)}
 </style>
 </head>
 <body>
@@ -196,18 +205,6 @@ body.chapter-on .kbd{border-color:rgba(255,255,255,.45);color:rgba(255,255,255,.
   </div>
 </section>
 
-<!-- 3 이 시간에 할 일 -->
-<section class="slide" data-ch="7교시">
-  <h2 class="tight">이 시간이 끝나면</h2>
-  <p class="small dim gap-sm">새로 배우는 것은 없습니다. 오늘 지나온 것을 다시 한 번 짚는 시간입니다</p>
-  <ol class="num">
-    <li>분석 결과를 <strong>네 칸짜리 보고서</strong>로 정리할 수 있다</li>
-    <li>오늘 배운 용어를 <strong>제자리에 놓을 수 있다</strong></li>
-    <li>결과를 해석할 때 하지 말아야 할 것을 안다</li>
-    <li><strong>돌아가서 무엇부터 해 볼지 정한다</strong></li>
-  </ol>
-</section>
-<!-- 12 하루 정리 -->
 
 <!-- 결론·보고 한 장 -->
 <section class="slide" data-ch="7교시">
@@ -224,46 +221,6 @@ body.chapter-on .kbd{border-color:rgba(255,255,255,.45);color:rgba(255,255,255,.
   </table>
 </section>
 
-<section class="slide" data-ch="7교시">
-  <h2 class="tight sm">보고서 한 장 &mdash; 네 칸으로 쓴다</h2>
-  <div class="cols eq">
-    <div class="card blue pad-sm">
-      <h3 style="color:var(--blue)">양식</h3>
-      <p class="small"><strong>질문</strong> &mdash; 한 문장<br>
-         <strong>결론</strong> &mdash; 세 줄, 줄마다 근거 숫자<br>
-         <strong>한계</strong> &mdash; 두 줄, 말할 수 없는 것<br>
-         <strong>그래서 무엇을 다르게 할 것인가</strong> &mdash; 한 문장</p>
-    </div>
-    <div class="card pad-sm">
-      <h3>각 칸의 원칙</h3>
-      <p class="small"><strong>질문</strong> 답에 따라 행동이 달라지는가<br>
-         <strong>결론</strong> 주장마다 숫자를 붙인다<br>
-         <strong>한계</strong> 작업 중에 적어 둔 것을 옮긴다<br>
-         <strong>할 일</strong> 무엇을 언제 바꾸는가</p>
-    </div>
-  </div>
-  <div class="card warn pad-sm" style="margin-top:26px">
-    <p class="small"><strong>한계 칸이 비어 있는 보고서는 의심스럽다.</strong>
-       데이터에 없는 것과 <mark>전처리에서 버린 것</mark>이 들어간다.</p>
-  </div>
-</section>
-
-<section class="slide" data-ch="7교시">
-  <h2 class="tight">마지막 줄에는 할 일을 씁니다</h2>
-  <p class="small dim gap-sm">이 한 줄이 있어야 앞의 세 칸이 쓸모가 생깁니다</p>
-  <div class="cols eq">
-    <div class="card bad">
-      <h3 style="color:var(--red)">이것은 행동이 아닙니다</h3>
-      <p>“해당 품목을 주의 깊게<br>살펴보겠습니다”</p>
-      <p class="small dim" style="margin-top:18px">언제 무엇을 하는지가 없습니다. 석 달 뒤에 무엇이 달라졌는지 확인할 방법도 없습니다.</p>
-    </div>
-    <div class="card good">
-      <h3 style="color:var(--green)">이것은 행동입니다</h3>
-      <p>“해당 품목 할인율 상한 20%,<br>3개월 뒤 재확인”</p>
-      <p class="small dim" style="margin-top:18px">무엇을 바꾸는지와 언제 확인하는지가 들어 있습니다.</p>
-    </div>
-  </div>
-</section>
 
   <!-- ═══ 복습 도입 ═══ -->
 <section class="slide chapter" data-ch="복습">
@@ -276,7 +233,7 @@ body.chapter-on .kbd{border-color:rgba(255,255,255,.45);color:rgba(255,255,255,.
   <h2 class="tight sm">무엇으로 다뤘나</h2>
   <div class="cols3" style="margin-top:40px;margin-bottom:34px">
     <div class="card blue pad-sm">
-      <h3 style="color:var(--blue)">Pandas</h3>
+      <h3><span class="key">Pandas</span></h3>
       <p class="small">표(DataFrame)를 다루는 <strong>표준 라이브러리</strong></p>
       <p class="small dim" style="margin-top:12px">NumPy 는 수치 계산,<br>Matplotlib &middot; Seaborn 은 그래프</p>
     </div>
@@ -285,7 +242,7 @@ body.chapter-on .kbd{border-color:rgba(255,255,255,.45);color:rgba(255,255,255,.
       <p class="small">브라우저에서 파이썬을 돌려 주는 <strong>구글 서비스</strong></p>
     </div>
     <div class="card pad-sm">
-      <h3>Jupyter Notebook</h3>
+      <h3><span class="key">Jupyter Notebook</span></h3>
       <p class="small">코드와 결과를 <strong>한 화면</strong>에서 보는 문서 형식</p>
     </div>
   </div>
@@ -297,8 +254,8 @@ body.chapter-on .kbd{border-color:rgba(255,255,255,.45);color:rgba(255,255,255,.
   <h2 class="tight sm">노트북이 편했던 이유</h2>
   <div class="cols eq" style="margin-top:40px;margin-bottom:32px">
     <div class="card good pad-sm"><h3 style="color:var(--green)">오늘 이렇게 썼습니다</h3>
-      <p class="small"><strong>셀 단위로</strong> 하나씩 실행했고<br>
-         코드 <strong>바로 아래에 결과와 그래프</strong>가 나왔고<br>
+      <p class="small"><span class="key">셀 단위로</span> 하나씩 실행했고<br>
+         코드 <span class="key">바로 아래에 결과</span>가 나왔고<br>
          엑셀 파일도 불러왔습니다</p></div>
     <div class="card bad pad-sm"><h3 style="color:var(--red)">이런 도구가 아닙니다</h3>
       <p class="small">전체를 한 번에만 돌리는 것<br>
@@ -311,7 +268,7 @@ body.chapter-on .kbd{border-color:rgba(255,255,255,.45);color:rgba(255,255,255,.
 <section class="slide" data-ch="복습">
   <h2 class="tight sm">데이터를 불러올 때</h2>
   <div class="kv" style="margin-top:44px">
-    <div class="k">CSV 파일</div><div class="v"><code>pd.read_csv('파일명.csv')</code></div>
+    <div class="k">CSV 파일</div><div class="v"><span class="key"><code>pd.read_csv('파일명.csv')</code></span></div>
     <div class="k">엑셀 파일</div><div class="v"><code>pd.read_excel('파일명.xlsx')</code></div>
     <div class="k">날짜 열</div><div class="v"><code>parse_dates=['주문일']</code> 을 함께 적는다</div>
   </div>
@@ -326,8 +283,8 @@ body.chapter-on .kbd{border-color:rgba(255,255,255,.45);color:rgba(255,255,255,.
   <table class="compact" style="font-size:29px">
     <tr><th style="width:20%">이름</th><th style="width:36%">무엇인가</th><th>확인하는 법</th></tr>
     <tr><td><strong>결측치</strong></td><td><strong>비어 있는</strong> 칸</td>
-        <td><code>df.isnull().sum()</code> &mdash; <code>isna()</code> 와 같음</td></tr>
-    <tr><td><strong>이상치</strong></td><td>다른 값에 비해 <strong>유난히 크거나 작은</strong> 값</td>
+        <td><span class="key"><code>df.isnull().sum()</code></span> &mdash; <code>isna()</code> 와 같음</td></tr>
+    <tr><td><span class="key">이상치</span></td><td>다른 값에 비해 <strong>유난히 크거나 작은</strong> 값</td>
         <td><code>describe()</code> · 상자그림 · IQR</td></tr>
     <tr><td><strong>중복값</strong></td><td>모든 칸이 <strong>똑같은</strong> 행</td>
         <td><code>df.duplicated().sum()</code></td></tr>
@@ -344,13 +301,13 @@ body.chapter-on .kbd{border-color:rgba(255,255,255,.45);color:rgba(255,255,255,.
   <div class="cols eq" style="margin-top:36px;margin-bottom:34px">
     <div class="card blue pad-sm">
       <h3 style="color:var(--blue)">피벗테이블</h3>
-      <p class="big" style="margin:14px 0"><code>groupby()</code></p>
+      <p class="big" style="margin:14px 0"><span class="key"><code>groupby()</code></span></p>
       <p class="small">항목별로 <strong>묶어서 계산</strong><br>
          <span class="dim">지역별 매출 합계, 부서별 평균</span></p>
     </div>
     <div class="card pad-sm">
       <h3>VLOOKUP</h3>
-      <p class="big" style="margin:14px 0"><code>merge()</code></p>
+      <p class="big" style="margin:14px 0"><span class="key"><code>merge()</code></span></p>
       <p class="small">두 표를 <strong>공통 열로 합치기</strong><br>
          <span class="dim">사번을 기준으로 옆에 붙이기</span></p>
     </div>
@@ -363,7 +320,7 @@ body.chapter-on .kbd{border-color:rgba(255,255,255,.45);color:rgba(255,255,255,.
   <h2 class="tight sm">말하려는 것이 차트를 정한다</h2>
   <table class="compact" style="font-size:30px">
     <tr><th style="width:36%">말하려는 것</th><th>차트</th></tr>
-    <tr><td><strong>시간에 따른 변화</strong></td><td><strong>선 그래프</strong> &mdash; 월별 매출 추이</td></tr>
+    <tr><td><strong>시간에 따른 변화</strong></td><td><span class="key">선 그래프</span> &mdash; 월별 매출 추이</td></tr>
     <tr><td>항목 사이의 크기 비교</td><td>막대그래프</td></tr>
     <tr><td>두 숫자의 관계</td><td>산점도</td></tr>
     <tr><td>값이 퍼진 모양</td><td>히스토그램 &middot; 상자그림</td></tr>
@@ -377,7 +334,7 @@ body.chapter-on .kbd{border-color:rgba(255,255,255,.45);color:rgba(255,255,255,.
 <section class="slide" data-ch="복습">
   <h2 class="tight sm">두 값이 같이 움직이는 정도</h2>
   <div class="card blue" style="margin:36px 0">
-    <p class="big" style="text-align:center">상관계수 &mdash; <span class="hl">&minus;1 에서 +1 사이</span></p>
+    <p class="big" style="text-align:center"><span class="key">상관계수</span> &mdash; <span class="key">&minus;1 에서 +1 사이</span></p>
   </div>
   <table class="compact" style="font-size:29px">
     <tr><td style="width:30%"><strong>+1 에 가깝다</strong></td><td>한쪽이 오르면 다른 쪽도 오른다</td></tr>
@@ -394,7 +351,7 @@ body.chapter-on .kbd{border-color:rgba(255,255,255,.45);color:rgba(255,255,255,.
     <div class="card good pad-sm">
       <h3 style="color:var(--green)">이렇게 말합니다</h3>
       <p class="small">&ldquo;상관관계가 높아도<br>
-         <strong>인과관계가 있다고 단정할 수 없다</strong>&rdquo;</p>
+         <span class="key">인과관계가 있다고 단정할 수 없다</span>&rdquo;</p>
     </div>
     <div class="card bad pad-sm">
       <h3 style="color:var(--red)">이렇게 말하지 않습니다</h3>
@@ -412,33 +369,19 @@ body.chapter-on .kbd{border-color:rgba(255,255,255,.45);color:rgba(255,255,255,.
 <section class="slide" data-ch="복습">
   <h2 class="tight sm">한 장으로</h2>
   <table class="compact" style="font-size:27px">
-    <tr><td style="width:34%"><strong>Pandas</strong></td><td>표를 다루는 라이브러리</td></tr>
-    <tr><td><code>read_csv()</code></td><td>파일 불러오기 (엑셀은 <code>read_excel()</code>)</td></tr>
-    <tr><td><strong>Jupyter Notebook</strong></td><td>코드와 결과를 한 화면에서, 셀 단위로 실행</td></tr>
-    <tr><td><code>isnull()</code> · <code>isna()</code></td><td>결측치 &mdash; 비어 있는 값</td></tr>
-    <tr><td><strong>이상치</strong></td><td>유난히 크거나 작은 값 &mdash; 항상 지우지 않는다</td></tr>
-    <tr><td><code>groupby()</code></td><td>항목별로 묶어서 계산 (피벗테이블)</td></tr>
-    <tr><td><code>merge()</code></td><td>두 표를 공통 열로 합치기 (VLOOKUP)</td></tr>
-    <tr><td><strong>선 그래프</strong></td><td>시간에 따른 추이</td></tr>
-    <tr><td><strong>상관계수</strong></td><td>&minus;1 ~ +1, 같이 움직이는 정도</td></tr>
-    <tr><td><strong>상관 &ne; 인과</strong></td><td>같이 움직인다고 원인은 아니다</td></tr>
+    <tr><td style="width:34%"><span class="key">Pandas</span></td><td>표를 다루는 라이브러리</td></tr>
+    <tr><td><span class="key"><code>read_csv()</code></span></td><td>파일 불러오기 (엑셀은 <code>read_excel()</code>)</td></tr>
+    <tr><td><span class="key">Jupyter Notebook</span></td><td>코드와 결과를 한 화면에서, 셀 단위로 실행</td></tr>
+    <tr><td><span class="key"><code>isnull()</code></span> · <code>isna()</code></td><td>결측치 &mdash; 비어 있는 값</td></tr>
+    <tr><td><span class="key">이상치</span></td><td>유난히 크거나 작은 값 &mdash; 항상 지우지 않는다</td></tr>
+    <tr><td><span class="key"><code>groupby()</code></span></td><td>항목별로 묶어서 계산 (피벗테이블)</td></tr>
+    <tr><td><span class="key"><code>merge()</code></span></td><td>두 표를 공통 열로 합치기 (VLOOKUP)</td></tr>
+    <tr><td><span class="key">선 그래프</span></td><td>시간에 따른 추이</td></tr>
+    <tr><td><span class="key">상관계수</span></td><td>&minus;1 ~ +1, 같이 움직이는 정도</td></tr>
+    <tr><td><span class="key">상관 &ne; 인과</span></td><td>같이 움직인다고 원인은 아니다</td></tr>
   </table>
 </section>
-<!-- 13 마무리 -->
-<section class="slide" data-ch="7교시">
-  <h2 class="tight sm">코드는 도구가 대신 써 줄 수 있습니다</h2>
-  <p class="small gap-sm">“품목별 이익률 내 줘”라고 하면 <code>groupby</code> 코드는 몇 초 만에 나옵니다. 그런데 도구가 대신 못 하는 일이 셋 있습니다.</p>
-  <div class="cols3" style="margin-bottom:28px">
-    <div class="card pad-sm"><h3>무엇을 물을지 정하기</h3><p class="small">그 사정을 아는 사람만 압니다</p></div>
-    <div class="card pad-sm"><h3>결과를 해석하기</h3><p class="small">숫자가 무엇을 뜻하는지는 업무를 아는 사람이 압니다</p></div>
-    <div class="card pad-sm"><h3>한계를 밝히기</h3><p class="small">무엇이 빠졌는지, 그게 결론을 흔드는지 판단합니다</p></div>
-  </div>
-  <div class="card blue pad-sm">
-    <p class="small"><strong>돌아가서 할 첫 걸음</strong> — 이번 주 안에 평소 보던 엑셀 파일 하나로 오늘 흐름을 한 번 반복해 봅니다.
-       불러오기 → 첫인상 <code>head()</code>·<code>info()</code> → <code>groupby</code> 로 묶어 보기 → 그림 하나. 한 시간이면 됩니다.
-       <span class="dim">코드가 기억나지 않으면 각 교시 노트북 맨 끝의 정리 표에 다 있습니다.</span></p>
-  </div>
-</section>
+
 
   <div class="bar" id="bar"></div>
   <div class="chip" id="chip"></div>

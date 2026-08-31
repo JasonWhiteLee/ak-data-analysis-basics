@@ -267,25 +267,26 @@ print(구조(df))</pre></div>
 
 <section class="slide" data-ch="6교시 정리">
   <div class="sec">6.5</div>
-  <h2 class="tight k">에이전트 함수</h2>
-  <div class="blk"><div class="lbl">예제</div><pre>def 물어보기(질문, df, 이름='orders', 실행=True):
-    지시 = f'''표 이름: {이름}
-행 수: {len(df):,}
-열:
-{구조(df)}
+  <h2 class="tight k">에이전트 만들기</h2>
+  <div class="blk"><div class="lbl">도구 &mdash; 코드를 받아서 실행한다</div><pre>import io, contextlib
 
-질문: {질문}
-규칙: import 금지(pd, plt 이미 있음). 코드만 출력.'''
+def run_python(code: str) -> str:
+    """pandas 코드를 실행하고 출력을 돌려준다. 표 이름은 orders."""
+    버퍼 = io.StringIO()
+    try:
+        with contextlib.redirect_stdout(버퍼):
+            exec(code, {'pd': pd, 'plt': plt, 'orders': orders})
+    except Exception as e:
+        return f'오류: {type(e).__name__}: {e}'
+    return 버퍼.getvalue() or '(출력 없음)'</pre></div>
+  <div class="blk"><div class="lbl">묶기</div><pre>from langchain.agents import create_agent
+from langchain_openai import ChatOpenAI
 
-    답 = client.chat.completions.create(
-        model='gpt-5.6-luna',
-        messages=[{'role': 'user', 'content': 지시}])
+llm = ChatOpenAI(model='gpt-5.6-luna', reasoning_effort='none')
 
-    코드 = 답.choices[0].message.content.strip()
-    print(코드)
-    if 실행:
-        exec(코드, {'pd': pd, 'plt': plt, 이름: df})</pre></div>
-  <p class="note"><code>exec()</code> 가 <strong>도구</strong>, <code>구조(df)</code> 가 <strong>맥락</strong>에 해당한다.</p>
+agent = create_agent(model=llm, tools=[run_python], system_prompt=지시)</pre></div>
+  <p class="note">함수에 달린 <strong>설명글</strong>을 LangChain 이 읽어 AI 에게 도구를 알려 준다.
+     오류도 문자열로 돌려줘야 AI 가 보고 다시 시도한다.</p>
 </section>
 
 <section class="slide" data-ch="6교시 정리">
@@ -293,15 +294,16 @@ print(구조(df))</pre></div>
   <h2 class="tight k">키를 안전하게 입력하기</h2>
   <div class="grid2">
     <div>
-      <div class="blk"><div class="lbl">예제</div><pre>from getpass import getpass
+      <div class="blk"><div class="lbl">예제</div><pre>import os
+from getpass import getpass
 
-client = OpenAI(api_key=getpass('키: '))</pre></div>
+os.environ['OPENAI_API_KEY'] = getpass('키: ')</pre></div>
       <p class="note"><code>getpass()</code> 는 입력한 값이
          <strong>화면에 보이지 않고 노트북에도 저장되지 않는다.</strong></p>
     </div>
     <div>
       <div class="card bad pad-sm"><h3 style="color:var(--red)">이렇게 하지 않는다</h3>
-        <p class="small"><code>api_key = 'sk-...'</code><br>
+        <p class="small"><code>os.environ['OPENAI_API_KEY'] = 'sk-...'</code><br>
            노트북에 키가 <strong>그대로 남는다.</strong>
            파일을 공유하면 키도 함께 나간다.</p></div>
     </div>
@@ -332,7 +334,7 @@ client = OpenAI(api_key=getpass('키: '))</pre></div>
     <tr><td><code>.plot(kind='scatter', x=, y=)</code></td><td>관계를 그림으로</td></tr>
     <tr><td><code>df.dtypes</code></td><td>표의 구조 &mdash; 값은 포함되지 않음</td></tr>
     <tr><td><code>getpass()</code></td><td>키 입력 (화면에 안 보임)</td></tr>
-    <tr><td><code>exec(코드)</code></td><td>받은 코드를 실행 &mdash; 에이전트의 <strong>도구</strong></td></tr>
+    <tr><td><code>create_agent(model, tools, system_prompt)</code></td><td>LangChain &mdash; 도구와 맥락을 묶어 에이전트로</td></tr>
     <tr><td colspan="2" style="padding-top:20px"><strong>기억할 것</strong> &mdash;
         상관 &ne; 인과 / 코드가 맞아도 해석은 틀릴 수 있다</td></tr>
   </table>
