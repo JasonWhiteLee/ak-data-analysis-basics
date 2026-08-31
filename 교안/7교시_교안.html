@@ -173,11 +173,11 @@ body.chapter-on .kbd{border-color:rgba(255,255,255,.45);color:rgba(255,255,255,.
     <div class="step done">탐색<br>(EDA)</div>
     <div class="step done">시각화</div>
     <div class="step done">통계<br>검정</div>
-    <div class="step now">복습·정리</div>
+    <div class="step now">결론·보고</div>
   </div>
   <div class="card blue" style="margin-top:46px">
     <p>이 단계에서 던지는 질문 —
-       <span class="hl" style="font-size:44px">“오늘 배운 것 중 무엇을 회사로 가져갈 것인가”</span></p>
+       <span class="hl" style="font-size:44px">“그래서 무엇을 다르게 할 것인가”</span></p>
   </div>
 </section>
 
@@ -186,8 +186,8 @@ body.chapter-on .kbd{border-color:rgba(255,255,255,.45);color:rgba(255,255,255,.
   <h2 class="tight">이 시간이 끝나면</h2>
   <p class="small dim gap-sm">새로 배우는 것은 없습니다. 오늘 지나온 것을 다시 한 번 짚는 시간입니다</p>
   <ol class="num">
+    <li>분석 결과를 <strong>네 칸짜리 보고서</strong>로 정리할 수 있다</li>
     <li>오늘 배운 용어를 <strong>제자리에 놓을 수 있다</strong></li>
-    <li>어떤 상황에 어떤 기능을 쓰는지 말할 수 있다</li>
     <li>결과를 해석할 때 하지 말아야 할 것을 안다</li>
     <li><strong>회사에 돌아가서 무엇부터 해 볼지 정한다</strong></li>
   </ol>
@@ -203,9 +203,50 @@ body.chapter-on .kbd{border-color:rgba(255,255,255,.45);color:rgba(255,255,255,.
     <tr><td>4교시</td><td>평균 239 뒤에 중앙값 54 가 있었습니다. 지울지 남길지가 어려운 판단입니다</td></tr>
     <tr><td>5교시</td><td>같은 데이터로 정반대 인상의 그래프를 만들 수 있습니다. 축은 0부터</td></tr>
     <tr><td>6교시</td><td>차이는 항상 있습니다. p 값은 차이의 크기를 말해 주지 않습니다</td></tr>
-    <tr><td>7교시</td><td>배운 것을 제자리에 놓고, 회사에서 무엇부터 해 볼지 정합니다</td></tr>
+    <tr><td>7교시</td><td>보고서는 질문·결론·한계·할 일 네 칸입니다. 마지막 줄에는 할 일을 씁니다</td></tr>
   </table>
 </section>
+<!-- 결론·보고 한 장 -->
+<section class="slide" data-ch="7교시">
+  <h2 class="tight sm">보고서 한 장 — 네 칸으로 씁니다</h2>
+  <div class="cols eq">
+    <div class="card blue pad-sm">
+      <h3 style="color:var(--blue)">양식</h3>
+      <p class="small"><strong>질문</strong> — 한 문장<br>
+         <strong>결론</strong> — 세 줄, 줄마다 근거 숫자<br>
+         <strong>한계</strong> — 두 줄, 말할 수 없는 것<br>
+         <strong>그래서 무엇을 다르게 할 것인가</strong> — 한 문장</p>
+    </div>
+    <div class="card pad-sm">
+      <h3>채워 보면</h3>
+      <p class="small"><strong>질문</strong> 내년에 어느 품목에 힘을 더 실을 것인가<br>
+         <strong>결론</strong> Tables 는 이익률 -8.5%(이익 -17,753)로 적자다 / 적자 품목은 평균 할인이 25.8%로 전체 15.5%보다 높다 / Paper·Labels 는 이익률 40% 이상이다<br>
+         <strong>한계</strong> 할인이 원인인지 결과인지 모른다 / 이익에 광고비·물류비가 빠져 있다</p>
+    </div>
+  </div>
+  <div class="card good pad-sm" style="margin-top:26px">
+    <p class="small"><strong>그래서 무엇을 다르게 할 것인가</strong> —
+       “내년 1분기에 Tables 의 <mark>할인율 상한을 20%로 묶고</mark>, 3개월 뒤 이익률이 개선되는지 다시 확인하겠습니다.”</p>
+  </div>
+</section>
+
+<section class="slide" data-ch="7교시">
+  <h2 class="tight">마지막 줄에는 할 일을 씁니다</h2>
+  <p class="small dim gap-sm">이 한 줄이 있어야 앞의 세 칸이 쓸모가 생깁니다</p>
+  <div class="cols eq">
+    <div class="card bad">
+      <h3 style="color:var(--red)">이것은 행동이 아닙니다</h3>
+      <p>“Tables 를 주의 깊게<br>살펴보겠습니다”</p>
+      <p class="small dim" style="margin-top:18px">언제 무엇을 하는지가 없습니다. 석 달 뒤에 무엇이 달라졌는지 확인할 방법도 없습니다.</p>
+    </div>
+    <div class="card good">
+      <h3 style="color:var(--green)">이것은 행동입니다</h3>
+      <p>“Tables 할인율 상한 20%,<br>3개월 뒤 재확인”</p>
+      <p class="small dim" style="margin-top:18px">무엇을 바꾸는지와 언제 확인하는지가 들어 있습니다.</p>
+    </div>
+  </div>
+</section>
+
   <!-- ═══ 복습 도입 ═══ -->
 <section class="slide thesis" data-ch="복습">
   <div class="eyebrow" style="justify-content:center">마지막으로</div>
